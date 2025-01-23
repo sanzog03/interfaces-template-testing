@@ -32,7 +32,7 @@ const scaleUnits = {
   MILES: "mi",
 };
 
-export function Dashboard({ dataTree, collectionId, metaDataTree, plumeMetaData, zoomLocation, setZoomLocation, zoomLevel, setZoomLevel, loadingData }) {
+export function Dashboard({ dataTree, collectionId, metaDataTree, vizItemMetaData, zoomLocation, setZoomLocation, zoomLevel, setZoomLevel, loadingData }) {
   // states for data
   const [ regions, setRegions ] = useState([]); // store all available regions
   const [ vizItems, setVizItems ] = useState([]); // store all available visualization items
@@ -224,7 +224,7 @@ export function Dashboard({ dataTree, collectionId, metaDataTree, plumeMetaData,
           open={openDrawer}
           setOpen={setOpenDrawer}
           selectedVizItems={filteredSelectedVizItems}
-          vizItemMetaData={plumeMetaData}
+          vizItemMetaData={vizItemMetaData}
           metaDataTree={metaDataTree}
           collectionId={collectionId}
           vizItemsMap={vizItems}

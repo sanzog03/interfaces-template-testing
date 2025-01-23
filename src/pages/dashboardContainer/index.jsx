@@ -17,21 +17,21 @@ export function DashboardContainer() {
     const [ collectionMeta, setCollectionMeta ] = useState({});
     const dataTree = useRef(null);
     const [ metaDataTree, setMetaDataTree ] = useState({});
-    const [ plumeMetaData, setPlumeMetaData ] = useState({});
+    const [ vizItemMetaData, setVizItemMetaData ] = useState({});
 
     const [ loadingData, setLoadingData ] = useState(true);
 
     useEffect(() => {
         setLoadingData(true);
         // eslint-disable-next-line react-hooks/exhaustive-deps
-        let plumeMetaMap = {};
-        let plumeRegionMetaMap = {};
+        let vizItemMetaMap = {};
+        let vizItemRegionMetaMap = {};
         try {
-            // DataTransformation for the plumesMeta
-            plumeMetaMap = dataTransformationPlumeMeta(PlumeMetas);
-            plumeRegionMetaMap = dataTransformationPlumeRegionMeta(plumeMetaMap);
-            setMetaDataTree(plumeRegionMetaMap);
-            setPlumeMetaData(plumeMetaMap);
+            // DataTransformation for the vizItemMeta
+            vizItemMetaMap = dataTransformationPlumeMeta(PlumeMetas);
+            vizItemRegionMetaMap = dataTransformationPlumeRegionMeta(vizItemMetaMap);
+            setMetaDataTree(vizItemRegionMetaMap);
+            setVizItemMetaData(vizItemMetaMap);
         } catch (error) {
             console.error('Error Transforming metadata');
         }
@@ -51,12 +51,12 @@ export function DashboardContainer() {
                 const data = await fetchAllFromSTACAPI(collectionItemUrl);
                 setCollectionItems(data)
                 // use the lon and lat in the fetched data from the metadata.
-                const plumeMap = dataTransformationPlume(data, plumeMetaMap);
+                const plumeMap = dataTransformationPlume(data, vizItemMetaMap);
                 const plumeRegionMap = dataTransformationPlumeRegion(plumeMap);
                 dataTree.current = plumeRegionMap;
                 // update the datetime in metadata via fetched data.
-                const updatedPlumeMetaMap = metaDatetimeFix(plumeMetaMap, plumeMap);
-                setPlumeMetaData(updatedPlumeMetaMap);
+                const updatedPlumeMetaMap = metaDatetimeFix(vizItemMetaMap, plumeMap);
+                setVizItemMetaData(updatedPlumeMetaMap);
                 // remove loading
                 setLoadingData(false);
             } catch (error) {
@@ -76,7 +76,7 @@ export function DashboardContainer() {
             setZoomLevel={setZoomLevel}
             dataTree={dataTree}
             metaDataTree={metaDataTree}
-            plumeMetaData={plumeMetaData}
+            vizItemMetaData={vizItemMetaData}
             collectionId={collectionId}
             loadingData={loadingData}
         />

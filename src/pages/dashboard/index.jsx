@@ -4,7 +4,7 @@ import styled from "styled-components";
 
 import MainMap from '../../components/mainMap';
 import { MarkerFeature } from '../../components/mapMarker';
-import { MapLayers } from '../../components/mapLayer';
+import {VisualizationLayers  } from '../../components/mapLayer';
 import { PlumeAnimation } from '../../components/plumeAnimation';
 import { MapControls } from "../../components/mapControls";
 import { MapZoom } from '../../components/mapZoom';
@@ -185,12 +185,12 @@ export function Dashboard({ dataTree, collectionId, metaDataTree, plumeMetaData,
             regions={filteredRegions}
             setSelectedRegionId={handleSelectedRegion}
           ></MarkerFeature>
-          <MapLayers
-            showPlumeLayers={showPlumeLayers}
-            plumes={filteredSelectedPlumes}
+          <VisualizationLayers
+            showVisualizationLayers={showPlumeLayers}
+            vizItems={filteredSelectedPlumes}
             handleLayerClick={handleSelectedPlume}
-            hoveredPlumeId={hoveredPlumeId}
-            setHoveredPlumeId={setHoveredPlumeId}
+            hoveredVizItemId={hoveredPlumeId}
+            setHoveredVizItemId={setHoveredPlumeId}
           />
           <MapControls
             openDrawer={openDrawer}

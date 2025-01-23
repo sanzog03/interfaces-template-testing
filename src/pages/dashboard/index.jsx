@@ -5,7 +5,7 @@ import styled from "styled-components";
 import MainMap from '../../components/mainMap';
 import { MarkerFeature } from '../../components/mapMarker';
 import {VisualizationLayers  } from '../../components/mapLayer';
-import { PlumeAnimation } from '../../components/plumeAnimation';
+import { VizItemAnimation } from '../../components/plumeAnimation';
 import { MapControls } from "../../components/mapControls";
 import { MapZoom } from '../../components/mapZoom';
 import { ColorBar } from '../../components/colorBar';
@@ -35,17 +35,17 @@ const scaleUnits = {
 export function Dashboard({ dataTree, collectionId, metaDataTree, plumeMetaData, zoomLocation, setZoomLocation, zoomLevel, setZoomLevel, loadingData }) {
   // states for data
   const [ regions, setRegions ] = useState([]); // store all available regions
-  const [ vizItems, setVizItems ] = useState([]); // store all available plumes
+  const [ vizItems, setVizItems ] = useState([]); // store all available visualization items
   const [ selectedRegionId, setSelectedRegionId ] = useState(""); // region_id of the selected region (marker)
   const prevSelectedRegionId = useRef(""); // to be able to restore to previously selected region.
-  const [ selectedVizItems, setSelectedVizItems ] = useState([]); // all plumes for the selected region (marker)
-  const [ hoveredVizItemId, setHoveredVizItemId ] = useState(""); // plume_id of the plume which was hovered over
+  const [ selectedVizItems, setSelectedVizItems ] = useState([]); // all visualization items for the selected region (marker)
+  const [ hoveredVizItemId, setHoveredVizItemId ] = useState(""); // vizItem_id of the visualization item which was hovered over
 
   const [ filteredRegions, setFilteredRegions ] = useState([]); // all regions with the filter applied
-  const [ filteredSelectedVizItems, setFilteredSelectedVizItems ] = useState([]); // plumes for the selected region with the filter applied
+  const [ filteredSelectedVizItems, setFilteredSelectedVizItems ] = useState([]); // visualization items for the selected region with the filter applied
 
-  const [ vizItemIds, setVizItemIds ] = useState([]); // list of plume_ids for the search feature.
-  const [ vizItemsForAnimation, setVizItemsForAnimation ] = useState([]); // list of subdaily_plumes used for animation
+  const [ vizItemIds, setVizItemIds ] = useState([]); // list of vizItem_ids for the search feature.
+  const [ vizItemsForAnimation, setVizItemsForAnimation ] = useState([]); // list of subdaily_visualization_item used for animation
 
   const [ showVisualizationLayers, setShowVisualizationLayers ] = useState(true);
 
@@ -60,39 +60,39 @@ export function Dashboard({ dataTree, collectionId, metaDataTree, plumeMetaData,
   const handleSelectedRegion = (regionId) => {
     if (!dataTree.current || !Object.keys(dataTree.current).length || !regionId) return;
     setSelectedRegionId(regionId); // an useEffect handles it further
-    setShowVisualizationLayers(true); // all the available plumes layers should be visible when region is selected
+    setShowVisualizationLayers(true); // all the available visualization items  layers should be visible when region is selected
     prevSelectedRegionId.current = regionId;
     const region = dataTree.current[regionId];
     setZoomLocation(region.location);
     setZoomLevel(null); // take the default zoom level
     setOpenDrawer(true);
-    setSelectedVizItems([]); // reset the plumes shown, to trigger re-evaluation of selected plume
+    setSelectedVizItems([]); // reset the visualization items shown, to trigger re-evaluation of selected visualization item
   }
 
-  const handleSelectedPlume = (vizItemId) => {
+  const handleSelectedVizItems = (vizItemId) => {
     if (!vizItems || !vizItemId) return;
 
     const vizItem = vizItems[vizItemId];
     const { location } = vizItem;
-    handleSelectedPlumeSearch(vizItemId);
+    handleSelectedVizItemSearch(vizItemId);
     handleAnimationReady(vizItemId);
     setZoomLocation(location);
     setZoomLevel(null); // take the default zoom level
-    setSelectedRegionId(""); //to reset the plume that was shown
+    setSelectedRegionId(""); //to reset the visualization item that was shown
   }
 
   const handleAnimationReady = (vizItemId) => {
-    // will make the plume ready for animation.
+    // will make the visualization item ready for animation.
     if (!vizItems || !vizItemId) return;
 
     const vizItem = vizItems[vizItemId];
     setVizItemsForAnimation(vizItem.subDailyPlumes);
-    // just clear the previous plume layers and not the cards
+    // just clear the previous visualization item layers and not the cards
     setShowVisualizationLayers(false);
   }
 
-  const handleSelectedPlumeSearch = (vizItemId) => {
-    // will focus on the plume along with its plume metadata card
+  const handleSelectedVizItemSearch = (vizItemId) => {
+    // will focus on the visualization item along with its visualization item metadata card
     // will react to update the metadata on the sidedrawer
     if (!vizItems || !vizItemId) return;
     const vizItem = vizItems[vizItemId];
@@ -102,7 +102,7 @@ export function Dashboard({ dataTree, collectionId, metaDataTree, plumeMetaData,
     setOpenDrawer(true);
     setZoomLocation(location);
     setZoomLevel(null); // take the default zoom level
-    setSelectedRegionId(""); //to reset the plume that was shown
+    setSelectedRegionId(""); //to reset the visualization item that was shown
     setVizItemsForAnimation([]); // to reset the previous animation
   }
 
@@ -129,30 +129,30 @@ export function Dashboard({ dataTree, collectionId, metaDataTree, plumeMetaData,
   useEffect(() => {
     if (!dataTree.current) return;
 
-    const plumes = {}; // plumes[string] = Plume
+    const vizItems = {}; // visualization_items[string] = visualization_item
     const regions = []; // string[]
-    const plumeIds = []; // string[] // for search
+    const vizItemIds = []; // string[] // for search
     Object.keys(dataTree.current).forEach(region => {
       regions.push(dataTree.current[region]);
-      dataTree.current[region].plumes.forEach(plume => {
-        // check what plume is in dataModels.ts
-        plumes[plume.id] = plume;
-        plumeIds.push(plume.id);
+      dataTree.current[region].plumes.forEach(vizItem => {
+        // check what visualization_item is in dataModels.ts
+        vizItems[vizItem.id] = vizItem;
+        vizItemIds.push(vizItem.id);
       });
     });
-    setVizItems(plumes);
+    setVizItems(vizItems);
     setRegions(regions);
-    setVizItemIds(plumeIds); // for search
+    setVizItemIds(vizItemIds); // for search
   // the reference to datatree is in current, so see changes with respect to that
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dataTree.current]);
 
   useEffect(() => {
     if (!dataTree.current || !selectedRegionId) return;
-    const plumes = dataTree.current[selectedRegionId].plumes;
-    setSelectedVizItems(plumes);
+    const vizItems = dataTree.current[selectedRegionId].plumes;
+    setSelectedVizItems(vizItems);
     setVizItemsForAnimation([]); // reset the animation
-    setShowVisualizationLayers(true); // all the available plumes layers should be visible when region is selected
+    setShowVisualizationLayers(true); // all the available visualization items layers should be visible when region is selected
   // the reference to datatree is in current, so see changes with respect to that
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dataTree.current, selectedRegionId]);
@@ -166,19 +166,19 @@ export function Dashboard({ dataTree, collectionId, metaDataTree, plumeMetaData,
             <HorizontalLayout>
               <Search
                 ids={vizItemIds}
-                handleSelectedPlumeSearch={handleSelectedPlumeSearch}
+                handleSelectedVizItemSearch={handleSelectedVizItemSearch}
               ></Search>
             </HorizontalLayout>
             <HorizontalLayout>
               <FilterByDate
                 regions={regions}
-                plumes={selectedVizItems}
+                vizItems={selectedVizItems}
                 setFilteredRegions={setFilteredRegions}
-                setFilteredSelectedPlumes={setFilteredSelectedVizItems}
+                setFilteredSelectedVizItems={setFilteredSelectedVizItems}
               />
             </HorizontalLayout>
             <HorizontalLayout>
-              <PlumeAnimation plumes={vizItemsForAnimation} />
+              <VizItemAnimation vizItems={vizItemsForAnimation} />
             </HorizontalLayout>
           </Title>
           <MarkerFeature
@@ -188,7 +188,7 @@ export function Dashboard({ dataTree, collectionId, metaDataTree, plumeMetaData,
           <VisualizationLayers
             showVisualizationLayers={showVisualizationLayers}
             vizItems={filteredSelectedVizItems}
-            handleLayerClick={handleSelectedPlume}
+            handleLayerClick={handleSelectedVizItems}
             hoveredVizItemId={hoveredVizItemId}
             setHoveredVizItemId={setHoveredVizItemId}
           />
@@ -223,14 +223,14 @@ export function Dashboard({ dataTree, collectionId, metaDataTree, plumeMetaData,
         <PersistentDrawerRight
           open={openDrawer}
           setOpen={setOpenDrawer}
-          selectedPlumes={filteredSelectedVizItems}
-          plumeMetaData={plumeMetaData}
+          selectedVizItems={filteredSelectedVizItems}
+          vizItemMetaData={plumeMetaData}
           metaDataTree={metaDataTree}
           collectionId={collectionId}
-          plumesMap={vizItems}
-          handleSelectedPlumeCard={handleSelectedPlume}
-          hoveredPlumeId={hoveredVizItemId}
-          setHoveredPlumeId={setHoveredVizItemId}
+          vizItemsMap={vizItems}
+          handleSelectedVizItems={handleSelectedVizItems}
+          hoveredVizItemId={hoveredVizItemId}
+          setHoveredVizItemId={setHoveredVizItemId}
         />
       </div>
       <ColorBar/>

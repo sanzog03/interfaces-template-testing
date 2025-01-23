@@ -65,25 +65,25 @@ const formatDuration = (duration) => {
     return result;
 }
 
-export function PlumeCard({ plumeSourceId, plumeSourceName, startDatetime, endDatetime, duration, imageUrl, tiffUrl, lon, lat, totalReleaseMass, colEnhancements, handleSelectedPlumeCard, hoveredPlumeId, setHoveredPlumeId }) {
+export function VisualizationItemCard({ vizItemSourceId, vizItemSourceName, startDatetime, endDatetime, duration, imageUrl, tiffUrl, lon, lat, totalReleaseMass, colEnhancements, handleSelectedVizItemCard, hoveredVizItemId, setHoveredVizItemId }) {
     const [ isHovered, setIsHovered ] = useState(false);
 
     const handleCardClick = () => {
-        handleSelectedPlumeCard(plumeSourceId);
+        handleSelectedVizItemCard(vizItemSourceId);
     }
 
     const handleMouseEnter = () => {
-        setHoveredPlumeId(plumeSourceId);
+        setHoveredVizItemId(vizItemSourceId);
     }
 
     const handleMouseLeave = () => {
-        setHoveredPlumeId("");
+        setHoveredVizItemId("");
     }
 
     useEffect(() => {
-        if (hoveredPlumeId === plumeSourceId) setIsHovered(true);
-        if (hoveredPlumeId !== plumeSourceId) setIsHovered(false);
-    }, [hoveredPlumeId, plumeSourceId])
+        if (hoveredVizItemId === vizItemSourceId) setIsHovered(true);
+        if (hoveredVizItemId !== vizItemSourceId) setIsHovered(false);
+    }, [hoveredVizItemId, vizItemSourceId])
 
     return (
     <HighlightableCard
@@ -101,7 +101,7 @@ export function PlumeCard({ plumeSourceId, plumeSourceName, startDatetime, endDa
                 height="100"
                 sx={{ padding: "1em", objectFit: "contain", minWidth: "50px", imageRendering: "pixelated" }}
                 image={imageUrl}
-                alt="Plume image"
+                alt="Visualization Item image"
             />
         </div>
 
@@ -109,8 +109,8 @@ export function PlumeCard({ plumeSourceId, plumeSourceName, startDatetime, endDa
         <CardContent sx={{ flex: '1 0 auto' }}>
             <HorizontalLayout>
                 <CaptionValue
-                    caption = "Plume ID"
-                    value = {plumeSourceName}
+                    caption = "Visualization Item ID"
+                    value = {vizItemSourceName}
                 />
             </HorizontalLayout>
             <HorizontalLayout>

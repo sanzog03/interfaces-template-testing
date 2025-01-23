@@ -7,29 +7,29 @@ import { addSourceLayerToMap as bufferSourceLayer, getSourceId, getLayerId, laye
 import 'mapboxgl-timeline/dist/style.css';
 import "./index.css";
 
-export const PlumeAnimation = ({ plumes }) => {
-    // plume is the array of stac collection features
+export const VizItemAnimation = ({ vizItems }) => {
+    // vizItem is the array of stac collection features
     const { map } = useMapbox();
     const timeline = useRef(null);
     const timelineComponent = useRef(null);
 
     useEffect(() => {
-        if (!map || !plumes.length) return;
+        if (!map || !vizItems.length) return;
 
         // hashmap so we could refer the index and do manipulations with respect to the index.
-        const plumeDateIdxMap = {}
-        plumes.forEach((plume, idx) => {
-            const datetime = plume["properties"]["datetime"];
+        const vizItemDateIdxMap = {}
+        vizItems.forEach((vizItem, idx) => {
+            const datetime = vizItem["properties"]["datetime"];
             const momentFormattedDatetimeStr = moment(datetime).format();
-            plumeDateIdxMap[momentFormattedDatetimeStr] = idx;
+            vizItemDateIdxMap[momentFormattedDatetimeStr] = idx;
         });
 
         // bufferedLayer to hold the layers and soruces that are already bufferedLayer
         const bufferedLayer = new Set();
         const bufferedSource = new Set();
 
-        let startDatetime = plumes[0]["properties"]["datetime"];
-        let endDatetime = plumes[plumes.length - 1]["properties"]["datetime"];
+        let startDatetime = vizItems[0]["properties"]["datetime"];
+        let endDatetime = vizItems[vizItems.length - 1]["properties"]["datetime"];
         timeline.current = new TimelineControl({
             start: startDatetime,
             end: endDatetime,
@@ -37,11 +37,11 @@ export const PlumeAnimation = ({ plumes }) => {
             step: 1000 * 60 * 5, // 5 minute for GOES satellite; TODO: get this from the difference between the time of consecutive elements
             onStart: (date) => {
                 // executed on initial step tick.
-                handleAnimation(map, date, plumeDateIdxMap, plumes, bufferedLayer, bufferedSource);
+                handleAnimation(map, date, vizItemDateIdxMap, vizItems, bufferedLayer, bufferedSource);
             },
             onChange: date => {
                 // executed on each changed step tick.
-                handleAnimation(map, date, plumeDateIdxMap, plumes, bufferedLayer, bufferedSource);
+                handleAnimation(map, date, vizItemDateIdxMap, vizItems, bufferedLayer, bufferedSource);
             },
             format: date => {
                 const dateStr = moment(date).utc().format("MM/DD/YYYY, HH:mm:ss") + " UTC";
@@ -62,7 +62,7 @@ export const PlumeAnimation = ({ plumes }) => {
                 map.removeControl(timeline.current);
             }
         }
-    }, [plumes, map]);
+    }, [vizItems, map]);
 
     return (
         <div style={{ width: "100%", height: "100%" }} className="player-container">
@@ -73,42 +73,42 @@ export const PlumeAnimation = ({ plumes }) => {
 
 let prev=null;
 
-const handleAnimation = (map, date, plumeDateIdxMap, plumes, bufferedLayer, bufferedSource) => {
+const handleAnimation = (map, date, vizItemDateIdxMap, vizItems, bufferedLayer, bufferedSource) => {
     const momentFormattedDatetimeStr = moment(date).format();
-    if (!(momentFormattedDatetimeStr in plumeDateIdxMap)) return;
+    if (!(momentFormattedDatetimeStr in vizItemDateIdxMap)) return;
 
-    const index = plumeDateIdxMap[momentFormattedDatetimeStr];
+    const index = vizItemDateIdxMap[momentFormattedDatetimeStr];
 
     // buffer the following k elements.
     const k = 4;
-    bufferSourceLayers(map, plumes, index, k, bufferedLayer, bufferedSource);
+    bufferSourceLayers(map, vizItems, index, k, bufferedLayer, bufferedSource);
 
-    // display the indexed plume.
+    // display the indexed vizItem.
     const prevLayerId = prev;
     const currentLayerId = getLayerId(index);
     transitionLayers(map, prevLayerId, currentLayerId);
     prev = currentLayerId;
 }
 
-const bufferSourceLayers = (map, plumes, index, k, bufferedLayer, bufferedSource) => {
+const bufferSourceLayers = (map, vizItems, index, k, bufferedLayer, bufferedSource) => {
     let start = index;
     let limit = index + k;
-    if (start >= (plumes.length - 1)) {
+    if (start >= (vizItems.length - 1)) {
         return
     }
-    if (limit >= plumes.length) {
-        limit = plumes.length;
+    if (limit >= vizItems.length) {
+        limit = vizItems.length;
     }
     for (let i=start; i<limit; i++){
         let sourceId = getSourceId(i);
         let layerId = getLayerId(i);
         if (!bufferedLayer.has(layerId)) {
-            bufferSourceLayer(map, plumes[i], sourceId, layerId);
+            bufferSourceLayer(map, vizItems[i], sourceId, layerId);
             bufferedLayer.add(layerId);
             if (!bufferedSource.has(sourceId)) bufferedSource.add(sourceId);
         }
     }
-    // TODO: for a very long plume list, we would want to remove the oldest buffered source and buffered layer for memory optimization.
+    // TODO: for a very long vizItem list, we would want to remove the oldest buffered source and buffered layer for memory optimization.
 }
 
 const transitionLayers = (map, prevLayerId, currentLayerId) => {

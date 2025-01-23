@@ -4,7 +4,7 @@ import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
 import Typography from '@mui/material/Typography';
 import CssBaseline from '@mui/material/CssBaseline';
-import { PlumeCard } from '../card';
+import { VisualizationItemCard } from '../card';
 import { useEffect, useState } from 'react';
 
 import "./index.css";
@@ -60,10 +60,10 @@ const HorizontalLayout = styled.div`
     margin-bottom: 5px;
 `;
 
-export function PersistentDrawerRight({open, setOpen, selectedPlumes, plumeMetaData, collectionId, metaDataTree, plumesMap, handleSelectedPlumeCard, setHoveredPlumeId, hoveredPlumeId}) {
-  const [ selectedPlumeMetas, setSelectedPlumeMetas ] = useState([]);
+export function PersistentDrawerRight({open, setOpen, selectedVizItems, vizItemMetaData, collectionId, metaDataTree, vizItemsMap, handleSelectedVizItems, hoveredVizItemId, setHoveredVizItemId}) {
+  const [ selectedVizItemMetas, setSelectedVizItemMetas ] = useState([]);
   const [ location, setLocation ] = useState("USA");
-  const [ numberOfPlumes, setNumberOfPlumes ] = useState(0);
+  const [ numberOfVizItems, setNumberOfVizItems ] = useState(0);
 
   let VMIN = 0;
   let VMAX = 0.4;
@@ -74,33 +74,33 @@ export function PersistentDrawerRight({open, setOpen, selectedPlumes, plumeMetaD
   };
 
   useEffect(() => {
-    if ( !plumeMetaData ) return;
-    if ( !selectedPlumes.length ) {
-      setSelectedPlumeMetas([]);
+    if ( !vizItemMetaData ) return;
+    if ( !selectedVizItems.length ) {
+      setSelectedVizItemMetas([]);
       setLocation("USA");
-      setNumberOfPlumes(0);
+      setNumberOfVizItems(0);
       return;
     }
 
     try {
-      const selectedMetas = selectedPlumes.map(plume => {
-        if (!(plume.id in plumeMetaData)) {
-          throw new Error(`plumeId: "${plume.id}" not found in metadata.`);
+      const selectedMetas = selectedVizItems.map(vizItem => {
+        if (!(vizItem.id in vizItemMetaData)) {
+          throw new Error(`vizItemId: "${vizItem.id}" not found in metadata.`);
         }
-        return plumeMetaData[plume.id]
+        return vizItemMetaData[vizItem.id]
       });
-      setSelectedPlumeMetas(selectedMetas)
+      setSelectedVizItemMetas(selectedMetas)
 
-      const firstPlumeMeta = plumeMetaData[selectedPlumes[0].id];
-      const { administrativeDivision, country } = firstPlumeMeta;
+      const firstVizItemMeta = vizItemMetaData[selectedVizItems[0].id];
+      const { administrativeDivision, country } = firstVizItemMeta;
       const location = `${administrativeDivision}, ${country}`;
-      const numberOfPlumes = selectedPlumes.length;
+      const numberOfVizItems = selectedVizItems.length;
       setLocation(location);
-      setNumberOfPlumes(numberOfPlumes);
+      setNumberOfVizItems(numberOfVizItems);
     } catch (err) {
       console.error("Error getting data for the drawer.", err)
     }
-  }, [plumeMetaData, selectedPlumes]);
+  }, [vizItemMetaData, selectedVizItems]);
 
   return (
     <Box sx={{ display: 'flex' }}>
@@ -141,28 +141,28 @@ export function PersistentDrawerRight({open, setOpen, selectedPlumes, plumeMetaD
                   component="div"
                   className='drawer-head-content'
             >
-              { numberOfPlumes + " Plumes"}
+              { numberOfVizItems + " Plumes"}
             </Typography>
           </HorizontalLayout>
         </DrawerHeader>
-          { !!selectedPlumeMetas.length &&
-            selectedPlumeMetas.map(selectedPlumeMeta => (
-              <PlumeCard
-                key={selectedPlumeMeta.id}
-                plumeSourceId={selectedPlumeMeta.id}
-                plumeSourceName={selectedPlumeMeta.id}
-                imageUrl={`${process.env.REACT_APP_RASTER_API_URL}/collections/${collectionId}/items/${plumesMap[selectedPlumeMeta.id].representationalPlume.id}/preview.png?assets=rad&rescale=${VMIN}%2C${VMAX}&colormap_name=${colorMap}`}
-                tiffUrl={`${process.env.REACT_APP_CLOUD_BROWSE_URL}/browseui/#${collectionId}/#q=${selectedPlumeMeta.id.split("_").slice(-1)}`}
-                lon={selectedPlumeMeta.lon}
-                lat={selectedPlumeMeta.lat}
-                totalReleaseMass={selectedPlumeMeta.totalReleaseMass}
-                colEnhancements={selectedPlumeMeta.colEnhancements}
-                startDatetime={selectedPlumeMeta.startDatetime}
-                endDatetime={selectedPlumeMeta.endDatetime}
-                duration={selectedPlumeMeta.duration}
-                handleSelectedPlumeCard={handleSelectedPlumeCard}
-                hoveredPlumeId={hoveredPlumeId}
-                setHoveredPlumeId={setHoveredPlumeId}
+          { !!selectedVizItemMetas.length &&
+            selectedVizItemMetas.map(selectedVizItemMeta => (
+              <VisualizationItemCard
+                key={selectedVizItemMeta.id}
+                vizItemSourceId={selectedVizItemMeta.id}
+                vizItemSourceName={selectedVizItemMeta.id}
+                imageUrl={`${process.env.REACT_APP_RASTER_API_URL}/collections/${collectionId}/items/${vizItemsMap[selectedVizItemMeta.id].representationalPlume.id}/preview.png?assets=rad&rescale=${VMIN}%2C${VMAX}&colormap_name=${colorMap}`}
+                tiffUrl={`${process.env.REACT_APP_CLOUD_BROWSE_URL}/browseui/#${collectionId}/#q=${selectedVizItemMeta.id.split("_").slice(-1)}`}
+                lon={selectedVizItemMeta.lon}
+                lat={selectedVizItemMeta.lat}
+                totalReleaseMass={selectedVizItemMeta.totalReleaseMass}
+                colEnhancements={selectedVizItemMeta.colEnhancements}
+                startDatetime={selectedVizItemMeta.startDatetime}
+                endDatetime={selectedVizItemMeta.endDatetime}
+                duration={selectedVizItemMeta.duration}
+                handleSelectedVizItemCard={handleSelectedVizItems}
+                hoveredVizItemId={hoveredVizItemId}
+                setHoveredVizItemId={setHoveredVizItemId}
               />
             ))
           }

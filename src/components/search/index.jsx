@@ -6,7 +6,7 @@ import InputAdornment from '@mui/material/InputAdornment';
 
 import { TrieSearch } from "../../services/trieSearch";
 
-export function Search({ ids, handleSelectedPlumeSearch }) {
+export function Search({ ids, handleSelectedVizItemSearch }) {
     const trieSearch = useRef(null);
     const [ searchOptions, setSearchOptions ] = useState([]);
 
@@ -22,7 +22,7 @@ export function Search({ ids, handleSelectedPlumeSearch }) {
     }
 
     const handleOnOptionClicked = (event, clickedValue) => {
-        handleSelectedPlumeSearch(clickedValue);
+        handleSelectedVizItemSearch(clickedValue);
     }
 
     useEffect(() => {

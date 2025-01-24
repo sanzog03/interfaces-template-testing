@@ -1,8 +1,20 @@
+import React from "react";
+import styled from "styled-components";
+
 import { Paper, Typography, Divider } from "@mui/material";
-
 import "./index.css";
+import { Search } from "../../components/search";
+import { FilterByDate } from '../../components/filter';
+import { VizItemAnimation } from '../../components/plumeAnimation';
 
-export const Title = ({ children }) => {
+ const HorizontalLayout = styled.div`
+    width: 90%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 12px;
+`;
+ const TitleContainer = ({ children }) => {
     return (
         <Paper className="title-container">
             <Typography
@@ -34,4 +46,29 @@ export const Title = ({ children }) => {
             </div>
         </Paper>
     )
+ }
+
+const Title = ({vizItemIds,handleSelectedVizItemSearch,regions,selectedVizItems,setFilteredRegions,setFilteredSelectedVizItems,vizItemsForAnimation }) => {
+    
+    return(
+     <TitleContainer>
+            <HorizontalLayout>
+              <Search
+                ids={vizItemIds}
+                handleSelectedVizItemSearch={handleSelectedVizItemSearch}
+              ></Search>
+            </HorizontalLayout>
+            <HorizontalLayout>
+              <FilterByDate
+                regions={regions}
+                vizItems={selectedVizItems}
+                setFilteredRegions={setFilteredRegions}
+                setFilteredSelectedVizItems={setFilteredSelectedVizItems}
+              />
+            </HorizontalLayout>
+            <HorizontalLayout>
+              <VizItemAnimation vizItems={vizItemsForAnimation} />
+            </HorizontalLayout>
+    </TitleContainer>)
 }
+export default Title

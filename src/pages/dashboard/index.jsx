@@ -1,31 +1,23 @@
 import React, { useEffect, useState, useRef } from 'react';
 import Box from '@mui/material/Box';
-import styled from "styled-components";
+
 
 import MainMap from '../../components/mainMap';
 import { MarkerFeature } from '../../components/mapMarker';
 import {VisualizationLayers  } from '../../components/mapLayer';
-import { VizItemAnimation } from '../../components/plumeAnimation';
+
 import { MapControls } from "../../components/mapControls";
 import { MapZoom } from '../../components/mapZoom';
 import { ColorBar } from '../../components/colorBar';
 import { LoadingSpinner } from '../../components/loading';
 import { PersistentDrawerRight } from "../../components/drawer";
-import { Title } from "../../components/title";
-import { Search } from "../../components/search";
-import { FilterByDate } from '../../components/filter';
+import  Title  from "../../components/title";
 
 import "./index.css";
 import { MeasurementLayer } from '../../components/measurementLayer';
 
 
-const HorizontalLayout = styled.div`
-    width: 90%;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    margin: 12px;
-`;
+
 
 const scaleUnits = {
   KM: "km",
@@ -162,25 +154,14 @@ export function Dashboard({ dataTree, collectionId, metaDataTree, vizItemMetaDat
     <Box className="fullSize">
       <div id="dashboard-map-container">
         <MainMap>
-          <Title>
-            <HorizontalLayout>
-              <Search
-                ids={vizItemIds}
-                handleSelectedVizItemSearch={handleSelectedVizItemSearch}
-              ></Search>
-            </HorizontalLayout>
-            <HorizontalLayout>
-              <FilterByDate
-                regions={regions}
-                vizItems={selectedVizItems}
-                setFilteredRegions={setFilteredRegions}
-                setFilteredSelectedVizItems={setFilteredSelectedVizItems}
-              />
-            </HorizontalLayout>
-            <HorizontalLayout>
-              <VizItemAnimation vizItems={vizItemsForAnimation} />
-            </HorizontalLayout>
-          </Title>
+          <Title
+            vizItemIds={vizItemIds}
+            handleSelectedVizItemSearch={handleSelectedVizItemSearch}
+            regions={regions}
+            selectedVizItems={selectedVizItems}
+            setFilteredRegions={setFilteredRegions}
+            setFilteredSelectedVizItems={setFilteredSelectedVizItems}
+            vizItemsForAnimation={vizItemsForAnimation} />
           <MarkerFeature
             regions={filteredRegions}
             setSelectedRegionId={handleSelectedRegion}

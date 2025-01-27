@@ -6,23 +6,15 @@ import MainMap from '../../components/mainMap';
 import { MarkerFeature } from '../../components/mapMarker';
 import {VisualizationLayers  } from '../../components/mapLayer';
 
-import { MapControls } from "../../components/mapControls";
-import { MapZoom } from '../../components/mapZoom';
+
 import { ColorBar } from '../../components/colorBar';
 import { LoadingSpinner } from '../../components/loading';
 import { PersistentDrawerRight } from "../../components/drawer";
-import  Title  from "../../components/title";
+import Title from "../../components/title";
+import { MapControls } from '../../components/mapControls';
+import { MapZoom } from '../../components/mapZoom';
 
 import "./index.css";
-import { MeasurementLayer } from '../../components/measurementLayer';
-
-
-
-
-const scaleUnits = {
-  KM: "km",
-  MILES: "mi",
-};
 
 export function Dashboard({ dataTree, collectionId, metaDataTree, vizItemMetaData, zoomLocation, setZoomLocation, zoomLevel, setZoomLevel, loadingData }) {
   // states for data
@@ -43,10 +35,6 @@ export function Dashboard({ dataTree, collectionId, metaDataTree, vizItemMetaDat
 
   // states for components/controls
   const [ openDrawer, setOpenDrawer ] = useState(false);
-  const [ measureMode, setMeasureMode ] = useState(false);
-  const [ clearMeasurementIcon, setClearMeasurementIcon ] = useState(false)
-  const [ clearMeasurementLayer, setClearMeasurementLayer ] = useState(false)
-  const [ mapScaleUnit, setMapScaleUnit ] = useState(scaleUnits.MILES);
 
   // handler functions
   const handleSelectedRegion = (regionId) => {
@@ -162,6 +150,13 @@ export function Dashboard({ dataTree, collectionId, metaDataTree, vizItemMetaDat
             setFilteredRegions={setFilteredRegions}
             setFilteredSelectedVizItems={setFilteredSelectedVizItems}
             vizItemsForAnimation={vizItemsForAnimation} />
+            <MapZoom zoomLocation={zoomLocation} zoomLevel={zoomLevel} /> 
+           < MapControls
+            openDrawer={openDrawer}
+            setOpenDrawer={setOpenDrawer}
+            handleResetHome={handleResetHome}
+            handleResetToSelectedRegion={handleResetToSelectedRegion}
+           />
           <MarkerFeature
             regions={filteredRegions}
             setSelectedRegionId={handleSelectedRegion}
@@ -172,34 +167,7 @@ export function Dashboard({ dataTree, collectionId, metaDataTree, vizItemMetaDat
             handleLayerClick={handleSelectedVizItems}
             hoveredVizItemId={hoveredVizItemId}
             setHoveredVizItemId={setHoveredVizItemId}
-          />
-          <MapControls
-            openDrawer={openDrawer}
-            measureMode={measureMode}
-            onClickHamburger={() => {
-              setOpenDrawer((openDrawer) => !openDrawer);
-            }}
-            onClickMeasureMode={() => {
-              setMeasureMode((measureMode) => !measureMode);
-            }}
-            onClickClearIcon={() => {
-              setClearMeasurementLayer(true);
-            }}
-            clearMeasurementIcon={clearMeasurementIcon}
-            mapScaleUnit={mapScaleUnit}
-            setMapScaleUnit={setMapScaleUnit}
-            handleResetHome={handleResetHome}
-            handleResetToSelectedRegion={handleResetToSelectedRegion}
-          />
-          <MapZoom zoomLocation={zoomLocation} zoomLevel={zoomLevel} />
-          <MeasurementLayer
-            measureMode={measureMode}
-            setMeasureMode={setMeasureMode}
-            setClearMeasurementIcon={setClearMeasurementIcon}
-            clearMeasurementLayer={clearMeasurementLayer}
-            setClearMeasurementLayer={setClearMeasurementLayer}
-            mapScaleUnit={mapScaleUnit}
-          />
+          />  
         </MainMap>
         <PersistentDrawerRight
           open={openDrawer}

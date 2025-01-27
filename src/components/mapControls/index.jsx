@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef,useState } from "react";
 import mapboxgl from "mapbox-gl";
 import { useMapbox } from "../../context/mapContext";
 import { HamburgerControl } from "./hamburger";
@@ -8,10 +8,15 @@ import { ClearMeasurementControl } from "./clearMeasurement";
 import { LayerVisibilityControl } from "./layerVisibility";
 import { HomeControl } from "./home";
 import { RestoreControl } from "./restore";
+import { MeasurementLayer } from '../../components/measurementLayer';
 
 import "./index.css";
+const scaleUnits = {
+  KM: "km",
+  MILES: "mi",
+};
 
-export const MapControls = ({
+ const DefaultMapControls = ({
   measureMode,
   onClickHamburger,
   onClickMeasureMode,
@@ -23,7 +28,7 @@ export const MapControls = ({
   handleResetToSelectedRegion,
   openDrawer
 }) => {
-  const { map } = useMapbox();
+   const { map } = useMapbox();
   const customControlContainer = useRef();
 
   useEffect(() => {
@@ -141,4 +146,40 @@ export const MapControls = ({
   return (
     <div id="mapbox-custom-controls" ref={customControlContainer} style={{ right: openDrawer ? "30.7rem" : "0.5rem" }}></div>
   );
-};
+ };
+
+export const MapControls = ({ openDrawer,setOpenDrawer,handleResetHome,handleResetToSelectedRegion, }) => {
+  const [ measureMode, setMeasureMode ] = useState(false);
+  const [ clearMeasurementIcon, setClearMeasurementIcon ] = useState(false)
+  const [ clearMeasurementLayer, setClearMeasurementLayer ] = useState(false)
+  const [mapScaleUnit, setMapScaleUnit] = useState(scaleUnits.MILES);
+  return (<>
+     <DefaultMapControls
+          openDrawer={openDrawer  }
+          measureMode={measureMode}
+          onClickHamburger={() => {
+            setOpenDrawer((openDrawer) => !openDrawer);
+          }}
+          onClickMeasureMode={() => {
+            setMeasureMode((measureMode) => !measureMode);
+          }}
+          onClickClearIcon={() => {
+            setClearMeasurementLayer(true);
+          }}
+          clearMeasurementIcon={clearMeasurementIcon}
+          mapScaleUnit={mapScaleUnit}
+          setMapScaleUnit={setMapScaleUnit}
+          handleResetHome={handleResetHome}
+          handleResetToSelectedRegion={handleResetToSelectedRegion}
+        />
+        <MeasurementLayer
+          measureMode={measureMode}
+          setMeasureMode={setMeasureMode}
+          setClearMeasurementIcon={setClearMeasurementIcon}
+          clearMeasurementLayer={clearMeasurementLayer}
+          setClearMeasurementLayer={setClearMeasurementLayer}
+          mapScaleUnit={mapScaleUnit}
+        />
+       
+      </>)
+}

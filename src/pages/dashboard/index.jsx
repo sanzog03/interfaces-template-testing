@@ -164,12 +164,7 @@ export function Dashboard({ data,dataTree, metaDataTree, vizItemMetaData, zoomLo
   useEffect(() => {
     if (!dataTree.current || !selectedRegionId) return;
     const currentRegion = dataTree.current[selectedRegionId];
-
     const visualizationLayers = currentRegion.plumes.map((layer)=>layer.representationalPlume);
-
-
-    const visualizationLayers = currentRegion.plumes.map((layer)=>layer.representationalPlume);
-
     setVisualizationLayers(visualizationLayers);
     setSelectedVizItems(visualizationLayers);
     setVizItemsForAnimation([]); // reset the animation

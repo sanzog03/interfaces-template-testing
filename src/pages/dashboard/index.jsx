@@ -21,10 +21,12 @@ import styled from "styled-components";
 
 import "./index.css";
 
+
 const TITLE = 'GOES Methane Plume Viewer';
 const DESCRIPTION = 'The Geostationary Operational Environmental Satellites collect \
 images of the surface every 5 minutes. Only very large emission events can be detected, \
 but plume expansion is easy to see over time. More plumes will be added soon.';
+
 
  const HorizontalLayout = styled.div`
     width: 90%;
@@ -66,6 +68,7 @@ export function Dashboard({ data,dataTree, metaDataTree, vizItemMetaData, zoomLo
     const regionIdFromVizId = vizItemId?.split("_")[3];
     setSelectedRegionId(regionIdFromVizId); // an useEffect handles it further
     const region = dataTree.current[regionIdFromVizId];
+
     setZoomLocation(region.location);
     setZoomLevel(null); // take the default zoom level
     setOpenDrawer(true);
@@ -73,6 +76,7 @@ export function Dashboard({ data,dataTree, metaDataTree, vizItemMetaData, zoomLo
   }
 
   const handleSelectedVizLayer = (vizLayerId) => {
+
     if (!vizItems || !vizLayerId) return;
     
     const vizItem = vizItems[vizLayerId];
@@ -160,7 +164,12 @@ export function Dashboard({ data,dataTree, metaDataTree, vizItemMetaData, zoomLo
   useEffect(() => {
     if (!dataTree.current || !selectedRegionId) return;
     const currentRegion = dataTree.current[selectedRegionId];
+
     const visualizationLayers = currentRegion.plumes.map((layer)=>layer.representationalPlume);
+
+
+    const visualizationLayers = currentRegion.plumes.map((layer)=>layer.representationalPlume);
+
     setVisualizationLayers(visualizationLayers);
     setSelectedVizItems(visualizationLayers);
     setVizItemsForAnimation([]); // reset the animation
@@ -194,6 +203,7 @@ export function Dashboard({ data,dataTree, metaDataTree, vizItemMetaData, zoomLo
               </HorizontalLayout>
             </div>
         </Paper>
+
           <MapZoom zoomLocation={zoomLocation} zoomLevel={zoomLevel} /> 
           < MapControls
             openDrawer={openDrawer}

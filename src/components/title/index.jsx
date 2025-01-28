@@ -3,7 +3,9 @@ import React from "react";
 import {  Typography, Divider } from "@mui/material";
 import "./index.css";
 
+
  export const Title = ({ title,description  }) => {
+
     return (
         <>
             <Typography

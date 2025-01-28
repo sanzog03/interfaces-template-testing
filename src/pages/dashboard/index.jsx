@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import Box from '@mui/material/Box';
-
+import Paper from '@mui/material/Paper';
 
 import MainMap from '../../components/mainMap';
 import { MarkerFeature } from '../../components/mapMarker';
@@ -20,6 +20,13 @@ import { VizItemAnimation } from '../../components/plumeAnimation';
 import styled from "styled-components";
 
 import "./index.css";
+
+
+const TITLE = 'GOES Methane Plume Viewer';
+const DESCRIPTION = 'The Geostationary Operational Environmental Satellites collect \
+images of the surface every 5 minutes. Only very large emission events can be detected, \
+but plume expansion is easy to see over time. More plumes will be added soon.';
+
 
  const HorizontalLayout = styled.div`
     width: 90%;
@@ -61,7 +68,7 @@ export function Dashboard({ data,dataTree, metaDataTree, vizItemMetaData, zoomLo
     const regionIdFromVizId = vizItemId?.split("_")[3];
     setSelectedRegionId(regionIdFromVizId); // an useEffect handles it further
     const region = dataTree.current[regionIdFromVizId];
-    console.log({region})
+
     setZoomLocation(region.location);
     setZoomLevel(null); // take the default zoom level
     setOpenDrawer(true);
@@ -69,7 +76,7 @@ export function Dashboard({ data,dataTree, metaDataTree, vizItemMetaData, zoomLo
   }
 
   const handleSelectedVizLayer = (vizLayerId) => {
-    console.log({vizLayerId})
+
     if (!vizItems || !vizLayerId) return;
     
     const vizItem = vizItems[vizLayerId];
@@ -157,9 +164,12 @@ export function Dashboard({ data,dataTree, metaDataTree, vizItemMetaData, zoomLo
   useEffect(() => {
     if (!dataTree.current || !selectedRegionId) return;
     const currentRegion = dataTree.current[selectedRegionId];
-    console.log({ currentRegion })
+
     const visualizationLayers = currentRegion.plumes.map((layer)=>layer.representationalPlume);
-    console.log({ vizItemsfromDataTee: visualizationLayers })
+
+
+    const visualizationLayers = currentRegion.plumes.map((layer)=>layer.representationalPlume);
+
     setVisualizationLayers(visualizationLayers);
     setSelectedVizItems(visualizationLayers);
     setVizItemsForAnimation([]); // reset the animation
@@ -173,7 +183,9 @@ export function Dashboard({ data,dataTree, metaDataTree, vizItemMetaData, zoomLo
     <Box className="fullSize">
       <div id="dashboard-map-container">
         <MainMap>
-          <Title>
+          <Paper className="title-container">
+            <Title title={TITLE} description={DESCRIPTION} />
+            <div className="title-content">
             <HorizontalLayout>
               <Search
                 ids={vizItemIds}
@@ -188,8 +200,10 @@ export function Dashboard({ data,dataTree, metaDataTree, vizItemMetaData, zoomLo
             </HorizontalLayout>
             <HorizontalLayout>
               <VizItemAnimation vizItems={vizItemsForAnimation} />
-            </HorizontalLayout>
-          </Title>
+              </HorizontalLayout>
+            </div>
+        </Paper>
+
           <MapZoom zoomLocation={zoomLocation} zoomLevel={zoomLevel} /> 
           < MapControls
             openDrawer={openDrawer}

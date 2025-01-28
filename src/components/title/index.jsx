@@ -1,11 +1,13 @@
 import React from "react";
 
-import { Paper, Typography, Divider } from "@mui/material";
+import {  Typography, Divider } from "@mui/material";
 import "./index.css";
 
- export const Title = ({ children }) => {
+
+ export const Title = ({ title,description  }) => {
+
     return (
-        <Paper className="title-container">
+        <>
             <Typography
                 variant="h6"
                 component="div"
@@ -13,7 +15,7 @@ import "./index.css";
                 fontWeight="bold"
                 sx={{margin: "0 0.9rem"}}
             >
-                GOES Methane Plume Viewer
+                {title}
             </Typography>
             <Typography
                 variant="body2"
@@ -21,7 +23,7 @@ import "./index.css";
                 className="title-note"
                 sx={{margin: "0 0.9rem", color: "text.secondary"}}
             >
-                The Geostationary Operational Environmental Satellites collect images of the surface every 5 minutes. Only very large emission events can be detected, but plume expansion is easy to see over time. More plumes will be added soon.
+                {description}
             </Typography>
             <Divider
                 sx={{
@@ -30,9 +32,7 @@ import "./index.css";
                     margin: "0.3rem 1.4rem",
                 }}
             />
-            <div className="title-content">
-                { children }
-            </div>
-        </Paper>
+            
+        </>
     )
  }

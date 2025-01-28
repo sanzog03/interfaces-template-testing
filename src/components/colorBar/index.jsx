@@ -7,7 +7,7 @@ import * as d3 from "d3";
 
 import "./index.css";
 
-export const ColorBar = () => {
+export const ColorBar = ({label}) => {
     const colorBarScale = useRef();
 
     useEffect(() => {
@@ -23,7 +23,7 @@ export const ColorBar = () => {
         <Card id="colorbar">
             <div ref={colorBarScale} className="colorbar-scale"></div>
             <Typography variant="subtitle2" gutterBottom sx={{ marginBottom: 0 }} className="colorbar-label">
-                Methane Column Enhancement (mol/m²)
+                {label}
             </Typography>
         </Card>
     )

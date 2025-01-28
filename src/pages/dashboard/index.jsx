@@ -232,7 +232,7 @@ export function Dashboard({ data,dataTree, metaDataTree, vizItemMetaData, zoomLo
           setHoveredVizItemId={setHoveredVizLayerId}
         />
       </div>
-      <ColorBar/>
+      <ColorBar label={ "Methane Column Enhancement (mol/m²)"}/>
       {loadingData && <LoadingSpinner/>}
     </Box>
   );

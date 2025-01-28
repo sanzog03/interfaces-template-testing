@@ -2,27 +2,27 @@ import { useEffect } from "react";
 import { useMapbox } from "../../context/mapContext";
 import { addSourceLayerToMap, addSourcePolygonToMap, getSourceId, getLayerId, layerExists, sourceExists } from "../../utils";
 
-export const VisualizationLayer = ({ vizItem, handleLayerClick, vizItemId, hoveredVizItemId, setHoveredVizItemId }) => {
+export const VisualizationLayer = ({ vizLayer, handleLayerClick, hoveredVizLayerId, setHoveredVizLayerId }) => {
     const { map } = useMapbox();
-
+    const vizLayerId = vizLayer.id;
     useEffect(() => {
-        if (!map || !vizItem) return;
+        if (!map || !vizLayer) return;
 
-        const feature = vizItem;
-        const rasterSourceId = getSourceId("raster"+vizItemId);
-        const rasterLayerId = getLayerId("raster"+vizItemId);
-        const polygonSourceId = getSourceId("polygon"+vizItemId);
-        const polygonLayerId = getLayerId("polygon"+vizItemId);
+        const feature = vizLayer;
+        const rasterSourceId = getSourceId("raster"+vizLayerId);
+        const rasterLayerId = getLayerId("raster"+vizLayerId);
+        const polygonSourceId = getSourceId("polygon"+vizLayerId);
+        const polygonLayerId = getLayerId("polygon"+vizLayerId);
 
         addSourceLayerToMap(map, feature, rasterSourceId, rasterLayerId);
         addSourcePolygonToMap(map, feature, polygonSourceId, polygonLayerId);
 
         const onClickHandler = (e) => {
-            handleLayerClick(vizItemId);
+            handleLayerClick(vizLayerId);
         }
 
         const onHoverHandler = (e) => {
-            setHoveredVizItemId(vizItemId);
+            setHoveredVizLayerId(vizLayerId);
         }
 
         map.setLayoutProperty(rasterLayerId, 'visibility', 'visible');
@@ -39,15 +39,15 @@ export const VisualizationLayer = ({ vizItem, handleLayerClick, vizItemId, hover
                 map.off("click", "clusters", onClickHandler);
             }
         }
-    }, [vizItem, map, handleLayerClick, vizItemId, setHoveredVizItemId]);
+    }, [vizLayer, map, handleLayerClick, vizLayerId, setHoveredVizLayerId]);
 
     useEffect(() => {
-        if (!map || !hoveredVizItemId || !vizItemId ) return;
+        if (!map || !hoveredVizLayerId || !vizLayerId ) return;
 
-        const polygonLayerId = getLayerId("polygon"+vizItemId);
-        const rasterLayerId = getLayerId("raster"+vizItemId);
+        const polygonLayerId = getLayerId("polygon"+vizLayerId);
+        const rasterLayerId = getLayerId("raster"+vizLayerId);
 
-        if (hoveredVizItemId !== vizItemId) {
+        if (hoveredVizLayerId !== vizLayerId) {
             // when the plume is not hovered
             if (layerExists(map, polygonLayerId)) {
                 map.setPaintProperty(polygonLayerId, 'fill-outline-color', '#20B2AA');
@@ -57,7 +57,7 @@ export const VisualizationLayer = ({ vizItem, handleLayerClick, vizItemId, hover
             }
         }
 
-        if (hoveredVizItemId === vizItemId) {
+        if (hoveredVizLayerId === vizLayerId) {
             // when the plume is hovered
             if (layerExists(map, rasterLayerId)) {
                 map.moveLayer(rasterLayerId);
@@ -66,7 +66,7 @@ export const VisualizationLayer = ({ vizItem, handleLayerClick, vizItemId, hover
                 map.setPaintProperty(polygonLayerId, 'fill-outline-color', '#0000ff');
             }
         }
-    }, [hoveredVizItemId, map, vizItemId]);
+    }, [hoveredVizLayerId, map, vizLayerId]);
 
     // console.log("layers>", map.getStyle().layers)
 
@@ -74,12 +74,12 @@ export const VisualizationLayer = ({ vizItem, handleLayerClick, vizItemId, hover
 }
 
 
-export const VisualizationLayers = ({ vizItems, hoveredVizItemId, showVisualizationLayers, handleLayerClick, setHoveredVizItemId }) => {
+export const VisualizationLayers = ({ vizLayers, hoveredVizLayerId, showVisualizationLayers, handleLayerClick, setHoveredVizLayerId }) => {
     const { map } = useMapbox();
-    if (!map || !vizItems.length) return;
 
+    if (!map || !vizLayers.length) return;
     return (<>
-        {showVisualizationLayers && vizItems && vizItems.length && vizItems.map((vizItem) => <VisualizationLayer key={vizItem.id} vizItemId={vizItem.id} vizItem={vizItem.representationalPlume} handleLayerClick={handleLayerClick} hoveredVizItemId={hoveredVizItemId} setHoveredVizItemId={setHoveredVizItemId}></VisualizationLayer>)}
+        {showVisualizationLayers  && vizLayers && vizLayers.map((vizLayer) => <VisualizationLayer key={vizLayer.id}  vizLayer={vizLayer} handleLayerClick={handleLayerClick} hoveredVizLayerId={hoveredVizLayerId} setHoveredVizLayerId={setHoveredVizLayerId}></VisualizationLayer>)}
         </>
     );
 }

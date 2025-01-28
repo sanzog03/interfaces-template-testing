@@ -4,17 +4,15 @@ import mapboxgl from 'mapbox-gl';
 import { useMapbox } from "../../context/mapContext";
 import "./index.css";
 
-export const MarkerFeature = ({vizItems, setSelectedVizItemId }) => {
+export const MarkerFeature = ({showMarkerFeature,vizItems, setSelectedVizItemId }) => {
     const { map } = useMapbox();
     const [ markersVisible, setMarkersVisible ] = useState(true);
 
     useEffect(() => {
-        if (!map || !vizItems.length) return;
+        if (!showMarkerFeature||!map || !vizItems.length) return;
 
-        // plot the regions in the map.
         const plottedMarkers = vizItems.map((item) => {
             const location = item.geometry.coordinates[0][0]
-            // const { location } = item;
             const [ lon, lat ] = location;
             const marker = addMarker(map, lon, lat);
             const mel = marker.getElement();
@@ -31,7 +29,7 @@ export const MarkerFeature = ({vizItems, setSelectedVizItemId }) => {
                 marker.parentNode.removeChild(marker);
             })
         }
-    }, [vizItems, map, setSelectedVizItemId, markersVisible]);
+    }, [vizItems, map, setSelectedVizItemId, markersVisible,showMarkerFeature]);
 
     useEffect(() => {
         if (!map) return;

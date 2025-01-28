@@ -14,9 +14,10 @@ import { VizItemAnimation } from '../../components/plumeAnimation';
     justify-content: space-between;
     margin: 12px;
 `;
- const TitleContainer = ({ children }) => {
+ 
+ const Title = ({title, description}) => {
     return (
-        <Paper className="title-container">
+        <>
             <Typography
                 variant="h6"
                 component="div"
@@ -24,7 +25,7 @@ import { VizItemAnimation } from '../../components/plumeAnimation';
                 fontWeight="bold"
                 sx={{margin: "0 0.9rem"}}
             >
-                GOES Methane Plume Viewer
+                {title}
             </Typography>
             <Typography
                 variant="body2"
@@ -32,7 +33,7 @@ import { VizItemAnimation } from '../../components/plumeAnimation';
                 className="title-note"
                 sx={{margin: "0 0.9rem", color: "text.secondary"}}
             >
-                The Geostationary Operational Environmental Satellites collect images of the surface every 5 minutes. Only very large emission events can be detected, but plume expansion is easy to see over time. More plumes will be added soon.
+                {description}
             </Typography>
             <Divider
                 sx={{
@@ -40,35 +41,43 @@ import { VizItemAnimation } from '../../components/plumeAnimation';
                     borderWidth: "1px",
                     margin: "0.3rem 1.4rem",
                 }}
-            />
-            <div className="title-content">
-                { children }
-            </div>
-        </Paper>
+            /> 
+        </>
     )
  }
 
-const Title = ({vizItemIds,handleSelectedVizItemSearch,regions,selectedVizItems,setFilteredRegions,setFilteredSelectedVizItems,vizItemsForAnimation }) => {
-    
-    return(
-     <TitleContainer>
+const InfoCardWithFilters = ({
+        title,
+        description,
+        vizItemIds,
+        handleSelectedVizItemSearch,
+        regions,
+        selectedVizItems,
+        setFilteredRegions,
+        setFilteredSelectedVizItems,
+        vizItemsForAnimation 
+    }) => {
+    return (
+        <Paper className="title-container">
+            <Title title={title} description={description}/>
             <HorizontalLayout>
-              <Search
-                ids={vizItemIds}
-                handleSelectedVizItemSearch={handleSelectedVizItemSearch}
-              ></Search>
+                <Search
+                    ids={vizItemIds}
+                    handleSelectedVizItemSearch={handleSelectedVizItemSearch}
+                ></Search>
             </HorizontalLayout>
             <HorizontalLayout>
-              <FilterByDate
-                regions={regions}
-                vizItems={selectedVizItems}
-                setFilteredRegions={setFilteredRegions}
-                setFilteredSelectedVizItems={setFilteredSelectedVizItems}
-              />
+                <FilterByDate
+                    regions={regions}
+                    vizItems={selectedVizItems}
+                    setFilteredRegions={setFilteredRegions}
+                    setFilteredSelectedVizItems={setFilteredSelectedVizItems}
+                />
             </HorizontalLayout>
             <HorizontalLayout>
-              <VizItemAnimation vizItems={vizItemsForAnimation} />
+                <VizItemAnimation vizItems={vizItemsForAnimation} />
             </HorizontalLayout>
-    </TitleContainer>)
+        </Paper>
+    )
 }
-export default Title
+export default InfoCardWithFilters

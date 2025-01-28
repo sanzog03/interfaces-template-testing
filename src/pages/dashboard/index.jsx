@@ -10,11 +10,16 @@ import {VisualizationLayers  } from '../../components/mapLayer';
 import { ColorBar } from '../../components/colorBar';
 import { LoadingSpinner } from '../../components/loading';
 import { PersistentDrawerRight } from "../../components/drawer";
-import Title from "../../components/title";
+import InfoCardWithFilters from "../../components/title";
 import { MapControls } from '../../components/mapControls';
 import { MapZoom } from '../../components/mapZoom';
 
 import "./index.css";
+
+const TITLE = 'GOES Methane Plume Viewer';
+const DESCRIPTION = 'The Geostationary Operational Environmental Satellites collect \
+images of the surface every 5 minutes. Only very large emission events can be detected, \
+but plume expansion is easy to see over time. More plumes will be added soon.';
 
 export function Dashboard({ dataTree, collectionId, metaDataTree, vizItemMetaData, zoomLocation, setZoomLocation, zoomLevel, setZoomLevel, loadingData }) {
   // states for data
@@ -142,7 +147,9 @@ export function Dashboard({ dataTree, collectionId, metaDataTree, vizItemMetaDat
     <Box className="fullSize">
       <div id="dashboard-map-container">
         <MainMap>
-          <Title
+          <InfoCardWithFilters
+            title={TITLE}
+            description={DESCRIPTION}
             vizItemIds={vizItemIds}
             handleSelectedVizItemSearch={handleSelectedVizItemSearch}
             regions={regions}

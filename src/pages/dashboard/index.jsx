@@ -89,7 +89,7 @@ export function Dashboard({
 
   const handleSelectedVizLayer = (vizLayerId) => {
     if (!vizItems || !vizLayerId) return;
-
+    console.log({ clickedOn: vizLayerId });
     const vizItem = vizItems[vizLayerId];
     const { location } = vizItem;
     handleSelectedVizItemSearch(vizLayerId);
@@ -187,7 +187,8 @@ export function Dashboard({
   }, [dataTree.current, selectedRegionId]);
 
   const onFilteredVizItems = (filteredVizItems) => {
-    console.log({ filteredVizItems });
+    //   setFilteredVizItems(filteredVizItems);
+    //   // console.log({ filteredVizItems });
   };
   // JSX
   return (
@@ -225,7 +226,7 @@ export function Dashboard({
           <MarkerFeature
             showMarkerFeature={showMarkerFeature}
             vizItems={Object.keys(vizItems).map((key) => vizItems[key])}
-            setSelectedVizItemId={handleSelectedVizItem}
+            onSelectVizItem={handleSelectedVizItem}
           ></MarkerFeature>
           <VisualizationLayers
             showVisualizationLayers={showVisualizationLayers}

@@ -12,11 +12,9 @@ import moment from 'moment';
 export function FilterByDate({ vizItems, onFilteredVizItems }) {
   const [startDate, setStartDate] = useState(moment('2018-01-01'));
   const [endDate, setEndDate] = useState(() => moment());
-  console.log({ vizItems });
   useEffect(() => {
     if (!vizItems.length) return;
     const filteredVizItems = vizItems.filter((vizItem) => {
-      console.log(vizItem);
       const vizItemDate = moment(vizItem?.properties?.datetime);
 
       if (

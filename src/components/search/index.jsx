@@ -9,7 +9,7 @@ import { TrieSearch } from '../../services/trieSearch';
       Search stacItem compoents
 
       @param {STACItem} vizItems   - An array of stac items from which search is to be done
-      @param {function} onSelectedVizItemSearch - function returns with id of selected STACItem when a item is clicked from dropdown 
+      @param {function} onSelectedVizItemSearch -  will provide vizItemId as a parameter to the callback when a item is clicked from dropdown 
       
 */
 export function Search({ vizItems, onSelectedVizItemSearch }) {

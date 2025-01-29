@@ -4,19 +4,17 @@ import moment from 'moment';
 /*
       Filter stacItem based on the date range
 
-      @param {STACItem} vizItems   - An array of stac items from which filtering is to be done
-      @param {function} onFilteredVizItems - function returns with filtered STACItem when date range is selected
+      @param {STACItem} vizItems   - An array of STACitems from which filtering is to be done
+      @param {function} onFilteredVizItems -   with filtered vizItems when date range is selected
       
 */
 
 export function FilterByDate({ vizItems, onFilteredVizItems }) {
   const [startDate, setStartDate] = useState(moment('2018-01-01'));
   const [endDate, setEndDate] = useState(() => moment());
-  console.log({ vizItems });
   useEffect(() => {
     if (!vizItems.length) return;
     const filteredVizItems = vizItems.filter((vizItem) => {
-      console.log(vizItem);
       const vizItemDate = moment(vizItem?.properties?.datetime);
 
       if (

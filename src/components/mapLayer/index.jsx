@@ -29,11 +29,11 @@ export const VisualizationLayer = ({
     addSourcePolygonToMap(map, feature, polygonSourceId, polygonLayerId);
 
     const onClickHandler = (e) => {
-      onClickOnLayer(vizLayerId);
+      onClickOnLayer && onClickOnLayer(vizLayerId);
     };
 
     const onHoverHandler = (e) => {
-      onHoverOverLayer(vizLayerId);
+      onHoverOverLayer && onHoverOverLayer(vizLayerId);
     };
 
     map.setLayoutProperty(rasterLayerId, 'visibility', 'visible');

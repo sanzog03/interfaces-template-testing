@@ -12,7 +12,11 @@ import {
 
 import 'mapboxgl-timeline/dist/style.css';
 import './index.css';
+/*
+      Animation component for the visualization layers
 
+      @param {STACItem} vizItems   - An array of stac items which are to be animated
+*/
 export const VizItemAnimation = ({ vizItems }) => {
   // vizItem is the array of stac collection features
   const { map } = useMapbox();
@@ -35,12 +39,17 @@ export const VizItemAnimation = ({ vizItems }) => {
     const bufferedSource = new Set();
 
     let startDatetime = vizItems[0]['properties']['datetime'];
+    let secondDatetime = vizItems[1]['properties']['datetime'];
+    const captureInterval = moment(secondDatetime).diff(
+      startDatetime,
+      'minutes'
+    );
     let endDatetime = vizItems[vizItems.length - 1]['properties']['datetime'];
     timeline.current = new TimelineControl({
       start: startDatetime,
       end: endDatetime,
       initial: startDatetime,
-      step: 1000 * 60 * 5, // 5 minute for GOES satellite; TODO: get this from the difference between the time of consecutive elements
+      step: 1000 * 60 * captureInterval, // define steps based on the time interval of the consecutive elements
       onStart: (date) => {
         // executed on initial step tick.
         handleAnimation(

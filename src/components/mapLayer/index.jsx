@@ -51,13 +51,12 @@ export const VisualizationLayer = ({
         map.off('click', 'clusters', onClickHandler);
       }
     };
-  }, [vizLayer, map, handleLayerClick, vizLayerId, setHoveredVizLayerId]);
+  }, [vizLayer, map, vizLayerId, onClickOnLayer, onHoverOverLayer]);
 
   return null;
 };
 
 export const VisualizationLayers = ({
-  showVisualizationLayers,
   vizLayers,
   onHoverOverLayer,
   onClickOnLayer,
@@ -65,17 +64,16 @@ export const VisualizationLayers = ({
   /*
       Add layers of visualization components on top of map
 
-      @param {vizLayers} STACItem  - An array of stac items which are to be displayed
-      @param {showvisualizationlayers} boolean - Display or hide the visualization layers
-      @param {onHoveroverlayer} function - function to execute when mouse is hovered on layer
-      @param {onCLickonlayer} function - function to execute when layer is clicked
+      @param {STACItem} vizLayers   - An array of stac items which are to be displayed
+      @param {boolean} showvisualizationlayers - Display or hide the visualization layers
+      @param {function} onHoveroverlayer - function to execute when mouse is hovered on layer
+      @param {function}b onCLickonlayer - function to execute when layer is clicked
     */
   const { map } = useMapbox();
   if (!map || !vizLayers.length) return;
   return (
     <>
-      {showVisualizationLayers &&
-        vizLayers &&
+      {vizLayers &&
         vizLayers.map((vizLayer) => (
           <VisualizationLayer
             key={vizLayer.id}

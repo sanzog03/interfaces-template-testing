@@ -1,12 +1,12 @@
 export function addTimelineMarkers(start_date, end_date, color) {
-  let slider = document.querySelector(".mapboxgl-ctrl-timeline__slider");
+  let slider = document.querySelector('.mapboxgl-ctrl-timeline__slider');
   const sliderRect = slider.getBoundingClientRect();
   const parentRect = slider.parentNode.getBoundingClientRect();
   const existingMarkers =
-    slider.parentNode.querySelectorAll(".timeline-marker");
+    slider.parentNode.querySelectorAll('.timeline-marker');
   console.log({ sliderRect, parentRect, existingMarkers });
   const offsetLeftStart = sliderRect.left - parentRect.left;
-  slider.parentNode.style.position = "relative";
+  slider.parentNode.style.position = 'relative';
 
   console.log({ slider });
   // Function to create a marker

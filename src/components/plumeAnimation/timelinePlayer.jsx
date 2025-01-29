@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect } from 'react';
 
 // DateSlider Component
 export function DateSlider({ play, startDate, endDate, stepSize }) {
@@ -65,10 +65,10 @@ export function DateSlider({ play, startDate, endDate, stepSize }) {
 
   return (
     <input
-      type="range"
-      min="0"
+      type='range'
+      min='0'
       max={maxSteps}
-      step="1"
+      step='1'
       value={Math.round((currentDate - start) / step)} // Calculate the slider position based on current date
       onChange={handleSliderChange}
       ref={sliderRef} // Attach the ref to the slider
@@ -78,8 +78,8 @@ export function DateSlider({ play, startDate, endDate, stepSize }) {
 
 // TimelinePlayer Component (Parent Component)
 export default function TimelinePlayer({ play }) {
-  const startDate = "2024-01-01"; // Example start date
-  const endDate = "2024-12-31"; // Example end date
+  const startDate = '2024-01-01'; // Example start date
+  const endDate = '2024-12-31'; // Example end date
   const stepSize = 7; // Step size in days (1 week per step)
 
   return (

@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { useMapbox } from "../../context/mapContext";
+import { useEffect, useState } from 'react';
+import { useMapbox } from '../../context/mapContext';
 import {
   findMeasurementAnchor,
   addMeasurementLayer,
@@ -12,7 +12,7 @@ import {
   MEASURE_LINE,
   MEASURE_LABEL,
   MEASURE_POINTS,
-} from "../../utils/measureDistance";
+} from '../../utils/measureDistance';
 
 export const MeasurementLayer = ({
   measureMode,
@@ -39,8 +39,8 @@ export const MeasurementLayer = ({
       setClearMeasurementIcon(false);
     }
     setMeasurePoints(anchor);
-    map.getSource("measurePoints").setData(anchor);
-    map.moveLayer("measure-points");
+    map.getSource('measurePoints').setData(anchor);
+    map.moveLayer('measure-points');
   };
 
   const handleDoubleClick = (e) => {
@@ -49,10 +49,10 @@ export const MeasurementLayer = ({
 
   const handleMouseMovement = (e) => {
     const { line, label } = createMeasuringLine(e, measurePoints, mapScaleUnit);
-    map.getSource("measureLine")?.setData(line);
-    map.getSource("measureLabel")?.setData(label);
-    map.moveLayer("measure-line");
-    map.moveLayer("measure-label");
+    map.getSource('measureLine')?.setData(line);
+    map.getSource('measureLabel')?.setData(label);
+    map.moveLayer('measure-line');
+    map.moveLayer('measure-label');
     setMeasureLine(line);
     setMeasureLabel(label);
   };
@@ -75,12 +75,12 @@ export const MeasurementLayer = ({
     if (!map) return;
     if (measurePoints?.features.length > 0 && measureMode) {
       setClearMeasurementIcon(true);
-      map.on("mousemove", handleMouseMovement);
+      map.on('mousemove', handleMouseMovement);
     }
     return () => {
       // cleanups
       if (map) {
-        map.off("mousemove", handleMouseMovement);
+        map.off('mousemove', handleMouseMovement);
       }
     };
   }, [map, measurePoints, mapScaleUnit]);
@@ -108,14 +108,14 @@ export const MeasurementLayer = ({
   useEffect(() => {
     if (!map) return;
     if (measureMode && map) {
-      map.on("click", handleClick);
-      map.on("dblclick", handleDoubleClick);
+      map.on('click', handleClick);
+      map.on('dblclick', handleDoubleClick);
     }
     return () => {
       // cleanups
       if (map) {
-        map.off("click", handleClick);
-        map.off("dblclick", handleDoubleClick);
+        map.off('click', handleClick);
+        map.off('dblclick', handleDoubleClick);
       }
     };
   });

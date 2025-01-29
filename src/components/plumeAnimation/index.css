@@ -1,30 +1,29 @@
 .plume-animation-controller-container {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    color: white;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  color: white;
 }
-
 
 .mapboxgl-ctrl-timeline {
   width: 100%;
-  margin-top:15px;
+  margin-top: 15px;
   box-shadow: none !important;
   z-index: 1;
 }
 
-#plume-animation-controller{
-display: block;
-position: relative;
-top: 0px; 
-left: 0px;
-font-size: 0.9rem;
-border-radius: 6px;
-} 
+#plume-animation-controller {
+  display: block;
+  position: relative;
+  top: 0px;
+  left: 0px;
+  font-size: 0.9rem;
+  border-radius: 6px;
+}
 
 /* Add a pseudo-element for "Animate" text */
 .mapboxgl-ctrl-timeline::before {
-  content: "Animate";
+  content: 'Animate';
   display: block;
   font-size: 0.9rem;
   color: #000000;
@@ -34,28 +33,27 @@ border-radius: 6px;
 /* Rearrange the existing components */
 .mapboxgl-ctrl-timeline {
   display: grid;
-  grid-template-areas: 
-    "text label"
-    "controls controls";
+  grid-template-areas:
+    'text label'
+    'controls controls';
   gap: 1px;
   background: white;
   width: 100%;
-  border:none !important;
+  border: none !important;
   --map-timeline-border: none;
 }
-
 
 /* Position the label in the top row */
 .mapboxgl-ctrl-timeline__label {
   grid-area: label;
-  font-family: "Roboto","Helvetica","Arial","sans-serif";
+  font-family: 'Roboto', 'Helvetica', 'Arial', 'sans-serif';
   font-weight: 400;
   font-size: 0.9rem;
   color: #000000;
-  line-height:0.9;
+  line-height: 0.9;
   align-items: center;
-  justify-content:right;
-  display:flex  
+  justify-content: right;
+  display: flex;
 }
 
 /* Container for button and slider */
@@ -79,7 +77,6 @@ border-radius: 6px;
 .mapboxgl-ctrl-timeline__toggler:hover {
   background: #0066bf;
 }
-
 
 .mapboxgl-ctrl-timeline__slider {
   width: 200px;

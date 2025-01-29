@@ -1,22 +1,22 @@
-import { useEffect, useRef,useState } from "react";
-import mapboxgl from "mapbox-gl";
-import { useMapbox } from "../../context/mapContext";
-import { HamburgerControl } from "./hamburger";
-import { MeasureDistanceControl } from "./measureDistance";
-import { ChangeUnitControl } from "./changeUnit";
-import { ClearMeasurementControl } from "./clearMeasurement";
-import { LayerVisibilityControl } from "./layerVisibility";
-import { HomeControl } from "./home";
-import { RestoreControl } from "./restore";
+import { useEffect, useRef, useState } from 'react';
+import mapboxgl from 'mapbox-gl';
+import { useMapbox } from '../../context/mapContext';
+import { HamburgerControl } from './hamburger';
+import { MeasureDistanceControl } from './measureDistance';
+import { ChangeUnitControl } from './changeUnit';
+import { ClearMeasurementControl } from './clearMeasurement';
+import { LayerVisibilityControl } from './layerVisibility';
+import { HomeControl } from './home';
+import { RestoreControl } from './restore';
 import { MeasurementLayer } from '../../components/measurementLayer';
 
-import "./index.css";
+import './index.css';
 const scaleUnits = {
-  KM: "km",
-  MILES: "mi",
+  KM: 'km',
+  MILES: 'mi',
 };
 
- const DefaultMapControls = ({
+const DefaultMapControls = ({
   measureMode,
   onClickHamburger,
   onClickMeasureMode,
@@ -26,16 +26,18 @@ const scaleUnits = {
   setMapScaleUnit,
   handleResetHome,
   handleResetToSelectedRegion,
-  openDrawer
+  openDrawer,
 }) => {
-   const { map } = useMapbox();
+  const { map } = useMapbox();
   const customControlContainer = useRef();
 
   useEffect(() => {
     if (!map) return;
 
     const hamburgerControl = new HamburgerControl(onClickHamburger);
-    const mapboxNavigation = new mapboxgl.NavigationControl({showCompass: false});
+    const mapboxNavigation = new mapboxgl.NavigationControl({
+      showCompass: false,
+    });
     const layerVisibilityControl = new LayerVisibilityControl();
     const homeControl = new HomeControl(handleResetHome);
     const restoreControl = new RestoreControl(handleResetToSelectedRegion);
@@ -55,11 +57,11 @@ const scaleUnits = {
 
     return () => {
       // clean ups
-        if (hamburgerControl) hamburgerControl.onRemove();
-        if (mapboxNavigation) mapboxNavigation.onRemove();
-        if (layerVisibilityControl) layerVisibilityControl.onRemove();
-        if (homeControl) homeControl.onRemove();
-        if (restoreControl) restoreControl.onRemove();
+      if (hamburgerControl) hamburgerControl.onRemove();
+      if (mapboxNavigation) mapboxNavigation.onRemove();
+      if (layerVisibilityControl) layerVisibilityControl.onRemove();
+      if (homeControl) homeControl.onRemove();
+      if (restoreControl) restoreControl.onRemove();
     };
   }, [map]);
 
@@ -71,7 +73,9 @@ const scaleUnits = {
     );
 
     if (measurementControl) {
-      const mapboxCustomControlContainer = document.querySelector("#mapbox-custom-controls");
+      const mapboxCustomControlContainer = document.querySelector(
+        '#mapbox-custom-controls'
+      );
       const measurementControlElem = measurementControl.onAdd(map);
       mapboxCustomControlContainer.append(measurementControlElem);
     }
@@ -92,7 +96,9 @@ const scaleUnits = {
       setMapScaleUnit
     );
 
-    const mapboxCustomControlContainer = document.querySelector("#mapbox-custom-controls");
+    const mapboxCustomControlContainer = document.querySelector(
+      '#mapbox-custom-controls'
+    );
     const changeUnitControlElem = changeUnitControl.onAdd(map);
     mapboxCustomControlContainer.append(changeUnitControlElem);
 
@@ -112,7 +118,9 @@ const scaleUnits = {
       : null;
 
     if (clearMeasurementIcon) {
-      const mapboxCustomControlContainer = document.querySelector("#mapbox-custom-controls");
+      const mapboxCustomControlContainer = document.querySelector(
+        '#mapbox-custom-controls'
+      );
       const clearMeasurementControlElem = clearMeasurementControl.onAdd(map);
       mapboxCustomControlContainer.append(clearMeasurementControlElem);
     }
@@ -126,7 +134,7 @@ const scaleUnits = {
   }, [map, clearMeasurementIcon, measureMode]);
 
   useEffect(() => {
-    const unit = mapScaleUnit === "km" ? "metric" : "imperial";
+    const unit = mapScaleUnit === 'km' ? 'metric' : 'imperial';
     if (!map) return;
     const scaleControl = new mapboxgl.ScaleControl({
       maxWidth: 80,
@@ -144,42 +152,52 @@ const scaleUnits = {
   }, [map, mapScaleUnit, measureMode]);
 
   return (
-    <div id="mapbox-custom-controls" ref={customControlContainer} style={{ right: openDrawer ? "30.7rem" : "0.5rem" }}></div>
+    <div
+      id='mapbox-custom-controls'
+      ref={customControlContainer}
+      style={{ right: openDrawer ? '30.7rem' : '0.5rem' }}
+    ></div>
   );
- };
+};
 
-export const MapControls = ({ openDrawer,setOpenDrawer,handleResetHome,handleResetToSelectedRegion, }) => {
-  const [ measureMode, setMeasureMode ] = useState(false);
-  const [ clearMeasurementIcon, setClearMeasurementIcon ] = useState(false)
-  const [ clearMeasurementLayer, setClearMeasurementLayer ] = useState(false)
+export const MapControls = ({
+  openDrawer,
+  setOpenDrawer,
+  handleResetHome,
+  handleResetToSelectedRegion,
+}) => {
+  const [measureMode, setMeasureMode] = useState(false);
+  const [clearMeasurementIcon, setClearMeasurementIcon] = useState(false);
+  const [clearMeasurementLayer, setClearMeasurementLayer] = useState(false);
   const [mapScaleUnit, setMapScaleUnit] = useState(scaleUnits.MILES);
-  return (<>
-     <DefaultMapControls
-          openDrawer={openDrawer  }
-          measureMode={measureMode}
-          onClickHamburger={() => {
-            setOpenDrawer((openDrawer) => !openDrawer);
-          }}
-          onClickMeasureMode={() => {
-            setMeasureMode((measureMode) => !measureMode);
-          }}
-          onClickClearIcon={() => {
-            setClearMeasurementLayer(true);
-          }}
-          clearMeasurementIcon={clearMeasurementIcon}
-          mapScaleUnit={mapScaleUnit}
-          setMapScaleUnit={setMapScaleUnit}
-          handleResetHome={handleResetHome}
-          handleResetToSelectedRegion={handleResetToSelectedRegion}
-        />
-        <MeasurementLayer
-          measureMode={measureMode}
-          setMeasureMode={setMeasureMode}
-          setClearMeasurementIcon={setClearMeasurementIcon}
-          clearMeasurementLayer={clearMeasurementLayer}
-          setClearMeasurementLayer={setClearMeasurementLayer}
-          mapScaleUnit={mapScaleUnit}
-        />
-       
-      </>)
-}
+  return (
+    <>
+      <DefaultMapControls
+        openDrawer={openDrawer}
+        measureMode={measureMode}
+        onClickHamburger={() => {
+          setOpenDrawer((openDrawer) => !openDrawer);
+        }}
+        onClickMeasureMode={() => {
+          setMeasureMode((measureMode) => !measureMode);
+        }}
+        onClickClearIcon={() => {
+          setClearMeasurementLayer(true);
+        }}
+        clearMeasurementIcon={clearMeasurementIcon}
+        mapScaleUnit={mapScaleUnit}
+        setMapScaleUnit={setMapScaleUnit}
+        handleResetHome={handleResetHome}
+        handleResetToSelectedRegion={handleResetToSelectedRegion}
+      />
+      <MeasurementLayer
+        measureMode={measureMode}
+        setMeasureMode={setMeasureMode}
+        setClearMeasurementIcon={setClearMeasurementIcon}
+        clearMeasurementLayer={clearMeasurementLayer}
+        setClearMeasurementLayer={setClearMeasurementLayer}
+        mapScaleUnit={mapScaleUnit}
+      />
+    </>
+  );
+};

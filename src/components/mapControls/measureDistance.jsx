@@ -1,19 +1,20 @@
-import IconButton from "@mui/material/IconButton";
+import IconButton from '@mui/material/IconButton';
 import StraightenIcon from '@mui/icons-material/Straighten';
-import ReactDOM from "react-dom/client";
+import ReactDOM from 'react-dom/client';
 import Tooltip from '@mui/material/Tooltip';
 
 function MeasureButton({ icon: iconClicked, onClick }) {
   return (
-    <Tooltip title="Measurement Scale">
-      <IconButton className="measure-icon map-control-icon"
+    <Tooltip title='Measurement Scale'>
+      <IconButton
+        className='measure-icon map-control-icon'
         style={{
-          backgroundColor: !iconClicked ? "": "var(--main-blue)",
-          color: !iconClicked ? "var(--main-blue)" : "white"
+          backgroundColor: !iconClicked ? '' : 'var(--main-blue)',
+          color: !iconClicked ? 'var(--main-blue)' : 'white',
         }}
         onClick={onClick}
       >
-        <StraightenIcon style={{ transform: "rotate(90deg)" }} />
+        <StraightenIcon style={{ transform: 'rotate(90deg)' }} />
       </IconButton>
     </Tooltip>
   );
@@ -42,7 +43,7 @@ export class MeasureDistanceControl {
           <MeasureButton icon={this.icon} onClick={this.handleClick} />
         );
       } catch (error) {
-        console.warn("Failed to update UI:", error);
+        console.warn('Failed to update UI:', error);
       }
     }
   }
@@ -50,9 +51,9 @@ export class MeasureDistanceControl {
   onAdd(map) {
     try {
       this.map = map;
-      this.container = document.createElement("div");
-      this.container.className = "mapboxgl-ctrl mapboxgl-ctrl-group";
-      this.container.addEventListener("contextmenu", (e) => e.preventDefault());
+      this.container = document.createElement('div');
+      this.container.className = 'mapboxgl-ctrl mapboxgl-ctrl-group';
+      this.container.addEventListener('contextmenu', (e) => e.preventDefault());
       // Create root and mark as mounted
       this.root = ReactDOM.createRoot(this.container);
       this._mounted = true;
@@ -60,8 +61,8 @@ export class MeasureDistanceControl {
       this.updateUI();
       return this.container;
     } catch (error) {
-      console.error("Error adding control:", error);
-      return document.createElement("div");
+      console.error('Error adding control:', error);
+      return document.createElement('div');
     }
   }
 
@@ -79,7 +80,7 @@ export class MeasureDistanceControl {
         this.map = null;
         this.container = null;
       } catch (error) {
-        console.warn("Error during cleanup:", error);
+        console.warn('Error during cleanup:', error);
       }
     }, 0);
   }

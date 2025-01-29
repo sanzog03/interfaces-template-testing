@@ -3,12 +3,15 @@ import mapboxgl from 'mapbox-gl';
 
 import { useMapbox } from '../../context/mapContext';
 import './index.css';
+/*
+  Add marker on map
+  @param {STACItem} vizItems   - An array of stac items which are to be rendered as markers
+  @param {boolean} showMarkerFeature - Display or hide the marker
+  @param {function} onSelectVizItem  - function to execute when the marker is clicked 
+*/
 
-export const MarkerFeature = ({
-  showMarkerFeature,
-  vizItems,
-  setSelectedVizItemId,
-}) => {
+// eslint-disable-next-line prettier/prettier
+export const MarkerFeature = ({ showMarkerFeature, vizItems, onSelectVizItem }) => {
   const { map } = useMapbox();
   const [markersVisible, setMarkersVisible] = useState(true);
 
@@ -21,7 +24,7 @@ export const MarkerFeature = ({
       const marker = addMarker(map, lon, lat);
       const mel = marker.getElement();
       mel.addEventListener('click', (e) => {
-        setSelectedVizItemId(item.id);
+        onSelectVizItem && onSelectVizItem(item.id);
       });
       mel.style.display = markersVisible ? 'block' : 'none';
       return mel;
@@ -33,7 +36,7 @@ export const MarkerFeature = ({
         marker.parentNode.removeChild(marker);
       });
     };
-  }, [vizItems, map, setSelectedVizItemId, markersVisible, showMarkerFeature]);
+  }, [vizItems, map, onSelectVizItem, markersVisible, showMarkerFeature]);
 
   useEffect(() => {
     if (!map) return;

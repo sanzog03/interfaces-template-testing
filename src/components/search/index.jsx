@@ -5,8 +5,15 @@ import SearchIcon from '@mui/icons-material/Search';
 import InputAdornment from '@mui/material/InputAdornment';
 
 import { TrieSearch } from '../../services/trieSearch';
+/*
+      Search stacItem compoents
 
-export function Search({ ids, handleSelectedVizItemSearch }) {
+      @param {STACItem} vizItems   - An array of stac items from which search is to be done
+      @param {function} onSelectedVizItemSearch - function returns with id of selected STACItem when a item is clicked from dropdown 
+      
+*/
+export function Search({ vizItems, onSelectedVizItemSearch }) {
+  const ids = vizItems?.map((vizItem) => vizItem.id);
   const trieSearch = useRef(null);
   const [searchOptions, setSearchOptions] = useState([]);
 
@@ -22,7 +29,7 @@ export function Search({ ids, handleSelectedVizItemSearch }) {
   };
 
   const handleOnOptionClicked = (event, clickedValue) => {
-    handleSelectedVizItemSearch(clickedValue);
+    onSelectedVizItemSearch(clickedValue);
   };
 
   useEffect(() => {

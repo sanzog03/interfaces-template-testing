@@ -114,8 +114,8 @@ export function Dashboard({
     // will react to update the metadata on the sidedrawer
     if (!vizItems || !vizItemId) return;
     const vizItem = vizItems[vizItemId];
-    const { location } = vizItem;
-
+    const location = vizItem?.geometry?.coordinates[0][0];
+    console.log({ location });
     setSelectedVizItems([vizItem]);
     setOpenDrawer(true);
     setZoomLocation(location);
@@ -186,6 +186,9 @@ export function Dashboard({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dataTree.current, selectedRegionId]);
 
+  const onFilteredVizItems = (filteredVizItems) => {
+    console.log({ filteredVizItems });
+  };
   // JSX
   return (
     <Box className='fullSize'>
@@ -196,14 +199,14 @@ export function Dashboard({
             <div className='title-content'>
               <HorizontalLayout>
                 <Search
-                  ids={vizItemIds}
-                  handleSelectedVizItemSearch={handleSelectedVizItemSearch}
+                  vizItems={Object.keys(vizItems).map((key) => vizItems[key])}
+                  onSelectedVizItemSearch={handleSelectedVizItemSearch}
                 ></Search>
               </HorizontalLayout>
               <HorizontalLayout>
                 <FilterByDate
-                  vizItems={filteredVizItems}
-                  setFilteredVizItems={setFilteredVizItems}
+                  vizItems={Object.keys(vizItems).map((key) => vizItems[key])}
+                  onFilteredVizItems={onFilteredVizItems}
                 />
               </HorizontalLayout>
               <HorizontalLayout>

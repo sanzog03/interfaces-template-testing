@@ -6,17 +6,15 @@ import './index.css';
 /*
   Add marker on map
   @param {STACItem} vizItems   - An array of stac items which are to be rendered as markers
-  @param {boolean} showMarkerFeature - Display or hide the marker
-  @param {function} onSelectVizItem  - function to execute when the marker is clicked 
+  @param {function} onSelectVizItem  - function to execute when the marker is clicked . will provide vizItemId as a parameter to the callback
 */
 
 // eslint-disable-next-line prettier/prettier
-export const MarkerFeature = ({ showMarkerFeature, vizItems, onSelectVizItem }) => {
+export const MarkerFeature = ({ vizItems, onSelectVizItem }) => {
   const { map } = useMapbox();
   const [markersVisible, setMarkersVisible] = useState(true);
-
   useEffect(() => {
-    if (!showMarkerFeature || !map || !vizItems.length) return;
+    if (!map || !vizItems.length) return;
 
     const plottedMarkers = vizItems.map((item) => {
       const location = item.geometry.coordinates[0][0];
@@ -36,7 +34,7 @@ export const MarkerFeature = ({ showMarkerFeature, vizItems, onSelectVizItem }) 
         marker.parentNode.removeChild(marker);
       });
     };
-  }, [vizItems, map, onSelectVizItem, markersVisible, showMarkerFeature]);
+  }, [vizItems, map, onSelectVizItem, markersVisible]);
 
   useEffect(() => {
     if (!map) return;

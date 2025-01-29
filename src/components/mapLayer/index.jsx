@@ -9,31 +9,28 @@ import {
   sourceExists,
 } from '../../utils';
 
-export const VisualizationLayer = ({
-  vizLayer,
-  onClickOnLayer,
-  onHoverOverLayer,
-}) => {
+// eslint-disable-next-line prettier/prettier
+export const VisualizationLayer = ({ vizItem, onClickOnLayer, onHoverOverLayer }) => {
   const { map } = useMapbox();
-  const vizLayerId = vizLayer.id;
+  const vizItemId = vizItem.id;
 
   useEffect(() => {
-    if (!map || !vizLayer) return;
-    const feature = vizLayer;
-    const rasterSourceId = getSourceId('raster' + vizLayerId);
-    const rasterLayerId = getLayerId('raster' + vizLayerId);
-    const polygonSourceId = getSourceId('polygon' + vizLayerId);
-    const polygonLayerId = getLayerId('polygon' + vizLayerId);
+    if (!map || !vizItem) return;
+    const feature = vizItem;
+    const rasterSourceId = getSourceId('raster' + vizItemId);
+    const rasterLayerId = getLayerId('raster' + vizItemId);
+    const polygonSourceId = getSourceId('polygon' + vizItemId);
+    const polygonLayerId = getLayerId('polygon' + vizItemId);
 
     addSourceLayerToMap(map, feature, rasterSourceId, rasterLayerId);
     addSourcePolygonToMap(map, feature, polygonSourceId, polygonLayerId);
 
     const onClickHandler = (e) => {
-      onClickOnLayer && onClickOnLayer(vizLayerId);
+      onClickOnLayer && onClickOnLayer(vizItemId);
     };
 
     const onHoverHandler = (e) => {
-      onHoverOverLayer && onHoverOverLayer(vizLayerId);
+      onHoverOverLayer && onHoverOverLayer(vizItemId);
     };
 
     map.setLayoutProperty(rasterLayerId, 'visibility', 'visible');
@@ -51,33 +48,32 @@ export const VisualizationLayer = ({
         map.off('click', 'clusters', onClickHandler);
       }
     };
-  }, [vizLayer, map, vizLayerId, onClickOnLayer, onHoverOverLayer]);
+  }, [vizItem, map, vizItemId, onClickOnLayer, onHoverOverLayer]);
 
   return null;
 };
 
 export const VisualizationLayers = ({
-  vizLayers,
+  vizItems,
   onHoverOverLayer,
   onClickOnLayer,
 }) => {
   /*
       Add layers of visualization components on top of map
 
-      @param {STACItem} vizLayers   - An array of stac items which are to be displayed
-      @param {boolean} showvisualizationlayers - Display or hide the visualization layers
-      @param {function} onHoveroverlayer - function to execute when mouse is hovered on layer
-      @param {function}b onCLickonlayer - function to execute when layer is clicked
+      @param {STACItem} vizItems   - An array of STACitems which are to be displayed
+      @param {function} onHoverOverlayer - function to execute when mouse is hovered on layer. will provide vizItemId as a parameter to the callback
+      @param {function} onClickOnlayer - function to execute when layer is clicked. will provide vizItemId as a parameter to the callback
     */
   const { map } = useMapbox();
-  if (!map || !vizLayers.length) return;
+  if (!map || !vizItems.length) return;
   return (
     <>
-      {vizLayers &&
-        vizLayers.map((vizLayer) => (
+      {vizItems.length &&
+        vizItems.map((vizItem) => (
           <VisualizationLayer
-            key={vizLayer.id}
-            vizLayer={vizLayer}
+            key={vizItem.id}
+            vizItem={vizItem}
             onClickOnLayer={onClickOnLayer}
             onHoverOverLayer={onHoverOverLayer}
           />

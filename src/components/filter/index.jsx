@@ -4,8 +4,8 @@ import moment from 'moment';
 /*
       Filter stacItem based on the date range
 
-      @param {STACItem} vizItems   - An array of stac items from which filtering is to be done
-      @param {function} onFilteredVizItems - function returns with filtered STACItem when date range is selected
+      @param {STACItem} vizItems   - An array of STACitems from which filtering is to be done
+      @param {function} onFilteredVizItems -   with filtered vizItems when date range is selected
       
 */
 

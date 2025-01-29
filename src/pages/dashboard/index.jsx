@@ -223,13 +223,11 @@ export function Dashboard({
             // handleResetToSelectedRegion={handleResetToSelectedRegion}
           />
           <MarkerFeature
-            showMarkerFeature={showMarkerFeature}
             vizItems={Object.keys(vizItems).map((key) => vizItems[key])}
-            setSelectedVizItemId={handleSelectedVizItem}
+            onSelectVizItem={handleSelectedVizItem}
           ></MarkerFeature>
           <VisualizationLayers
-            showVisualizationLayers={showVisualizationLayers}
-            vizLayers={visualizationLayers}
+            vizItems={visualizationLayers}
             handleLayerClick={handleSelectedVizLayer}
             hoveredVizLayerId={hoveredVizLayerId}
             setHoveredVizLayerId={setHoveredVizLayerId}

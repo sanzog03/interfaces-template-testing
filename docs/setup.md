@@ -1,12 +1,12 @@
-
 # interfaces-template
+
 Template for the custom interfaces
 
 ## Pre requisities
 
 - Install node & npm
 - use latest node version
-    - if using nvm, run `nvm use`  
+  - if using nvm, run `nvm use`
 
 ## Install dependency
 

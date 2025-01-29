@@ -39,7 +39,9 @@
 
 /* Height 100% fix */
 
-html, body, #root {
+html,
+body,
+#root {
   height: 100%;
   background-color: white;
 }
@@ -58,5 +60,5 @@ html, body, #root {
 }
 
 :root {
-  --main-blue: #082A64;
+  --main-blue: #082a64;
 }

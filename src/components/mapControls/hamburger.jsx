@@ -1,13 +1,13 @@
-import IconButton from "@mui/material/IconButton";
-import ReactDOM from "react-dom/client";
+import IconButton from '@mui/material/IconButton';
+import ReactDOM from 'react-dom/client';
 import Tooltip from '@mui/material/Tooltip';
 import MenuIcon from '@mui/icons-material/Menu';
 
-function HamburgerIcon({onClickHandler}) {
+function HamburgerIcon({ onClickHandler }) {
   return (
-    <Tooltip title="Toggle Drawer">
-      <IconButton className="menu-open-icon" onClick={onClickHandler}>
-        <MenuIcon className="map-control-icon"/>
+    <Tooltip title='Toggle Drawer'>
+      <IconButton className='menu-open-icon' onClick={onClickHandler}>
+        <MenuIcon className='map-control-icon' />
       </IconButton>
     </Tooltip>
   );
@@ -25,7 +25,7 @@ export class HamburgerControl {
     this._container = document.createElement('div');
     this._container.className = 'mapboxgl-ctrl mapboxgl-ctrl-group';
     const root = ReactDOM.createRoot(this._container);
-    root.render(<HamburgerIcon onClickHandler={this._onClick}/>);
+    root.render(<HamburgerIcon onClickHandler={this._onClick} />);
     this.root = root;
     return this._container;
   }
@@ -38,7 +38,7 @@ export class HamburgerControl {
         this._container.parentNode.removeChild(this._container);
         this._map = undefined;
       } catch (err) {
-        console.error("Error adding control:", err);
+        console.error('Error adding control:', err);
       }
     }, 0);
   }

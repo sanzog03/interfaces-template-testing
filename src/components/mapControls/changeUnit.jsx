@@ -1,17 +1,17 @@
-import React from "react";
-import IconButton from "@mui/material/IconButton";
-import ReactDOM from "react-dom/client";
+import React from 'react';
+import IconButton from '@mui/material/IconButton';
+import ReactDOM from 'react-dom/client';
 import Tooltip from '@mui/material/Tooltip';
 
 function ChangeUnitButton({ onClick, unit }) {
   return (
-    <Tooltip title="Change Measurement Unit">
+    <Tooltip title='Change Measurement Unit'>
       <IconButton
-        className="change-unit map-control-icon"
+        className='change-unit map-control-icon'
         onClick={onClick}
         style={{
-          backgroundColor: "#fff",
-          padding: "6px",
+          backgroundColor: '#fff',
+          padding: '6px',
         }}
       >
         {unit}
@@ -31,7 +31,7 @@ export class ChangeUnitControl {
 
   onClick = () => {
     if (!this._mounted || !this.map) return;
-    this.unit = this.unit === "km" ? "mi" : "km";
+    this.unit = this.unit === 'km' ? 'mi' : 'km';
     this.updateUI();
     this._setMapScaleUnit(this.unit);
   };
@@ -43,7 +43,7 @@ export class ChangeUnitControl {
           <ChangeUnitButton unit={this.unit} onClick={this.onClick} />
         );
       } catch (error) {
-        console.warn("Failed to update UI:", error);
+        console.warn('Failed to update UI:', error);
       }
     }
   }
@@ -51,8 +51,8 @@ export class ChangeUnitControl {
   onAdd(map) {
     try {
       this.map = map;
-      this.container = document.createElement("div");
-      this.container.className = "mapboxgl-ctrl mapboxgl-ctrl-group";
+      this.container = document.createElement('div');
+      this.container.className = 'mapboxgl-ctrl mapboxgl-ctrl-group';
 
       // Create root and mark as mounted
       this.root = ReactDOM.createRoot(this.container);
@@ -63,8 +63,8 @@ export class ChangeUnitControl {
 
       return this.container;
     } catch (error) {
-      console.error("Error adding control:", error);
-      return document.createElement("div"); // Return empty div in case of error
+      console.error('Error adding control:', error);
+      return document.createElement('div'); // Return empty div in case of error
     }
   }
 
@@ -83,7 +83,7 @@ export class ChangeUnitControl {
         this.map = null;
         this.container = null;
       } catch (error) {
-        console.warn("Error during cleanup:", error);
+        console.warn('Error during cleanup:', error);
       }
     }, 0);
   }

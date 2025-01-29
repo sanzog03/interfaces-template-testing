@@ -1,11 +1,11 @@
 .card-plume {
-    width: 45%;
+  width: 45%;
 }
 
 .card-download-link {
-    text-decoration: none;
+  text-decoration: none;
 }
 
 .card-download-link > div {
-    color: #0098D7;
+  color: #0098d7;
 }

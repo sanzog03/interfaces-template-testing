@@ -1,14 +1,13 @@
-import IconButton from "@mui/material/IconButton";
+import IconButton from '@mui/material/IconButton';
 import ClearIcon from '@mui/icons-material/Clear';
-import ReactDOM from "react-dom/client";
+import ReactDOM from 'react-dom/client';
 import Tooltip from '@mui/material/Tooltip';
 
 function ClearMeasurementIcon() {
-
   return (
-    <Tooltip title="Clear Measurement Selection">
-      <IconButton className="clear-icon">
-        <ClearIcon className="map-control-icon"/>
+    <Tooltip title='Clear Measurement Selection'>
+      <IconButton className='clear-icon'>
+        <ClearIcon className='map-control-icon' />
       </IconButton>
     </Tooltip>
   );
@@ -20,23 +19,21 @@ export class ClearMeasurementControl {
     this.map = null;
     this.root = null;
     this.isMounted = true;
-     this._onClick = onClick;
+    this._onClick = onClick;
   }
 
   onClick() {
     if (!this.isMounted) return;
-    
-  
   }
 
   onAdd(map) {
     this.map = map;
-    this.container = document.createElement("div");
-    this.container.className = "mapboxgl-ctrl mapboxgl-ctrl-group";
-    this.container.addEventListener("contextmenu", (e) => e.preventDefault());
-    
+    this.container = document.createElement('div');
+    this.container.className = 'mapboxgl-ctrl mapboxgl-ctrl-group';
+    this.container.addEventListener('contextmenu', (e) => e.preventDefault());
+
     const root = ReactDOM.createRoot(this.container);
-    root.render(<ClearMeasurementIcon  />);
+    root.render(<ClearMeasurementIcon />);
     this.root = root;
     this.container.onclick = this._onClick;
     return this.container;
@@ -55,6 +52,6 @@ export class ClearMeasurementControl {
       } catch (error) {
         console.error('Error removing clear measurement control:', error);
       }
-    }, 0)
+    }, 0);
   }
 }

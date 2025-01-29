@@ -17,20 +17,22 @@ export const MapboxProvider = ({ children }) => {
 
     let mapboxStyleUrl = 'mapbox://styles/mapbox/streets-v12';
     if (mapboxStyleBaseUrl) {
-        let styleId = BASEMAP_STYLES.findIndex(style => style.id === BASEMAP_ID_DEFAULT);
-        mapboxStyleUrl = `${mapboxStyleBaseUrl}/${BASEMAP_STYLES[styleId].mapboxId}`;
+      let styleId = BASEMAP_STYLES.findIndex(
+        (style) => style.id === BASEMAP_ID_DEFAULT
+      );
+      mapboxStyleUrl = `${mapboxStyleBaseUrl}/${BASEMAP_STYLES[styleId].mapboxId}`;
     }
 
     mapboxgl.accessToken = accessToken;
     map.current = new mapboxgl.Map({
-        container: mapContainer.current,
-        style: mapboxStyleUrl,
-        center: [-98.771556, 32.967243], // Centered on the US
-        zoom: 4,
-        projection: 'equirectangular',
-        options: {
-            trackResize: true
-        }
+      container: mapContainer.current,
+      style: mapboxStyleUrl,
+      center: [-98.771556, 32.967243], // Centered on the US
+      zoom: 4,
+      projection: 'equirectangular',
+      options: {
+        trackResize: true,
+      },
     });
 
     map.current.dragRotate.disable();

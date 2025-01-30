@@ -37,6 +37,7 @@ export function Dashboard({
   data,
   dataTree,
   metaDataTree,
+  collectionMeta,
   vizItemMetaData,
   zoomLocation,
   setZoomLocation,
@@ -51,7 +52,7 @@ export function Dashboard({
   const prevSelectedRegionId = useRef(''); // to be able to restore to previously selected region.
   const [selectedVizItems, setSelectedVizItems] = useState([]); // all visualization items for the selected region (marker)
   const [hoveredVizLayerId, setHoveredVizLayerId] = useState(''); // vizItem_id of the visualization item which was hovered over
-
+  const [colorbarAttributes, setColorbaAttributes] = useState({});
   const [filteredVizItems, setFilteredVizItems] = useState([]); // visualization items for the selected region with the filter applied
 
   const [vizItemIds, setVizItemIds] = useState([]); // list of vizItem_ids for the search feature.
@@ -89,7 +90,6 @@ export function Dashboard({
 
   const handleSelectedVizLayer = (vizLayerId) => {
     if (!vizItems || !vizLayerId) return;
-    console.log({ clickedOn: vizLayerId });
     const vizItem = vizItems[vizLayerId];
     const { location } = vizItem;
     handleSelectedVizItemSearch(vizLayerId);
@@ -186,6 +186,18 @@ export function Dashboard({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dataTree.current, selectedRegionId]);
 
+  useEffect(() => {
+    const colorMap = collectionMeta?.renders?.dashboard?.colormap_name;
+    const rescaleValues = collectionMeta?.renders?.dashboard?.rescale;
+    const VMIN = rescaleValues && rescaleValues[0][0];
+    const VMAX = rescaleValues && rescaleValues[0][1];
+    setColorbaAttributes({
+      VMAX: VMAX,
+      VMIN: VMIN,
+      colorMap: colorMap,
+    });
+  }, [collectionMeta]);
+
   const onFilteredVizItems = (filteredVizItems) => {
     //   setFilteredVizItems(filteredVizItems);
     //   // console.log({ filteredVizItems });
@@ -247,7 +259,13 @@ export function Dashboard({
           setHoveredVizItemId={setHoveredVizLayerId}
         />
       </div>
-      <ColorBar label={'Methane Column Enhancement (mol/m²)'} />
+      <ColorBar
+        label={'Methane Column Enhancement (mol/m²)'}
+        VMAX={colorbarAttributes?.VMAX}
+        VMIN={colorbarAttributes?.VMIN}
+        colorMap={colorbarAttributes?.colorMap}
+        STEPSIZE={5}
+      />
       {loadingData && <LoadingSpinner />}
     </Box>
   );

@@ -88,6 +88,7 @@ export function DashboardContainer() {
       zoomLevel={zoomLevel}
       setZoomLocation={setZoomLocation}
       setZoomLevel={setZoomLevel}
+      collectionMeta={collectionMeta}
       dataTree={dataTree}
       metaDataTree={metaDataTree}
       vizItemMetaData={vizItemMetaData}

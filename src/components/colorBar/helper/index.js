@@ -1,9 +1,29 @@
 import * as d3 from 'd3';
 
-export const createColorbar = (colorbar, VMIN = 0, VMAX = 0.4) => {
+const COLOR_MAP = {
+  rdylgn: d3.interpolateRdYlGn, //imerg
+  turbo: d3.interpolateTurbo, //sst
+  bupu_r: (t) => d3.interpolateBuPu(t), //viirs,modis
+  viridis: d3.interpolateViridis, //cygnss
+  greys_r: (t) => d3.interpolateGreys(1 - t), //goes02 (reversed)
+  cubehelix: d3.interpolateCubehelixDefault, //goes13
+  magma: d3.interpolateMagma,
+  reds: d3.interpolateReds,
+  gist_earth: (t) => d3.interpolateGreys(1 - t), // (reversed)
+  default: d3.interpolatePlasma,
+  plasma: d3.interpolatePlasma,
+};
+
+export const createColorbar = (
+  colorbar,
+  VMIN = -92,
+  VMAX = 100,
+  STEP = 30,
+  colorMap = 'default'
+) => {
   // Create a color scale using D3
   const colorScale = d3
-    .scaleSequential(d3.interpolatePlasma)
+    .scaleSequential(COLOR_MAP[colorMap])
     .domain([VMIN, VMAX]); // Set VMIN and VMAX as your desired min and max values
 
   colorbar
@@ -20,7 +40,7 @@ export const createColorbar = (colorbar, VMIN = 0, VMAX = 0.4) => {
     .attr('fill', (d) => colorScale(d));
 
   // Define custom scale labels
-  const scaleLabels = generateScale(VMIN, VMAX, 0.08);
+  const scaleLabels = generateScale(VMIN, VMAX, STEP);
 
   // Create a container for color labels
   colorbar

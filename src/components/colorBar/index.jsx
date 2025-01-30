@@ -7,17 +7,17 @@ import * as d3 from 'd3';
 
 import './index.css';
 
-export const ColorBar = ({ label }) => {
+export const ColorBar = ({ label, VMIN, VMAX, STEPSIZE = 1, colorMap }) => {
   const colorBarScale = useRef();
-
   useEffect(() => {
+    const STEP = (VMAX - VMIN) / STEPSIZE;
     const colorbar = d3.select(colorBarScale.current);
-    createColorbar(colorbar);
+    createColorbar(colorbar, VMIN, VMAX, STEP, colorMap);
 
     return () => {
       colorbar.selectAll('*').remove();
     };
-  }, []);
+  }, [label, VMIN, VMAX, STEPSIZE, colorMap]);
 
   return (
     <Card id='colorbar'>

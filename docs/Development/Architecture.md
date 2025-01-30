@@ -21,7 +21,7 @@ All the visualizations of the assets and artifacts are done on top of this map.
 The controls or the map liek zoom, home, measurement feature are all defined and
 controlled from here.
 
-# Visualiation Layer:
+# Visualization Layer:
 
 The assets and artifacts to be displayed are composed and rendered using this component.
 Markers, polygon on top of the map and the raster inside the polygon are part of this

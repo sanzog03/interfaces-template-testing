@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useMapbox } from '../../context/mapContext';
+import { useMapbox } from '../mainMap/context';
 import {
   findMeasurementAnchor,
   addMeasurementLayer,
@@ -12,7 +12,7 @@ import {
   MEASURE_LINE,
   MEASURE_LABEL,
   MEASURE_POINTS,
-} from '../../utils/measureDistance';
+} from './helper/measureDistance';
 
 export const MeasurementLayer = ({
   measureMode,

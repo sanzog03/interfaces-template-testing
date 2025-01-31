@@ -1,4 +1,4 @@
-import { TrieTree } from '../utils/trieTree';
+import { TrieTree } from './trieTree';
 
 export class TrieSearch {
   constructor() {

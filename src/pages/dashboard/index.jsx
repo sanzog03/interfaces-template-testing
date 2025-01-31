@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 
-import MainMap from '../../components/mainMap';
+import MainMap from '../../components/map/mainMap';
 import { MarkerFeature } from '../../components/map/mapMarker';
 import { VisualizationLayers } from '../../components/map/mapLayer';
 
@@ -10,8 +10,8 @@ import { ColorBar } from '../../components/ui/colorBar';
 import { LoadingSpinner } from '../../components/ui/loading';
 import { PersistentDrawerRight } from '../../components/ui/drawer';
 import { Title } from '../../components/ui/title';
-import { MapControls } from '../../components/mapControls';
-import { MapZoom } from '../../components/mapZoom';
+import { MapControls } from '../../components/map/mapControls';
+import { MapZoom } from '../../components/map/mapZoom';
 import { Search } from '../../components/method/search';
 import { FilterByDate } from '../../components/method/filter';
 import { VizItemAnimation } from '../../components/map/plumeAnimation';
@@ -259,13 +259,15 @@ export function Dashboard({
           setHoveredVizItemId={setHoveredVizLayerId}
         />
       </div>
-      <ColorBar
-        label={'Methane Column Enhancement (mol/m²)'}
-        VMAX={colorbarAttributes?.VMAX}
-        VMIN={colorbarAttributes?.VMIN}
-        colorMap={colorbarAttributes?.colorMap}
-        STEPSIZE={5}
-      />
+      {colorbarAttributes && (
+        <ColorBar
+          label={'Methane Column Enhancement (mol/m²)'}
+          VMAX={colorbarAttributes?.VMAX}
+          VMIN={colorbarAttributes?.VMIN}
+          colorMap={colorbarAttributes?.colorMap}
+          STEPSIZE={5}
+        />
+      )}
       {loadingData && <LoadingSpinner />}
     </Box>
   );

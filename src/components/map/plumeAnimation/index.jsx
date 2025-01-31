@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import { useMapbox } from '../../../context/mapContext';
+import { useMapbox } from '../mainMap/context';
 import TimelineControl from 'mapboxgl-timeline';
 import moment from 'moment';
 import {
@@ -8,7 +8,7 @@ import {
   getLayerId,
   layerExists,
   sourceExists,
-} from '../../../utils';
+} from '../utils';
 
 import 'mapboxgl-timeline/dist/style.css';
 import './index.css';

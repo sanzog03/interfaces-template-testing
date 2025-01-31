@@ -1,6 +1,9 @@
 import React, { createContext, useContext, useRef, useEffect } from 'react';
 import mapboxgl from 'mapbox-gl';
-import { BASEMAP_STYLES, BASEMAP_ID_DEFAULT } from '../config/mapConfig';
+import {
+  BASEMAP_STYLES,
+  BASEMAP_ID_DEFAULT,
+} from '../../../../config/mapConfig';
 import 'mapbox-gl/dist/mapbox-gl.css';
 
 const MapboxContext = createContext();

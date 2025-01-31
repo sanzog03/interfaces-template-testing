@@ -4,7 +4,7 @@ import Autocomplete from '@mui/material/Autocomplete';
 import SearchIcon from '@mui/icons-material/Search';
 import InputAdornment from '@mui/material/InputAdornment';
 
-import { TrieSearch } from '../../../services/trieSearch';
+import { TrieSearch } from './helper/trieSearch';
 /*
       Search stacItem compoents
 

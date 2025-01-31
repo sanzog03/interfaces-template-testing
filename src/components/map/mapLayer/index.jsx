@@ -1,13 +1,13 @@
 import { useEffect } from 'react';
-import { useMapbox } from '../../../context/mapContext';
+import { useMapbox } from '../mainMap/context';
 import {
   addSourceLayerToMap,
-  addSourcePolygonToMap,
   getSourceId,
   getLayerId,
   layerExists,
   sourceExists,
-} from '../../../utils';
+} from '../utils';
+import { addSourcePolygonToMap } from './helper';
 
 // eslint-disable-next-line prettier/prettier
 export const VisualizationLayer = ({

@@ -1,5 +1,5 @@
 import * as turf from '@turf/turf';
-const { sourceExists, layerExists } = require('.');
+const { sourceExists, layerExists } = require('../../utils');
 
 // GeoJSON object to hold  measurement features
 export const MEASURE_POINTS = {

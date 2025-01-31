@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useMapbox } from '../../context/mapContext';
+import { useMapbox } from '../../../context/mapContext';
 import {
   addSourceLayerToMap,
   addSourcePolygonToMap,
@@ -7,10 +7,14 @@ import {
   getLayerId,
   layerExists,
   sourceExists,
-} from '../../utils';
+} from '../../../utils';
 
 // eslint-disable-next-line prettier/prettier
-export const VisualizationLayer = ({ vizItem, onClickOnLayer, onHoverOverLayer }) => {
+export const VisualizationLayer = ({
+  vizItem,
+  onClickOnLayer,
+  onHoverOverLayer,
+}) => {
   const { map } = useMapbox();
   const vizItemId = vizItem.id;
 

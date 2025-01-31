@@ -3,18 +3,18 @@ import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 
 import MainMap from '../../components/mainMap';
-import { MarkerFeature } from '../../components/mapMarker';
-import { VisualizationLayers } from '../../components/mapLayer';
+import { MarkerFeature } from '../../components/map/mapMarker';
+import { VisualizationLayers } from '../../components/map/mapLayer';
 
-import { ColorBar } from '../../components/colorBar';
-import { LoadingSpinner } from '../../components/loading';
-import { PersistentDrawerRight } from '../../components/drawer';
-import { Title } from '../../components/title';
+import { ColorBar } from '../../components/ui/colorBar';
+import { LoadingSpinner } from '../../components/ui/loading';
+import { PersistentDrawerRight } from '../../components/ui/drawer';
+import { Title } from '../../components/ui/title';
 import { MapControls } from '../../components/mapControls';
 import { MapZoom } from '../../components/mapZoom';
-import { Search } from '../../components/search';
-import { FilterByDate } from '../../components/filter';
-import { VizItemAnimation } from '../../components/plumeAnimation';
+import { Search } from '../../components/method/search';
+import { FilterByDate } from '../../components/method/filter';
+import { VizItemAnimation } from '../../components/map/plumeAnimation';
 
 import styled from 'styled-components';
 

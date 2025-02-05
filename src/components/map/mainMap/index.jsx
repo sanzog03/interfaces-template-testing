@@ -1,6 +1,6 @@
 import { MapboxProvider } from './context';
 
-const MainMap = ({ children }) => {
+export const MainMap = ({ children }) => {
   return (
     <MapboxProvider>
       {/* Other components that need access to the map */}
@@ -8,5 +8,3 @@ const MainMap = ({ children }) => {
     </MapboxProvider>
   );
 };
-
-export default MainMap;

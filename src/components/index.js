@@ -1,13 +1,6 @@
 // Main Map Components
-export { default as MainMap } from './map/mainMap/index.jsx';
-export { MapboxProvider, useMapbox } from './map/mainMap/context/index.js';
-export { ChangeUnitControl } from './map/mapControls/changeUnit.jsx';
-export { ClearMeasurementControl } from './map/mapControls/clearMeasurement.jsx';
-export { HamburgerControl } from './map/mapControls/hamburger.jsx';
-export { HomeControl } from './map/mapControls/home.jsx';
-export { LayerVisibilityControl } from './map/mapControls/layerVisibility.jsx';
-export { MeasureDistanceControl } from './map/mapControls/measureDistance.jsx';
-export { RestoreControl } from './map/mapControls/restore.jsx';
+export { MainMap } from './map/mainMap/index.jsx';
+export { useMapbox } from './map/mainMap/context/index.js';
 export { MapControls } from './map/mapControls/index.jsx';
 
 // Map Features
@@ -17,11 +10,17 @@ export { MarkerFeature } from './map/mapMarker';
 export { MapZoom } from './map/mapZoom';
 
 // Map Layers
-export { VisualizationLayer, VisualizationLayers } from './map/mapLayer';
+export { VisualizationLayers } from './map/mapLayer';
 
 // Method Components
 export { FilterByDate } from './method/filter';
-export { TrieSearch } from './method/search/helper/trieSearch';
+export { Search } from './method/search';
+
+export { VisualizationItemCard } from './ui/card';
+export { PersistentDrawerRight } from './ui/drawer';
+export { ColorBar } from './ui/colorBar';
+export { LoadingSpinner } from './ui/loading';
+export { Title } from './ui/title';
 
 // Utils
 export {

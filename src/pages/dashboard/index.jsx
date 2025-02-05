@@ -2,19 +2,19 @@ import React, { useEffect, useState, useRef } from 'react';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 
-import MainMap from '../../components/map/mainMap';
-import { MarkerFeature } from '../../components/map/mapMarker';
-import { VisualizationLayers } from '../../components/map/mapLayer';
+import { MainMap } from '../../components';
+import { MarkerFeature } from '../../components';
+import { VisualizationLayers } from '../../components';
 
-import { ColorBar } from '../../components/ui/colorBar';
-import { LoadingSpinner } from '../../components/ui/loading';
-import { PersistentDrawerRight } from '../../components/ui/drawer';
-import { Title } from '../../components/ui/title';
-import { MapControls } from '../../components/map/mapControls';
-import { MapZoom } from '../../components/map/mapZoom';
-import { Search } from '../../components/method/search';
-import { FilterByDate } from '../../components/method/filter';
-import { VizItemAnimation } from '../../components/map/plumeAnimation';
+import { ColorBar } from '../../components';
+import { LoadingSpinner } from '../../components';
+import { PersistentDrawerRight } from '../../components';
+import { Title } from '../../components';
+import { MapControls } from '../../components';
+import { MapZoom } from '../../components';
+import { Search } from '../../components';
+import { FilterByDate } from '../../components';
+import { VizItemAnimation } from '../../components';
 
 import styled from 'styled-components';
 

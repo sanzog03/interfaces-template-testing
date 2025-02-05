@@ -15,7 +15,10 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    "paths": { "@interface-template/*": ["./src/components/*"] }
+    "baseUrl": ".",
+    "paths": {
+      "@interface/*": ["src/components/*"]
+    }
   },
   "include": ["src"]
 }

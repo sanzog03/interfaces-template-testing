@@ -17,6 +17,7 @@ import {  getMarkerColor, getMarkerSVG } from "../../utils";
 const accessToken = process.env.REACT_APP_MAPBOX_TOKEN;
 const mapboxStyleBaseUrl = process.env.REACT_APP_MAPBOX_STYLE_URL;
 
+const mapLegendHeading = "Urban Test Bed Sites";
 
 export const MapBoxViewer = ({ stations, region, agency, stationCode, zoomLevel = 2, style, setDisplayChart, setSelection, displayChart }) => {
     const [currentViewer, setCurrentViewer] = useState(null);
@@ -111,7 +112,7 @@ export const MapBoxViewer = ({ stations, region, agency, stationCode, zoomLevel 
                     <div ref={mapContainerRef} className='fullSize' style={{ position: "absolute" }}></div>
                 </Grid>
             </Grid>
-            <MapRegionLegend regions={regions} />
+            <MapRegionLegend heading={mapLegendHeading} regions={regions} />
         </Box>
     );
 };

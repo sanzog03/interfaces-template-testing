@@ -6,32 +6,23 @@ import Select from '@mui/material/Select';
 
 import "./index.css";
 
-export function SelectGHG({selectedGHG, setSelectedGHG, style}) {
-  // collectionId format: <agency>_<data_category>_<region>_<sitecode>_<ghg>_<frequency>_concentrations
-  // need to have GHGs that are used and available in the collectionId
-
-  const GHGs = {
-    "co2": "Carbon Dioxide",
-    "ch4": "Methane"
-  }
-
+export function Dropdown({ id, options, selectedValue, setSelectedValue, style }) {
   const handleChange = (event) => {
-    setSelectedGHG(event.target.value);
+    setSelectedValue(event.target.value);
   };
 
   return (
-    <Box id="GHG-dropdown" sx={{ minWidth: 120, maxWidth: 240 }} style={style}>
+    <Box class="dropdown-box" sx={{ minWidth: 120, maxWidth: 240 }} style={style}>
       <FormControl fullWidth>
         <Select
-          value={selectedGHG}
+          value={selectedValue}
           onChange={handleChange}
           displayEmpty
-          inputProps={{ 'aria-label': 'Without label' }}
+          inputProps={{ 'aria-label': 'Dropdown' }}
         >
-          { Object.keys(GHGs).map(ghg => (
-              <MenuItem key={ghg} value={ghg}>{GHGs[ghg]}</MenuItem>
-            ))
-          }
+          {Object.keys(options).map((key) => (
+            <MenuItem key={key} value={key}>{options[key]}</MenuItem>
+          ))}
         </Select>
       </FormControl>
     </Box>

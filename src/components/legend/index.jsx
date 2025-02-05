@@ -2,7 +2,7 @@ import React from 'react';
 import { getMarkerColor, getMarkerSVGComponent } from "../../utils";
 import "./index.css";
 
-export function MapRegionLegend({ regions }) {
+export function MapRegionLegend({ heading, regions }) {
     const regionsKeys = Object.keys(regions);
     if (regionsKeys.length < 2) {
         return null;
@@ -11,7 +11,7 @@ export function MapRegionLegend({ regions }) {
     return (
         <div id="legend-container">
             <div id="legend">
-                <div id="legend-head">Urban Test Bed Sites</div>
+                <div id="legend-head">{heading}</div>
                 <div id="legend-line"></div>
                 {   regionsKeys.map((region) => {
                         let { fullName } = regions[region];

@@ -1,15 +1,13 @@
 import React, { createContext, useContext, useRef, useEffect } from 'react';
 import mapboxgl from 'mapbox-gl';
-import {
-  BASEMAP_STYLES,
-  BASEMAP_ID_DEFAULT,
-} from '../../../../config/mapConfig';
+
 import 'mapbox-gl/dist/mapbox-gl.css';
 
 const MapboxContext = createContext();
 
 const accessToken = process.env.REACT_APP_MAPBOX_TOKEN;
 const mapboxStyleBaseUrl = process.env.REACT_APP_MAPBOX_STYLE_URL;
+const BASEMAP_STYLES_MAPBOX_ID = process.env.REACT_APP_BASEMAP_STYLES_MAPBOX_ID;
 
 export const MapboxProvider = ({ children }) => {
   const mapContainer = useRef(null);
@@ -20,10 +18,8 @@ export const MapboxProvider = ({ children }) => {
 
     let mapboxStyleUrl = 'mapbox://styles/mapbox/streets-v12';
     if (mapboxStyleBaseUrl) {
-      let styleId = BASEMAP_STYLES.findIndex(
-        (style) => style.id === BASEMAP_ID_DEFAULT
-      );
-      mapboxStyleUrl = `${mapboxStyleBaseUrl}/${BASEMAP_STYLES[styleId].mapboxId}`;
+      mapboxStyleUrl = `${mapboxStyleBaseUrl}/${BASEMAP_STYLES_MAPBOX_ID}`;
+      console.log({ mapboxStyleUrl });
     }
 
     mapboxgl.accessToken = accessToken;

@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useMapbox } from '../../context/mapContext';
+import { useMapbox } from '../../../context/mapContext';
 import {
   addSourceLayerToMap,
   getSourceId,

@@ -1,4 +1,4 @@
-import { MapboxProvider } from '../../context/mapContext';
+import { MapboxProvider } from '../../../context/mapContext';
 
 export const MainMap = ({ children }) => {
   return (

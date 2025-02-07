@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import { useMapbox } from '../../context/mapContext';
+import { useMapbox } from '../../../context/mapContext';
 import TimelineControl from 'mapboxgl-timeline';
 import moment from 'moment';
 import {

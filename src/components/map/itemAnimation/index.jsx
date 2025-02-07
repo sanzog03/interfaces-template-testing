@@ -16,13 +16,13 @@ import './index.css';
       Animation component for the visualization layers
 
       @param {STACItem} vizItems   - An array of stac items which are to be animated
+      @param {metada object} collectionMetadata - metadata of the collection
 */
-export const VizItemAnimation = ({ vizItems }) => {
+export const VizItemAnimation = ({ vizItems, collectionMetadata }) => {
   // vizItem is the array of stac collection features
   const { map } = useMapbox();
   const timeline = useRef(null);
   const timelineComponent = useRef(null);
-
   useEffect(() => {
     if (!map || !vizItems.length) return;
 
@@ -54,6 +54,7 @@ export const VizItemAnimation = ({ vizItems }) => {
         // executed on initial step tick.
         handleAnimation(
           map,
+          collectionMetadata,
           date,
           vizItemDateIdxMap,
           vizItems,
@@ -65,6 +66,7 @@ export const VizItemAnimation = ({ vizItems }) => {
         // executed on each changed step tick.
         handleAnimation(
           map,
+          collectionMetadata,
           date,
           vizItemDateIdxMap,
           vizItems,
@@ -96,7 +98,7 @@ export const VizItemAnimation = ({ vizItems }) => {
         map.removeControl(timeline.current);
       }
     };
-  }, [vizItems, map]);
+  }, [vizItems, map, collectionMetadata]);
 
   return (
     <div style={{ width: '100%', height: '100%' }} className='player-container'>
@@ -109,6 +111,7 @@ let prev = null;
 
 const handleAnimation = (
   map,
+  collectionMetadata,
   date,
   vizItemDateIdxMap,
   vizItems,
@@ -122,7 +125,15 @@ const handleAnimation = (
 
   // buffer the following k elements.
   const k = 4;
-  bufferSourceLayers(map, vizItems, index, k, bufferedLayer, bufferedSource);
+  bufferSourceLayers(
+    map,
+    collectionMetadata,
+    vizItems,
+    index,
+    k,
+    bufferedLayer,
+    bufferedSource
+  );
 
   // display the indexed vizItem.
   const prevLayerId = prev;
@@ -133,6 +144,7 @@ const handleAnimation = (
 
 const bufferSourceLayers = (
   map,
+  collectionMetadata,
   vizItems,
   index,
   k,
@@ -151,7 +163,13 @@ const bufferSourceLayers = (
     let sourceId = getSourceId(i);
     let layerId = getLayerId(i);
     if (!bufferedLayer.has(layerId)) {
-      bufferSourceLayer(map, vizItems[i], sourceId, layerId);
+      bufferSourceLayer(
+        map,
+        collectionMetadata,
+        vizItems[i],
+        sourceId,
+        layerId
+      );
       bufferedLayer.add(layerId);
       if (!bufferedSource.has(sourceId)) bufferedSource.add(sourceId);
     }

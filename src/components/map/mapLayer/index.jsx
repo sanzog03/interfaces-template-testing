@@ -11,6 +11,7 @@ import { addSourcePolygonToMap } from './helper';
 
 // eslint-disable-next-line prettier/prettier
 export const VisualizationLayer = ({
+  collectionMetadata,
   vizItem,
   onClickOnLayer,
   onHoverOverLayer,
@@ -26,7 +27,13 @@ export const VisualizationLayer = ({
     const polygonSourceId = getSourceId('polygon' + vizItemId);
     const polygonLayerId = getLayerId('polygon' + vizItemId);
 
-    addSourceLayerToMap(map, feature, rasterSourceId, rasterLayerId);
+    addSourceLayerToMap(
+      map,
+      collectionMetadata,
+      feature,
+      rasterSourceId,
+      rasterLayerId
+    );
     addSourcePolygonToMap(map, feature, polygonSourceId, polygonLayerId);
 
     const onClickHandler = (e) => {
@@ -52,23 +59,31 @@ export const VisualizationLayer = ({
         map.off('click', 'clusters', onClickHandler);
       }
     };
-  }, [vizItem, map, vizItemId, onClickOnLayer, onHoverOverLayer]);
+  }, [
+    vizItem,
+    map,
+    vizItemId,
+    onClickOnLayer,
+    onHoverOverLayer,
+    collectionMetadata,
+  ]);
 
   return null;
 };
+/*
+      Add layers of visualization components on top of map
+      @param {metadata object} collectionMetadata - metadata of the collection item
+      @param {STACItem} vizItems   - An array of STACitems which are to be displayed
+      @param {function} onHoverOverlayer - function to execute when mouse is hovered on layer. will provide vizItemId as a parameter to the callback
+      @param {function} onClickOnlayer - function to execute when layer is clicked. will provide vizItemId as a parameter to the callback
+*/
 
 export const VisualizationLayers = ({
+  collectionMetadata,
   vizItems,
   onHoverOverLayer,
   onClickOnLayer,
 }) => {
-  /*
-      Add layers of visualization components on top of map
-
-      @param {STACItem} vizItems   - An array of STACitems which are to be displayed
-      @param {function} onHoverOverlayer - function to execute when mouse is hovered on layer. will provide vizItemId as a parameter to the callback
-      @param {function} onClickOnlayer - function to execute when layer is clicked. will provide vizItemId as a parameter to the callback
-    */
   const { map } = useMapbox();
   if (!map || !vizItems.length) return;
   return (
@@ -80,6 +95,7 @@ export const VisualizationLayers = ({
             vizItem={vizItem}
             onClickOnLayer={onClickOnLayer}
             onHoverOverLayer={onHoverOverLayer}
+            collectionMetadata={collectionMetadata}
           />
         ))}
     </>

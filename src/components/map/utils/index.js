@@ -19,19 +19,22 @@ export const getLayerId = (idx) => {
 /*
       Add source and layer on map
       @param {map object} map - instance of map 
+      @param {metadata Object} collectionMeta - metadata of the collection
       @param {STACItem} feature - collection of features to add on map 
       @param {string} sourceId - id of the source to add
       @param {string} layerId - id of the layer to add source on 
 */
-export const addSourceLayerToMap = (map, feature, sourceId, layerId) => {
+export const addSourceLayerToMap = (
+  map,
+  collectionMetadata,
+  feature,
+  sourceId,
+  layerId
+) => {
   if (!map || (sourceExists(map, sourceId) && layerExists(map, layerId)))
     return;
-
+  let { VMIN, VMAX, colorMap, assets } = collectionMetadata;
   const collection = feature.collection; // feature.collection
-  const assets = 'rad'; // first element in the asset json object. i.e. Object.keys(features.assets)[0]
-  let VMIN = 0;
-  let VMAX = 0.4;
-  let colorMap = 'plasma';
   let itemId = feature.id;
 
   const TILE_URL =

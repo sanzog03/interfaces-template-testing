@@ -19,7 +19,6 @@ export const MapboxProvider = ({ children }) => {
     let mapboxStyleUrl = 'mapbox://styles/mapbox/streets-v12';
     if (mapboxStyleBaseUrl) {
       mapboxStyleUrl = `${mapboxStyleBaseUrl}/${BASEMAP_STYLES_MAPBOX_ID}`;
-      console.log({ mapboxStyleUrl });
     }
 
     mapboxgl.accessToken = accessToken;

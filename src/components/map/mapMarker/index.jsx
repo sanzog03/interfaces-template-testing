@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import mapboxgl from 'mapbox-gl';
 
-import { useMapbox } from '../mainMap/context';
+import { useMapbox } from '../../context/mapContext';
 import './index.css';
 /*
   Add marker on map

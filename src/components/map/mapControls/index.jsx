@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import mapboxgl from 'mapbox-gl';
-import { useMapbox } from '../mainMap/context';
+import { useMapbox } from '../../context/mapContext';
 import { HamburgerControl } from './hamburger';
 import { MeasureDistanceControl } from './measureDistance';
 import { ChangeUnitControl } from './changeUnit';

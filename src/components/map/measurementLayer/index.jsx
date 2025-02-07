@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useMapbox } from '../mainMap/context';
+import { useMapbox } from '../../context/mapContext';
 import {
   findMeasurementAnchor,
   addMeasurementLayer,

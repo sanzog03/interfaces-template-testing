@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-import { useMapbox } from '../mainMap/context';
+import { useMapbox } from '../../context/mapContext';
 
 export const MapZoom = ({ zoomLocation, zoomLevel }) => {
   const { map } = useMapbox();

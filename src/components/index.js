@@ -1,6 +1,6 @@
 // Main Map Components
 export { MainMap } from './map/mainMap/index.jsx';
-export { useMapbox } from './map/mainMap/context/index.js';
+export { useMapbox } from './context/mapContext';
 export { MapControls } from './map/mapControls/index.jsx';
 
 // Map Features

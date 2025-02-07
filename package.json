@@ -33,9 +33,9 @@
     "web-vitals": "^2.1.0"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
+    "start": "craco start",
+    "build": "craco build",
+    "test": "craco test",
     "eject": "react-scripts eject",
     "format": "prettier --write .",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
@@ -64,13 +64,10 @@
     "styled-components": "^5"
   },
   "devDependencies": {
+    "@craco/craco": "^7.1.0",
     "eslint": "^8.56.0",
     "eslint-config-prettier": "^10.0.1",
     "eslint-plugin-prettier": "^5.2.3",
     "prettier": "^3.4.2"
-  },
-  "alias": {
-    "components": "~/app/src/components",
-    "context": "~/app/src/context"
   }
 }

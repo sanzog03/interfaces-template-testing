@@ -1,11 +1,28 @@
+/*
+      Get id for source
+
+      @param {string} idx   - Name/identification of source
+*/
 export const getSourceId = (idx) => {
   return 'raster-source-' + idx;
 };
 
+/*
+      Get id for layer
+
+      @param {string} idx    - Name/identification of layer
+*/
 export const getLayerId = (idx) => {
   return 'raster-layer-' + idx;
 };
 
+/*
+      Add source and layer on map
+      @param {map object} map - instance of map 
+      @param {STACItem} feature - collection of features to add on map 
+      @param {string} sourceId - id of the source to add
+      @param {string} layerId - id of the layer to add source on 
+*/
 export const addSourceLayerToMap = (map, feature, sourceId, layerId) => {
   if (!map || (sourceExists(map, sourceId) && layerExists(map, layerId)))
     return;
@@ -47,10 +64,23 @@ export const addSourceLayerToMap = (map, feature, sourceId, layerId) => {
     paint: {},
   });
 };
+
+/*
+      Check if layer exists on map
+      @param {map object} map - instance of map 
+      @param {string} idx    - Name/identification of layer
+     
+*/
 export function layerExists(map, layerId) {
   return !!map.getLayer(layerId);
 }
 
+/*
+      Check if source exists on map
+      @param {map object} map - instance of map 
+      @param {string} idx    - Name/identification of source
+     
+*/
 export function sourceExists(map, sourceId) {
   return !!map.getSource(sourceId);
 }

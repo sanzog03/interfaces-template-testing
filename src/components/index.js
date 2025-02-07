@@ -4,7 +4,7 @@ export { useMapbox } from './context/mapContext';
 export { MapControls } from './map/mapControls/index.jsx';
 
 // Map Features
-export { VizItemAnimation } from './map/plumeAnimation';
+export { VizItemAnimation } from './map/itemAnimation/index.jsx';
 export { MeasurementLayer } from './map/measurementLayer';
 export { MarkerFeature } from './map/mapMarker';
 export { MapZoom } from './map/mapZoom';

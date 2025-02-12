@@ -43,8 +43,6 @@ export const plugin = {
     ctx.setLineDash(opts.dash);
     ctx.moveTo(x, bottom);
     ctx.lineTo(x, top);
-    // ctx.moveTo(left, y)
-    // ctx.lineTo(right, y)
     ctx.stroke();
 
     ctx.restore();
@@ -64,40 +62,6 @@ export const options = {
   hover: {
     mode: "nearest",
     intersect: false,
-  },
-  scales: {
-    x: {
-      title: {
-        display: true,
-        text: "Observation Date/Time (UTC)",
-      },
-      grid: {
-        display: false,
-        drawOnChartArea: false,
-      },
-      type: "time",
-      ticks: {
-        autoSkip: true, // Enable automatic skip
-        maxTicksLimit: 8, // Maximum number of ticks to display
-      },
-      adapters: {
-        date: {
-          zone: "utc",
-        },
-      }
-    },
-    y: {
-      title: {
-        text: "Concentration (ppm)",
-        display: true,
-      },
-      position: "left",
-      display: true,
-      grid: {
-        display: false,
-        drawOnChartArea: false,
-      },
-    }
   },
   plugins: {
     corsair: {
@@ -119,7 +83,6 @@ export const options = {
     },
     title: {
       display: true,
-      text: "CO2 Concentration", // Add your chart title here
       padding: {
         top: 10,
         bottom: 20,
@@ -162,7 +125,6 @@ export const options = {
       padding: 8,
       caretSize: 0,
       boxPadding: 3,
-      // multiKeyBackground: ghgBlue
     },
   },
 };

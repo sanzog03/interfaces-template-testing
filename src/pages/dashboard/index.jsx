@@ -3,8 +3,9 @@ import { Panel, PanelGroup, PanelResizeHandle } from 'react-resizable-panels';
 import Box from '@mui/material/Box';
 import DragHandleIcon from '@mui/icons-material/DragHandle';
 import { Title } from '../../components/title';
-import { ChartContainer } from '../../components/chartContainer';
-import { ChartProvider } from '../../context/chartContext';
+import MainChart from "../../components/mainChart";
+import { LineChart } from "../../components/lineChart";
+
 import "./index.css";
 
 export function Dashboard({ stations, selectedStationId, setSelectedStationId, ghg, agency, region, stationCode, setSelectedGHG, zoomLevel, stationMetadata }) {
@@ -90,13 +91,12 @@ export function Dashboard({ stations, selectedStationId, setSelectedStationId, g
                     className='panel panel-timeline'
                     order={2}
                   >
-                    <ChartProvider>
-                      <ChartContainer
-                        chartsData={chartsData}
-                        setDisplayChart={setDisplayChart}
-                        dataAccessLink={"https://www.nist.gov/"}
+                    <MainChart>
+                      <LineChart
+                        data={[1,2,3]}
+                        labels={["a", "b", "c"]}
                       />
-                    </ChartProvider>
+                    </MainChart>
                   </Panel>
               </>
         </PanelGroup>

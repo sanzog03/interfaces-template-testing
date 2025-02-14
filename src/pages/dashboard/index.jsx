@@ -93,7 +93,13 @@ export function Dashboard({ stations, selectedStationId, setSelectedStationId, g
                   >
                     <MainChart>
                       <LineChart
+                        index={0}
                         data={[1,2,3]}
+                        labels={["a", "b", "c"]}
+                      />
+                      <LineChart
+                        index={1}
+                        data={[5,1,2]}
                         labels={["a", "b", "c"]}
                       />
                     </MainChart>

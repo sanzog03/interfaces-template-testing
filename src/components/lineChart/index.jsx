@@ -14,12 +14,12 @@ export const LineChart = ({ data, labels, legend, labelX, labelY, color="#ff6384
     chart.resetZoom();
     chart.options.plugins.tooltip.enabled = false;
 
-    chart.data.datasets[0].label = legend;
+    chart.data.datasets[index].label = legend;
     chart.options.scales.y.title.text = labelX;
     chart.options.scales.x.title.text = labelY;
     // update that value in the chart.
     chart.data.labels = labels;
-    chart.data.datasets[0].data = data;
+    chart.data.datasets[index].data = data;
 
     // update the chart
     chart.update();

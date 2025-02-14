@@ -149,7 +149,7 @@ export function Dashboard({
   ];
 
   return (
-    <Box className='fullSize' style={{ backgroundColor: 'gray' }}>
+    <Box className='fullSize' style={{ }}>
       <Title ghg={ghg} agency={agency} region={region} />
       <img
         src={process.env.PUBLIC_URL + '/nist.png'}
@@ -179,7 +179,10 @@ export function Dashboard({
             order={2}
           >
             <MainChart>
-              <LineChart data={[1, 2, 3]} labels={['a', 'b', 'c']} legend={"daily insitu"} labelX={"date-time"} labelY={"concentration"} />
+
+              <LineChart data={[1, 2, 3]} labels={['a', 'b', 'c']} legend={"daily insitu"} labelX={"date-time"} labelY={"concentration"} index={0}/>
+              {/* <LineChart data={[4, 5, 6]} labels={['d', 'e', 'f']} legend={"daily insitu"} labelX={"date-time"} labelY={"concentration"} index={1}/> */}
+
             </MainChart>
           </Panel>
         </>

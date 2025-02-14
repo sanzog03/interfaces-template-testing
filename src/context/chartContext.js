@@ -35,7 +35,7 @@ export const ChartProvider = ({ children }) => {
 
     // Clean up charts on unmount
     return () => {
-      chart.current.remove();
+      chart.current.destroy();
     };
   }, []);
 

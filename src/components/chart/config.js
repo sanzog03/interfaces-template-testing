@@ -58,6 +58,18 @@ export const options = {
     mode: "nearest",
     axis: "x",
   },
+  scales: {
+    x: {
+      title: {
+        display: true,
+      }
+    },
+    y: {
+      title: {
+        display: true,
+      },
+    },
+  },
   stacked: false,
   hover: {
     mode: "nearest",

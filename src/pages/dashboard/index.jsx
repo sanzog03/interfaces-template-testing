@@ -19,6 +19,8 @@ export function Dashboard({
   setSelectedGHG,
   zoomLevel,
   stationMetadata,
+  data,
+  labels
 }) {
   const [displayChart, setDisplayChart] = useState(false);
 
@@ -177,8 +179,7 @@ export function Dashboard({
             order={2}
           >
             <MainChart>
-              <LineChart index={0} data={[1, 2, 3]} labels={['a', 'b', 'c']} />
-              <LineChart index={1} data={[5, 1, 2]} labels={['a', 'b', 'c']} />
+              <LineChart data={[1, 2, 3]} labels={['a', 'b', 'c']} legend={"daily insitu"} labelX={"date-time"} labelY={"concentration"} />
             </MainChart>
           </Panel>
         </>

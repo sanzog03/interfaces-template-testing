@@ -16,9 +16,18 @@ import './index.css';
       Animation component for the visualization layers
 
       @param {STACItem} vizItems   - An array of stac items which are to be animated
-      @param {metada object} collectionMetadata - metadata of the collection
+      @param {number} VMIN - minimum value of the color index
+      @param {number} VMAX - maximum value of the color index
+      @param {string} colormap - name of the colormap
+      @param {string} assets - name of the asset of the color
 */
-export const VizItemAnimation = ({ vizItems, collectionMetadata }) => {
+export const VizItemAnimation = ({
+  vizItems,
+  VMIN,
+  VMAX,
+  colormap,
+  assets,
+}) => {
   // vizItem is the array of stac collection features
   const { map } = useMapbox();
   const timeline = useRef(null);
@@ -54,7 +63,10 @@ export const VizItemAnimation = ({ vizItems, collectionMetadata }) => {
         // executed on initial step tick.
         handleAnimation(
           map,
-          collectionMetadata,
+          VMIN,
+          VMAX,
+          colormap,
+          assets,
           date,
           vizItemDateIdxMap,
           vizItems,
@@ -66,7 +78,10 @@ export const VizItemAnimation = ({ vizItems, collectionMetadata }) => {
         // executed on each changed step tick.
         handleAnimation(
           map,
-          collectionMetadata,
+          VMIN,
+          VMAX,
+          colormap,
+          assets,
           date,
           vizItemDateIdxMap,
           vizItems,
@@ -98,7 +113,7 @@ export const VizItemAnimation = ({ vizItems, collectionMetadata }) => {
         map.removeControl(timeline.current);
       }
     };
-  }, [vizItems, map, collectionMetadata]);
+  }, [vizItems, map, VMIN, VMAX, colormap, assets]);
 
   return (
     <div style={{ width: '100%', height: '100%' }} className='player-container'>
@@ -111,7 +126,10 @@ let prev = null;
 
 const handleAnimation = (
   map,
-  collectionMetadata,
+  VMIN,
+  VMAX,
+  colormap,
+  assets,
   date,
   vizItemDateIdxMap,
   vizItems,
@@ -127,7 +145,10 @@ const handleAnimation = (
   const k = 4;
   bufferSourceLayers(
     map,
-    collectionMetadata,
+    VMIN,
+    VMAX,
+    colormap,
+    assets,
     vizItems,
     index,
     k,
@@ -144,7 +165,10 @@ const handleAnimation = (
 
 const bufferSourceLayers = (
   map,
-  collectionMetadata,
+  VMIN,
+  VMAX,
+  colormap,
+  assets,
   vizItems,
   index,
   k,
@@ -165,7 +189,10 @@ const bufferSourceLayers = (
     if (!bufferedLayer.has(layerId)) {
       bufferSourceLayer(
         map,
-        collectionMetadata,
+        VMIN,
+        VMAX,
+        colormap,
+        assets,
         vizItems[i],
         sourceId,
         layerId

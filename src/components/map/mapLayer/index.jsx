@@ -7,11 +7,14 @@ import {
   layerExists,
   sourceExists,
 } from '../utils';
-import { addSourcePolygonToMap } from './helper';
+import { addSourcePolygonToMap } from '../utils/index';
 
 // eslint-disable-next-line prettier/prettier
 export const VisualizationLayer = ({
-  collectionMetadata,
+  VMIN,
+  VMAX,
+  colormap,
+  assets,
   vizItem,
   onClickOnLayer,
   onHoverOverLayer,
@@ -29,7 +32,10 @@ export const VisualizationLayer = ({
 
     addSourceLayerToMap(
       map,
-      collectionMetadata,
+      VMIN,
+      VMAX,
+      colormap,
+      assets,
       feature,
       rasterSourceId,
       rasterLayerId
@@ -65,21 +71,31 @@ export const VisualizationLayer = ({
     vizItemId,
     onClickOnLayer,
     onHoverOverLayer,
-    collectionMetadata,
+    VMIN,
+    VMAX,
+    colormap,
+    assets,
   ]);
 
   return null;
 };
 /*
       Add layers of visualization components on top of map
-      @param {metadata object} collectionMetadata - metadata of the collection item
+      
+      @param {number} VMIN - minimum value of the color index
+      @param {number} VMAX - maximum value of the color index
+      @param {string} colormap - name of the colormap
+      @param {string} assets - name of the asset of the color
       @param {STACItem} vizItems   - An array of STACitems which are to be displayed
       @param {function} onHoverOverlayer - function to execute when mouse is hovered on layer. will provide vizItemId as a parameter to the callback
       @param {function} onClickOnlayer - function to execute when layer is clicked. will provide vizItemId as a parameter to the callback
 */
 
 export const VisualizationLayers = ({
-  collectionMetadata,
+  VMIN,
+  VMAX,
+  colormap,
+  assets,
   vizItems,
   onHoverOverLayer,
   onClickOnLayer,
@@ -95,7 +111,10 @@ export const VisualizationLayers = ({
             vizItem={vizItem}
             onClickOnLayer={onClickOnLayer}
             onHoverOverLayer={onHoverOverLayer}
-            collectionMetadata={collectionMetadata}
+            VMIN={VMIN}
+            VMAX={VMAX}
+            colormap={colormap}
+            assets={assets}
           />
         ))}
     </>

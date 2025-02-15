@@ -62,6 +62,12 @@ export function Dashboard({
   const [showMarkerFeature, setShowMarkerFeature] = useState(true);
   const [visualizationLayers, setVisualizationLayers] = useState(true);
 
+  //color map
+  const [VMAX, setVMAX] = useState(100);
+  const [VMIN, setVMIN] = useState(-92);
+  const [colormap, setColormap] = useState('default');
+  const [assets, setAssets] = useState('rad');
+
   // states for components/controls
   const [openDrawer, setOpenDrawer] = useState(false);
   // console.log("data", data);
@@ -187,16 +193,13 @@ export function Dashboard({
   }, [dataTree.current, selectedRegionId]);
 
   useEffect(() => {
-    const colorMap = collectionMeta?.renders?.dashboard?.colormap_name;
+    const colormap = collectionMeta?.renders?.dashboard?.colormap_name;
     const rescaleValues = collectionMeta?.renders?.dashboard?.rescale;
     const VMIN = rescaleValues && rescaleValues[0][0];
     const VMAX = rescaleValues && rescaleValues[0][1];
-    setCollectionMetadata({
-      assets: 'rad',
-      VMAX: VMAX,
-      VMIN: VMIN,
-      colorMap: colorMap,
-    });
+    setVMIN(VMIN);
+    setVMAX(VMAX);
+    setColormap(colormap);
   }, [collectionMeta]);
 
   const onFilteredVizItems = (filteredVizItems) => {
@@ -225,7 +228,10 @@ export function Dashboard({
               </HorizontalLayout>
               <HorizontalLayout>
                 <VizItemAnimation
-                  collectionMetadata={collectionMetadata}
+                  VMIN={VMIN}
+                  VMAX={VMAX}
+                  colormap={colormap}
+                  assets={assets}
                   vizItems={Object.keys(vizItems).map((key) => vizItems[key])}
                 />
               </HorizontalLayout>
@@ -245,7 +251,10 @@ export function Dashboard({
           ></MarkerFeature>
           <VisualizationLayers
             vizItems={visualizationLayers}
-            collectionMetadata={collectionMetadata}
+            VMIN={VMIN}
+            VMAX={VMAX}
+            colormap={colormap}
+            assets={assets}
             handleLayerClick={handleSelectedVizLayer}
             hoveredVizLayerId={hoveredVizLayerId}
             setHoveredVizLayerId={setHoveredVizLayerId}
@@ -264,13 +273,13 @@ export function Dashboard({
           setHoveredVizItemId={setHoveredVizLayerId}
         />
       </div>
-      {collectionMetadata && (
+      {VMAX && (
         <ColorBar
           label={'Methane Column Enhancement (mol/m²)'}
-          VMAX={collectionMetadata?.VMAX}
-          VMIN={collectionMetadata?.VMIN}
-          colorMap={collectionMetadata?.colorMap}
-          STEPSIZE={5}
+          VMAX={VMAX}
+          VMIN={VMIN}
+          colormap={colormap}
+          STEPSIZE={1}
         />
       )}
       {loadingData && <LoadingSpinner />}

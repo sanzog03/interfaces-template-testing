@@ -87,3 +87,39 @@ export function layerExists(map, layerId) {
 export function sourceExists(map, sourceId) {
   return !!map.getSource(sourceId);
 }
+
+/*
+      Add source and layer of on map
+      @param {map object} map - instance of map 
+      @param {STACItem} feature -  polygon features to add on map 
+      @param {string} polygonSourceId - id of the polygon source to add
+      @param {string} polygonLayerId - id of the polygon layer to add source on 
+*/
+export const addSourcePolygonToMap = (
+  map,
+  feature,
+  polygonSourceId,
+  polygonLayerId
+) => {
+  if (
+    !map ||
+    (sourceExists(map, polygonSourceId) && layerExists(map, polygonLayerId))
+  )
+    return;
+
+  map.addSource(polygonSourceId, {
+    type: 'geojson',
+    data: feature,
+  });
+
+  map.addLayer({
+    id: polygonLayerId,
+    type: 'fill',
+    source: polygonSourceId,
+    layout: {},
+    paint: {
+      'fill-outline-color': '#20B2AA',
+      'fill-color': 'transparent',
+    },
+  });
+};

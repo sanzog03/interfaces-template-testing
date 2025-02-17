@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import { useMapbox } from '../../context/mapContext';
+import { useMapbox } from '../../../context/mapContext';
 import TimelineControl from 'mapboxgl-timeline';
 import moment from 'moment';
 import {
@@ -8,7 +8,7 @@ import {
   getLayerId,
   layerExists,
   sourceExists,
-} from '../../utils';
+} from '../utils';
 
 import 'mapboxgl-timeline/dist/style.css';
 import './index.css';
@@ -16,13 +16,22 @@ import './index.css';
       Animation component for the visualization layers
 
       @param {STACItem} vizItems   - An array of stac items which are to be animated
+      @param {number} VMIN - minimum value of the color index
+      @param {number} VMAX - maximum value of the color index
+      @param {string} colormap - name of the colormap
+      @param {string} assets - name of the asset of the color
 */
-export const VizItemAnimation = ({ vizItems }) => {
+export const VizItemAnimation = ({
+  vizItems,
+  VMIN,
+  VMAX,
+  colormap,
+  assets,
+}) => {
   // vizItem is the array of stac collection features
   const { map } = useMapbox();
   const timeline = useRef(null);
   const timelineComponent = useRef(null);
-
   useEffect(() => {
     if (!map || !vizItems.length) return;
 
@@ -54,6 +63,10 @@ export const VizItemAnimation = ({ vizItems }) => {
         // executed on initial step tick.
         handleAnimation(
           map,
+          VMIN,
+          VMAX,
+          colormap,
+          assets,
           date,
           vizItemDateIdxMap,
           vizItems,
@@ -65,6 +78,10 @@ export const VizItemAnimation = ({ vizItems }) => {
         // executed on each changed step tick.
         handleAnimation(
           map,
+          VMIN,
+          VMAX,
+          colormap,
+          assets,
           date,
           vizItemDateIdxMap,
           vizItems,
@@ -96,7 +113,7 @@ export const VizItemAnimation = ({ vizItems }) => {
         map.removeControl(timeline.current);
       }
     };
-  }, [vizItems, map]);
+  }, [vizItems, map, VMIN, VMAX, colormap, assets]);
 
   return (
     <div style={{ width: '100%', height: '100%' }} className='player-container'>
@@ -109,6 +126,10 @@ let prev = null;
 
 const handleAnimation = (
   map,
+  VMIN,
+  VMAX,
+  colormap,
+  assets,
   date,
   vizItemDateIdxMap,
   vizItems,
@@ -122,7 +143,18 @@ const handleAnimation = (
 
   // buffer the following k elements.
   const k = 4;
-  bufferSourceLayers(map, vizItems, index, k, bufferedLayer, bufferedSource);
+  bufferSourceLayers(
+    map,
+    VMIN,
+    VMAX,
+    colormap,
+    assets,
+    vizItems,
+    index,
+    k,
+    bufferedLayer,
+    bufferedSource
+  );
 
   // display the indexed vizItem.
   const prevLayerId = prev;
@@ -133,6 +165,10 @@ const handleAnimation = (
 
 const bufferSourceLayers = (
   map,
+  VMIN,
+  VMAX,
+  colormap,
+  assets,
   vizItems,
   index,
   k,
@@ -151,7 +187,16 @@ const bufferSourceLayers = (
     let sourceId = getSourceId(i);
     let layerId = getLayerId(i);
     if (!bufferedLayer.has(layerId)) {
-      bufferSourceLayer(map, vizItems[i], sourceId, layerId);
+      bufferSourceLayer(
+        map,
+        VMIN,
+        VMAX,
+        colormap,
+        assets,
+        vizItems[i],
+        sourceId,
+        layerId
+      );
       bufferedLayer.add(layerId);
       if (!bufferedSource.has(sourceId)) bufferedSource.add(sourceId);
     }

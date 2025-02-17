@@ -14,16 +14,21 @@ const COLOR_MAP = {
   plasma: d3.interpolatePlasma,
 };
 
-export const createColorbar = (
-  colorbar,
-  VMIN = -92,
-  VMAX = 100,
-  STEP = 30,
-  colorMap = 'default'
-) => {
+/*
+      Create colorbar as a legend
+      
+      @param {object} colorbar - instance of the colorbar objects
+      @param {number} VMIN - minimum value of the color index
+      @param {number} VMAX - maximum value of the color index
+      @param {number} STEP - stepsize of  scale 
+      @param {string} colormap - name of the colormap
+     
+*/
+
+export const createColorbar = (colorbar, VMIN, VMAX, STEP, colormap) => {
   // Create a color scale using D3
   const colorScale = d3
-    .scaleSequential(COLOR_MAP[colorMap])
+    .scaleSequential(COLOR_MAP[colormap])
     .domain([VMIN, VMAX]); // Set VMIN and VMAX as your desired min and max values
 
   colorbar

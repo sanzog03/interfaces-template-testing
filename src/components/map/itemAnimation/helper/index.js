@@ -8,7 +8,6 @@ export function addTimelineMarkers(start_date, end_date, color) {
   const offsetLeftStart = sliderRect.left - parentRect.left;
   slider.parentNode.style.position = 'relative';
 
-  console.log({ slider });
   // Function to create a marker
   //   function createMarker(color, leftOffset) {
   //     const marker = document.createElement("div");

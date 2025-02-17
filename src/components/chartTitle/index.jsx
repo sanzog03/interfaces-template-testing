@@ -3,7 +3,8 @@ import { useEffect } from 'react';
 import { useChart } from '../../context/chartContext';
 
 export const ChartTitle = ({ children }) => {
-  // title should be a string
+  // Displays the title of the chart using the children prop
+  // Uses the useChart hook to access the chart object
   const { chart } = useChart();
 
   useEffect(() => {

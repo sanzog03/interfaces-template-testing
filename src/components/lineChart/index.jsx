@@ -81,7 +81,6 @@ export const LineChart = ({ data, labels, legend, labelX, labelY, color="#ff6384
 
     // update the chart
     chart.current.update();
-    console.log('chart', chart.current);
 
   }, [chart, chart.current, data, labels, legend, labelX, labelY, color, index]);
 

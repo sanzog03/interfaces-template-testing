@@ -72,7 +72,7 @@ export function Dashboard({
   const [openDrawer, setOpenDrawer] = useState(false);
   // console.log("data", data);
   const collectionId = data[0]?.collection;
-  // console.log({dataTree})
+  console.log({ outside: data });
 
   // handler functions
   const handleSelectedVizItem = (vizItemId) => {
@@ -151,46 +151,31 @@ export function Dashboard({
 
   // Component Effects
   useEffect(() => {
-    if (!dataTree.current) return;
+    if (!data.length) return;
 
     const vizItems = {}; // visualization_items[string] = visualization_item
-    const regions = []; // string[]
-    const vizItemIds = []; // string[] // for search
-    const testData = data.slice(0, 10);
-    // Object.keys(dataTree.current).forEach(region => {
-    //   regions.push(dataTree.current[region]);
-    //   dataTree.current[region].plumes.forEach(vizItem => {
-    //     // check what visualization_item is in dataModels.ts
-    //     vizItems[vizItem.id] = vizItem;
-    //     vizItemIds.push(vizItem.id);
-    //   });
-    // });
-
-    testData.forEach((items) => {
+    data.forEach((items) => {
       vizItems[items.id] = items;
-      vizItemIds.push(items.id);
     });
-    // console.log({vizItems})
+    console.log({ vizItems });
     setVizItems(vizItems);
-    setRegions(regions);
-    setVizItemIds(vizItemIds); // for search
-    // the reference to datatree is in current, so see changes with respect to that
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dataTree.current]);
 
-  useEffect(() => {
-    if (!dataTree.current || !selectedRegionId) return;
-    const currentRegion = dataTree.current[selectedRegionId];
-    const visualizationLayers = currentRegion.plumes.map(
-      (layer) => layer.representationalPlume
-    );
-    setVisualizationLayers(visualizationLayers);
-    setSelectedVizItems(visualizationLayers);
-    setVizItemsForAnimation([]); // reset the animation
-    setShowVisualizationLayers(true); // all the available visualization items layers should be visible when region is selected
-    // the reference to datatree is in current, so see changes with respect to that
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dataTree.current, selectedRegionId]);
+  }, [data]);
+
+  // useEffect(() => {
+  //   if (!dataTree.current || !selectedRegionId) return;
+  //   const currentRegion = dataTree.current[selectedRegionId];
+  //   const visualizationLayers = currentRegion.plumes.map(
+  //     (layer) => layer.representationalPlume
+  //   );
+  //   setVisualizationLayers(visualizationLayers);
+  //   setSelectedVizItems(visualizationLayers);
+  //   setVizItemsForAnimation([]); // reset the animation
+  //   setShowVisualizationLayers(true); // all the available visualization items layers should be visible when region is selected
+  //   // the reference to datatree is in current, so see changes with respect to that
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [dataTree.current, selectedRegionId]);
 
   useEffect(() => {
     const colormap = collectionMeta?.renders?.dashboard?.colormap_name;

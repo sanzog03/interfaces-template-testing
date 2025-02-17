@@ -1,6 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faXmark, faRotateLeft, faCircleInfo } from '@fortawesome/free-solid-svg-icons';
+import { faXmark, faRotateLeft, faCircleInfo, faExternalLink } from '@fortawesome/free-solid-svg-icons';
 import { useState } from 'react';
+import { useChart } from '../../context/chartContext';
 
 export const ChartInstruction = () => {
     const [showInstructions, setShowInstructions] = useState(false);
@@ -20,16 +21,49 @@ export const ChartInstruction = () => {
     );
   };
   
-  export const ChartTools = ({ dataAccessLink, handleRefresh, handleClose }) => (
+const ZoomResetTool = ({ chart }) => {
+    const handleResetZoom = () => {
+    if (chart.current) {
+      chart.current.resetZoom();
+    }
+  };
+    return (
+    <FontAwesomeIcon
+      id="zoom-reset-button"
+      icon={faRotateLeft}
+      title="Reset Zoom"
+      onClick={handleResetZoom}
+    />
+  );
+};
+
+const CloseButton = ({ handleClose }) => (
+  <FontAwesomeIcon
+    id="chart-close-button"
+    icon={faXmark}
+    title="Close"
+    onClick={handleClose}
+  />
+);
+
+const DataAccessTool = ({ dataAccessLink }) => (
+  dataAccessLink && (
+    <a id="data-access-link" href={dataAccessLink} target="_blank" rel="noreferrer">
+      <FontAwesomeIcon icon={faExternalLink} />
+    </a>
+  )
+);
+  
+export const ChartTools = ({ dataAccessLink, handleClose }) => {
+  const { chart } = useChart();
+
+  return (
     <div id="chart-tools-right">
-      {dataAccessLink && (
-        <a id="data-access-link" href={dataAccessLink} target="_blank" rel="noreferrer">
-          Data Access Link ↗
-        </a>
-      )}
       <div id="chart-controls">
-        <FontAwesomeIcon id="zoom-reset-button" icon={faRotateLeft} title="Reset Zoom" onClick={handleRefresh} />
-        <FontAwesomeIcon id="chart-close-button" icon={faXmark} title="Close" onClick={handleClose} />
+        <DataAccessTool dataAccessLink={dataAccessLink} />
+        <ZoomResetTool chart={chart} />
+        <CloseButton handleClose={handleClose} />
       </div>
     </div>
   );
+};

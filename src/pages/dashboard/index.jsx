@@ -5,6 +5,8 @@ import DragHandleIcon from '@mui/icons-material/DragHandle';
 import { Title } from '../../components/title';
 import MainChart from '../../components/mainChart';
 import { LineChart } from '../../components/lineChart';
+import { ChartTitle } from '../../components/chartTitle';
+import { ChartInstruction, ChartTools } from '../../components/chartComponents';
 
 import './index.css';
 
@@ -22,7 +24,7 @@ export function Dashboard({
   data,
   labels
 }) {
-  const [displayChart, setDisplayChart] = useState(false);
+  const [displayChart, setDisplayChart] = useState(true);
 
   useEffect(() => {
     if (selectedStationId) {
@@ -30,132 +32,14 @@ export function Dashboard({
     }
   }, [selectedStationId]); // only on selectedStationId prop change
 
-  const chartsData = [
-    {
-      id: 'chart-1',
-      title: 'My Awesome Chart',
-      datasets: [
-        {
-          type: 'line',
-          dataPoints: [
-            10, 20, 30, 25, 50, 60, 55, 70, 65, 80, 90, 85, 100, 110, 105, 120,
-            125, 140, 135, 150, 160, 155, 170, 180, 175, 190, 200, 195, 210,
-            220, 215, 230, 240, 235, 250, 260, 255, 270, 280, 275, 290, 300,
-          ],
-          dataLegend: 'Sales by Month',
-          labels: [
-            'Jan',
-            'Feb',
-            'Mar',
-            'Apr',
-            'May',
-            'Jun',
-            'Jul',
-            'Aug',
-            'Sep',
-            'Oct',
-            'Nov',
-            'Dec',
-            'Jan',
-            'Feb',
-            'Mar',
-            'Apr',
-            'May',
-            'Jun',
-            'Jul',
-            'Aug',
-            'Sep',
-            'Oct',
-            'Nov',
-            'Dec',
-            'Jan',
-            'Feb',
-            'Mar',
-            'Apr',
-            'May',
-            'Jun',
-            'Jul',
-            'Aug',
-            'Sep',
-            'Oct',
-            'Nov',
-            'Dec',
-            'Jan',
-            'Feb',
-            'Mar',
-            'Apr',
-          ],
-          yAxisDesc: '',
-          xAxisDesc: 'Observation Date/Time (UTC)',
-          color: '#FF6384',
-        },
-        {
-          type: 'bar',
-          dataPoints: [
-            10, 20, 30, 25, 50, 60, 55, 70, 65, 80, 90, 85, 100, 110, 105, 120,
-            125, 140, 135, 150, 160, 155, 170, 180, 175, 190, 200, 195, 210,
-            220, 215, 230, 240, 235, 250, 260, 255, 270, 280, 275, 290, 300,
-          ],
-          dataLegend: 'Sales by Month',
-          labels: [
-            'Jan',
-            'Feb',
-            'Mar',
-            'Apr',
-            'May',
-            'Jun',
-            'Jul',
-            'Aug',
-            'Sep',
-            'Oct',
-            'Nov',
-            'Dec',
-            'Jan',
-            'Feb',
-            'Mar',
-            'Apr',
-            'May',
-            'Jun',
-            'Jul',
-            'Aug',
-            'Sep',
-            'Oct',
-            'Nov',
-            'Dec',
-            'Jan',
-            'Feb',
-            'Mar',
-            'Apr',
-            'May',
-            'Jun',
-            'Jul',
-            'Aug',
-            'Sep',
-            'Oct',
-            'Nov',
-            'Dec',
-            'Jan',
-            'Feb',
-            'Mar',
-            'Apr',
-          ],
-          yAxisDesc: 'Sales',
-          xAxisDesc: '',
-          color: '#208520',
-        },
-      ],
-      style: { width: '100%', height: '100%' },
-    },
-  ];
+  const handleClose = () => {
+    setDisplayChart(false);
+  }
 
   return (
     <Box className='fullSize' style={{ }}>
       <Title ghg={ghg} agency={agency} region={region} />
-      <img
-        src={process.env.PUBLIC_URL + '/nist.png'}
-        alt='NIST'
-        className='logo'
-      />
+    
       <PanelGroup direction='vertical' className='panel-wrapper'>
         <Panel
           id='map-panel'
@@ -167,26 +51,60 @@ export function Dashboard({
         >
           <div id='dashboard-map-container'></div>
         </Panel>
-        <>
-          <PanelResizeHandle className='resize-handle'>
-            <DragHandleIcon title='Resize' />
-          </PanelResizeHandle>
-          <Panel
-            id='chart-panel'
-            maxSize={75}
-            minSize={40}
-            className='panel panel-timeline'
-            order={2}
-          >
-            <MainChart>
+        {displayChart && (
+          <>
+            <PanelResizeHandle className='resize-handle'>
+              <DragHandleIcon title='Resize' />
+            </PanelResizeHandle>
 
-              <LineChart data={[1, 2, 3]} labels={['a', 'b', 'c']} legend={"daily insitu"} labelX={"date-time"} labelY={"concentration"} index={0}/>
-              {/* <LineChart data={[4, 5, 6]} labels={['d', 'e', 'f']} legend={"daily insitu"} labelX={"date-time"} labelY={"concentration"} index={1}/> */}
+            <Panel
+              id='chart-panel'
+              maxSize={75}
+              minSize={40}
+              className='panel panel-timeline'
+              order={2}
+            >
+              <MainChart>
+                <div className="chart-container">
+                  {/* Instructions and Tools container */}
+                  <div className="chart-sidebar">
+                    <div className="chart-instructions-container">
+                      <ChartInstruction />
+                    </div>
+                    <div className="chart-tools-container">
+                      <ChartTools dataAccessLink='https://www.google.com' handleClose={handleClose} />
+                    </div>
+                  </div>
 
-            </MainChart>
-          </Panel>
-        </>
+                  {/* Main chart container */}
+                  <div className="main-chart-container">
+                    <ChartTitle>My Chart</ChartTitle>
+                    <LineChart
+                      data={[1, 2, 3]}
+                      labels={['a', 'b', 'c']}
+                      legend={"daily insitu"}
+                      labelX={"date-time"}
+                      labelY={"concentration"}
+                      index={0}
+                    />
+                    <LineChart
+                      data={[2, 5, 6]}
+                      labels={['d', 'e', 'f']}
+                      legend={"weekly insitu"}
+                      labelY={"concentration"}
+                      color={'#878700'}
+                      index={1}
+                    />
+                  </div>
+                </div>
+              </MainChart>
+            </Panel>
+          </>
+        )}
       </PanelGroup>
     </Box>
   );
 }
+
+
+

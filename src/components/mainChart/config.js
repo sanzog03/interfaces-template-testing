@@ -70,15 +70,20 @@ export const options = {
       },
     },
   },
+  layout: {
+    padding: {
+      top: 5,
+      bottom: 5,
+      left: 5,
+      right: 15,
+    },
+  },
   stacked: false,
   hover: {
     mode: "nearest",
     intersect: false,
   },
   plugins: {
-    corsair: {
-      // color: 'black',
-    },
     zoom: {
       zoom: {
         wheel: {
@@ -110,17 +115,6 @@ export const options = {
       position: "top", // You can change the position to 'bottom', 'left', or 'right'
     },
     tooltip: {
-      callbacks: {
-        label: function (context) {
-          let label = context.dataset.label || "";
-          let splitText = label.split(":");
-          return `${context.parsed.y} : ${splitText[splitText.length - 1]}`;
-        },
-        title: function (context) {
-          let dateTime = context[0].label;
-          return `${dateTime} (UTC)`;
-        }
-      },
       mode: "nearest",
       intersect: false,
       backgroundColor: "#FFFFFF",

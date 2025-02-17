@@ -1,6 +1,7 @@
 import { createContext, useContext, useRef, useState, useEffect } from 'react';
 import Chart from 'chart.js/auto';
-import { options, plugin } from '../components/chart/config';
+import { ChartInstruction, ChartTools } from '../components/chartComponents';
+import { options, plugin } from '../components/mainChart/config';
 
 const ChartContext = createContext();
 
@@ -17,9 +18,7 @@ export const ChartProvider = ({ children }) => {
         {
           label: [],
           data: [],
-          borderColor: '#ff6384',
-          yAxisID: 'y',
-          showLine: false
+          showLine: false,
         }
       ]
     };
@@ -40,7 +39,9 @@ export const ChartProvider = ({ children }) => {
   }, []);
 
   return (
-    <ChartContext.Provider value={{ chart: chart.current }}>
+    <ChartContext.Provider value={{ chart: chart }}>
+      <ChartInstruction />
+      <ChartTools />
       <canvas ref={chartContainer} style={{ width: '100%', minHeight: '30%' }}>
         {children}
       </canvas>

@@ -15,7 +15,7 @@
 }
 
 #chart-tools {
-    position: absolute;
+    position: relative;
     width: 100%;
     display: flex;
     justify-content: space-between;
@@ -23,7 +23,7 @@
 }
 
 #chart-instructions-container {
-    position: absolute;
+    position: relative;
     top: 0;
     left: 10px;
 }
@@ -37,7 +37,7 @@
     border-radius: 5px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
     z-index: 1000;
-    font-size: 11px;
+    font-size: 14px;
     display: block;
 }
 

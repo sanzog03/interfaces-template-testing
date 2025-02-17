@@ -1,10 +1,4 @@
-import { Chart } from "chart.js";
-import zoomPlugin from "chartjs-plugin-zoom";
-import annotationPlugin from "chartjs-plugin-annotation";
 import 'chartjs-adapter-luxon';
-
-Chart.register(zoomPlugin);
-Chart.register(annotationPlugin);
 
 export const ghgBlue = "#082A63";
 

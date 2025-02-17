@@ -5,8 +5,8 @@ import DragHandleIcon from '@mui/icons-material/DragHandle';
 import { Title } from '../../components/title';
 import MainChart from '../../components/mainChart';
 import { LineChart } from '../../components/lineChart';
-import { ChartTitle } from '../../components/chartTitle';
-import { ChartInstruction, ChartTools } from '../../components/chartComponents';
+import { ChartInstruction, ChartTools, ChartToolsLeft, ChartToolsRight,
+  ChartTitle, DataAccessTool, ZoomResetTool, CloseButton } from '../../components/chartComponents';
 
 import './index.css';
 
@@ -69,10 +69,19 @@ export function Dashboard({
                   {/* Instructions and Tools container */}
                   <div className="chart-sidebar">
                     <div className="chart-instructions-container">
-                      <ChartInstruction />
                     </div>
                     <div className="chart-tools-container">
-                      <ChartTools dataAccessLink='https://www.google.com' handleClose={handleClose} />
+                      <div id="chart-tools-pandey">
+                        {/* <ChartToolsLeft> */}
+                          <ChartInstruction />
+                        {/* </ChartToolsLeft> */}
+                        {/* <ChartToolsRight> */}
+                          <DataAccessTool dataAccessLink={'https://www.google.com'} />
+                          <ZoomResetTool />
+                          <CloseButton handleClose={(e) => {
+                          }} />
+                        {/* </ChartToolsRight> */}
+                      </div>
                     </div>
                   </div>
 
@@ -90,8 +99,6 @@ export function Dashboard({
                     <LineChart
                       data={[2, 5, 6]}
                       labels={['d', 'e', 'f']}
-                      legend={"weekly insitu"}
-                      labelY={"concentration"}
                       color={'#878700'}
                       index={1}
                     />
@@ -105,4 +112,3 @@ export function Dashboard({
     </Box>
   );
 }
-

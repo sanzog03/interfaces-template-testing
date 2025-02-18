@@ -4,8 +4,10 @@ import './index.css';
 const MainChart = ({ children }) => {
   return (
     <ChartProvider>
-      {/* Other components that need access to the chart */}
-      {children}
+      <div className="chart-container">
+        {/* Other components that need access to the chart */}
+        {children}
+      </div>
     </ChartProvider>
   );
 };

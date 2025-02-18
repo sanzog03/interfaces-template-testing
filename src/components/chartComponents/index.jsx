@@ -91,7 +91,7 @@ export const DataAccessTool = ({ dataAccessLink }) => {
 export const ChartTools = ({ children }) => {
   // Displays the chart tools
   return (
-    <div id="chart-tools">
+    <div className="chart-tools-container">
       {children}
     </div>
   );

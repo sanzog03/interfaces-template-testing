@@ -65,21 +65,20 @@ export function Dashboard({
               order={2}
             >
               <MainChart>
-                <div className="chart-container">
                   {/* Instructions and Tools container */}
-                    <div className="chart-tools-container">
-                        <ChartToolsLeft>
-                          <ChartInstruction />
-                        </ChartToolsLeft>
-                        <ChartToolsRight>
-                          <DataAccessTool dataAccessLink={'https://www.google.com'} />
-                          <ZoomResetTool />
-                          <CloseButton handleClose={handleClose} />
-                        </ChartToolsRight>
-                    </div>
+                  <ChartTools>
+                    <ChartToolsLeft>
+                      <ChartInstruction />
+                    </ChartToolsLeft>
+                    <ChartToolsRight>
+                      <DataAccessTool dataAccessLink={'https://www.google.com'} />
+                      <ZoomResetTool />
+                      <CloseButton handleClose={handleClose} />
+                    </ChartToolsRight>
+                  </ChartTools>
+
 
                   {/* Main chart container */}
-                  <div className="main-chart-container">
                     <ChartTitle>My Chart</ChartTitle>
                     <LineChart
                       data={[1, 2, 3]}
@@ -96,8 +95,6 @@ export function Dashboard({
                       color={'#878700'}
                       index={1}
                     />
-                  </div>
-                </div>
               </MainChart>
             </Panel>
           </>

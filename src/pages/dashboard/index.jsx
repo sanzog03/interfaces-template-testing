@@ -67,23 +67,16 @@ export function Dashboard({
               <MainChart>
                 <div className="chart-container">
                   {/* Instructions and Tools container */}
-                  <div className="chart-sidebar">
-                    <div className="chart-instructions-container">
-                    </div>
                     <div className="chart-tools-container">
-                      <div id="chart-tools-pandey">
-                        {/* <ChartToolsLeft> */}
+                        <ChartToolsLeft>
                           <ChartInstruction />
-                        {/* </ChartToolsLeft> */}
-                        {/* <ChartToolsRight> */}
+                        </ChartToolsLeft>
+                        <ChartToolsRight>
                           <DataAccessTool dataAccessLink={'https://www.google.com'} />
                           <ZoomResetTool />
-                          <CloseButton handleClose={(e) => {
-                          }} />
-                        {/* </ChartToolsRight> */}
-                      </div>
+                          <CloseButton handleClose={handleClose} />
+                        </ChartToolsRight>
                     </div>
-                  </div>
 
                   {/* Main chart container */}
                   <div className="main-chart-container">
@@ -99,6 +92,7 @@ export function Dashboard({
                     <LineChart
                       data={[2, 5, 6]}
                       labels={['d', 'e', 'f']}
+                      labelX={"date-time"}
                       color={'#878700'}
                       index={1}
                     />

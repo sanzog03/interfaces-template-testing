@@ -27,7 +27,6 @@ export const ChartInstruction = () => {
     const [showInstructions, setShowInstructions] = useState(false);
     return (
       <div id="chart-instructions-container">
-        <div className="icon-and-instructions">
           <FontAwesomeIcon icon={faCircleInfo} onMouseEnter={() => setShowInstructions(true)} onMouseLeave={() => setShowInstructions(false)} />
           {showInstructions && (
             <div id="chart-instructions">
@@ -37,7 +36,6 @@ export const ChartInstruction = () => {
             </div>
           )}
         </div>
-      </div>
     );
   };
   
@@ -93,7 +91,7 @@ export const DataAccessTool = ({ dataAccessLink }) => {
 export const ChartTools = ({ children }) => {
   // Displays the chart tools
   return (
-    <div id="chart-controls">
+    <div id="chart-tools">
       {children}
     </div>
   );
@@ -104,7 +102,9 @@ export const ChartToolsLeft = ({ children }) => {
   // Left align chart tools
   return (
     <div id="chart-tools-left">
-      {children}
+      <div id="chart-controls">
+        {children}
+      </div>
     </div>
   );
 };
@@ -114,7 +114,9 @@ export const ChartToolsRight = ({ children }) => {
   // Right align chart tools
   return (
     <div id="chart-tools-right">
-      {children}
+      <div id="chart-controls">
+        {children}
+      </div>
     </div>
   );
 };

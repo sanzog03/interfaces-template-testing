@@ -1,6 +1,5 @@
 import { createContext, useContext, useRef, useState, useEffect } from 'react';
 import Chart from 'chart.js/auto';
-import { ChartInstruction, ChartTools } from '../components/chartComponents';
 import { plugin } from '../components/mainChart/customPlugin';
 import { options } from '../components/mainChart/options';
 import '../components/mainChart/config';
@@ -38,17 +37,14 @@ export const ChartProvider = ({ children }) => {
 
     // Clean up charts on unmount
     return () => {
-      chart.destroy();
+      chart_instance?.destroy();
     };
   }, []);
 
   return (
     <ChartContext.Provider value={{ chart: chart }}>
-      <ChartInstruction />
-      <ChartTools />
-      <canvas ref={chartContainer} style={{ width: '100%', minHeight: '30%' }}>
-        {children}
-      </canvas>
+      {children}
+      <canvas ref={chartContainer} style={{ width: '100%', minHeight: '30%', position: 'absolute' }}></canvas>
     </ChartContext.Provider>
   );
 };

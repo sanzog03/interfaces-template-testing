@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import mapboxgl from 'mapbox-gl';
-import { useMapbox } from '../../context/mapContext';
+import { useMapbox } from '../../../context/mapContext';
 import { HamburgerControl } from './hamburger';
 import { MeasureDistanceControl } from './measureDistance';
 import { ChangeUnitControl } from './changeUnit';
@@ -8,7 +8,7 @@ import { ClearMeasurementControl } from './clearMeasurement';
 import { LayerVisibilityControl } from './layerVisibility';
 import { HomeControl } from './home';
 import { RestoreControl } from './restore';
-import { MeasurementLayer } from '../../components/measurementLayer';
+import { MeasurementLayer } from '../measurementLayer';
 
 import './index.css';
 const scaleUnits = {

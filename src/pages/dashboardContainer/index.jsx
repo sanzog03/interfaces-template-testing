@@ -1,36 +1,99 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
-import { Dashboard } from '../dashboard';
-
+import { Dashboard } from '../dashboard/index.jsx';
+import { fetchAllFromSTACAPI } from '../../services/api';
+import {
+  dataTransformationPlume,
+  dataTransformationPlumeRegion,
+  dataTransformationPlumeMeta,
+  dataTransformationPlumeRegionMeta,
+  metaDatetimeFix,
+} from './helper/dataTransform';
+import { PlumeMetas } from '../../assets/dataset/metadata.ts';
 
 export function DashboardContainer() {
-    const [ selectedStationId, setSelectedStationId ] = useState("");
-    const [ stations, setStations ] = useState([]);
-    const [ stationMetadata, setStationMetadata ] = useState({});
+  // get the query params
+  const [searchParams] = useSearchParams();
+  const [zoomLocation, setZoomLocation] = useState(
+    searchParams.get('zoom-location') || []
+  ); // let default zoom location be controlled by map component
+  const [zoomLevel, setZoomLevel] = useState(
+    searchParams.get('zoom-level') || null
+  ); // let default zoom level be controlled by map component
+  const [collectionId] = useState(
+    searchParams.get('collection-id') || 'goes-ch4plume-v1'
+  );
 
-    // get the query params
-    const [ searchParams ] = useSearchParams();
-    const [ agency ] = useState(searchParams.get('agency') || "nist"); // nist, noaa, or nasa
-    const [ dataCategory ] = useState(searchParams.get('data-category') || ""); // testbed
-    const [ region ] = useState(searchParams.get('region') || ""); // lam or nec
-    const [ ghg, setSelectedGHG ] = useState(searchParams.get('ghg') || "co2"); // co2 or ch4
-    const [ stationCode ] = useState(searchParams.get('station-code') || ""); // buc, smt, etc
-    const [ zoomLevel ] = useState (searchParams.get('zoom-level')); // let default zoom level controlled by map component
+  const [collectionItems, setCollectionItems] = useState([]);
+  const [collectionMeta, setCollectionMeta] = useState({});
+  const dataTree = useRef(null);
+  const [metaDataTree, setMetaDataTree] = useState({});
+  const [vizItemMetaData, setVizItemMetaData] = useState({});
 
+  const [loadingData, setLoadingData] = useState(true);
 
-    return (
-        <Dashboard
-            stations={stations}
-            selectedStationId={selectedStationId}
-            stationMetadata={stationMetadata}
-            ghg={ghg}
-            agency={agency}
-            region={region}
-            stationCode={stationCode}
-            zoomLevel={zoomLevel}
-            setSelectedStationId={setSelectedStationId}
-            setSelectedGHG={setSelectedGHG}
-        />
-    );
+  useEffect(() => {
+    setLoadingData(true);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    let vizItemMetaMap = {};
+    let vizItemRegionMetaMap = {};
+    try {
+      // DataTransformation for the vizItemMeta
+      vizItemMetaMap = dataTransformationPlumeMeta(PlumeMetas);
+      vizItemRegionMetaMap = dataTransformationPlumeRegionMeta(vizItemMetaMap);
+      setMetaDataTree(vizItemRegionMetaMap);
+      setVizItemMetaData(vizItemMetaMap);
+    } catch (error) {
+      console.error('Error Transforming metadata');
+    }
+
+    const fetchData = async () => {
+      try {
+        // fetch in the collection from the features api
+        const collectionUrl = `${process.env.REACT_APP_STAC_API_URL}/collections/${collectionId}`;
+        // use this url to find out the data frequency of the collection
+        // store to a state.
+        fetch(collectionUrl)
+          .then(async (metaData) => {
+            const metadataJSON = await metaData.json();
+            setCollectionMeta(metadataJSON);
+          })
+          .catch((err) => console.error('Error fetching data: ', err));
+        // get all the collection items
+        const collectionItemUrl = `${process.env.REACT_APP_STAC_API_URL}/collections/${collectionId}/items`;
+        const data = await fetchAllFromSTACAPI(collectionItemUrl);
+        setCollectionItems(data);
+        // use the lon and lat in the fetched data from the metadata.
+        const plumeMap = dataTransformationPlume(data, vizItemMetaMap);
+        const plumeRegionMap = dataTransformationPlumeRegion(plumeMap);
+        dataTree.current = plumeRegionMap;
+        // update the datetime in metadata via fetched data.
+        const updatedPlumeMetaMap = metaDatetimeFix(vizItemMetaMap, plumeMap);
+        setVizItemMetaData(updatedPlumeMetaMap);
+        // remove loading
+        setLoadingData(false);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchData().catch(console.error);
+  }, []); // only on initial mount
+
+  return (
+    <Dashboard
+      data={collectionItems}
+      zoomLocation={zoomLocation}
+      zoomLevel={zoomLevel}
+      setZoomLocation={setZoomLocation}
+      setZoomLevel={setZoomLevel}
+      collectionMeta={collectionMeta}
+      dataTree={dataTree}
+      metaDataTree={metaDataTree}
+      vizItemMetaData={vizItemMetaData}
+      collectionId={collectionId}
+      loadingData={loadingData}
+    />
+  );
 }

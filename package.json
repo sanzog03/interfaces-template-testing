@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "private": true,
   "homepage": ".",
+  "source": "src/components/index.js",
+  "main": "dist/lib/main.js",
+  "module": "dist/lib/module.js",
   "dependencies": {
     "@date-io/moment": "^3.0.0",
     "@emotion/react": "^11.13.3",
@@ -45,6 +48,8 @@
   "scripts": {
     "start": "parcel",
     "build": "parcel build",
+    "build-lib": "parcel build ./src/components/index.js --dist-dir=dist/lib",
+    "watch": "parcel watch",
     "test": "jest",
     "format": "prettier --write .",
     "lint": "eslint src",
@@ -92,7 +97,15 @@
     "prettier": "^3.4.2",
     "process": "^0.11.10"
   },
-  "source": "public/index.html",
+  "targets": {
+    "custom-interfafce-app": {
+      "source": "public/index.html",
+      "context": "browser"
+    }
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
   "alias": {
     "$components": "./src/components",
     "$context": "./src/context/"

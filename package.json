@@ -1,10 +1,17 @@
 {
   "name": "interface-template",
+  "description": "A React UI component library and custom interface template for GIS application.",
   "version": "1.0.0",
-  "private": true,
+  "author": "<sanzog03@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/US-GHG-Center/interfaces-template.git"
+  },
+  "license": "Apache-2.0",
+  "private": false,
   "homepage": ".",
-  "source": "src/components/index.js",
   "main": "dist/lib/main.js",
+  "source": "src/components/index.js",
   "module": "dist/lib/module.js",
   "dependencies": {
     "@date-io/moment": "^3.0.0",
@@ -49,6 +56,8 @@
     "start": "parcel",
     "build": "parcel build",
     "build-lib": "parcel build ./src/components/index.js --dist-dir=dist/lib",
+    "release": "release-it",
+    "release-test": "release-it --dry-run",
     "watch": "parcel watch",
     "test": "jest",
     "format": "prettier --write .",
@@ -95,14 +104,15 @@
     "postcss": ">= 8",
     "postcss-normalize": "^13.0.1",
     "prettier": "^3.4.2",
-    "process": "^0.11.10"
+    "process": "^0.11.10",
+    "release-it": "^18.1.2"
   },
   "peerDependencies": {
-    "@types/react": "^18.0.0",
-    "@types/react-dom": "^18.0.0",
     "@mui/icons-material": "^6.1.6",
     "@mui/material": "^6.1.6",
-    "@mui/x-date-pickers": "^7.22.0"
+    "@mui/x-date-pickers": "^7.22.0",
+    "@types/react": "^18.0.0",
+    "@types/react-dom": "^18.0.0"
   },
   "targets": {
     "custom-interfafce-app": {

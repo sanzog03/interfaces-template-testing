@@ -15,7 +15,7 @@ import {
   Search,
   FilterByDate,
   VizItemAnimation,
-} from '$components';
+} from 'interface-template';
 
 import styled from 'styled-components';
 

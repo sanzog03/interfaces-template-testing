@@ -97,6 +97,13 @@
     "prettier": "^3.4.2",
     "process": "^0.11.10"
   },
+  "peerDependencies": {
+    "@types/react": "^18.0.0",
+    "@types/react-dom": "^18.0.0",
+    "@mui/icons-material": "^6.1.6",
+    "@mui/material": "^6.1.6",
+    "@mui/x-date-pickers": "^7.22.0"
+  },
   "targets": {
     "custom-interfafce-app": {
       "source": "public/index.html",

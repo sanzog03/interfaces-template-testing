@@ -33,6 +33,7 @@ jobs:
 
           # Check for required variables
           [ -z "${{ secrets.GITHUB_TOKEN }}" ] && missing_vars+=("secrets.GITHUB_TOKEN")
+          [ -z "${{ secrets.NPM_TOKEN }}" ] && missing_vars+=("secrets.NPM_TOKEN")
 
           # If any variables are missing, print them and exit with an error
           if [ ${#missing_vars[@]} -ne 0 ]; then

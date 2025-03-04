@@ -17,7 +17,7 @@ jobs:
           if [ "${{ github.ref }}" = "refs/heads/main" ]; then
             echo "env_name=production" >> $GITHUB_OUTPUT
           elif [ "${{ github.ref }}" = "refs/heads/develop" ]; then
-            echo "env_name=production" >> $GITHUB_OUTPUT
+            echo "env_name=staging" >> $GITHUB_OUTPUT
           fi
       - name: print the environment
         run: echo "The environment is ${{ steps.define_environment.outputs.env_name }}"
@@ -60,7 +60,15 @@ jobs:
           git config user.name "${GITHUB_ACTOR}"
           git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
       - name: Release It!
-        run: yarn release --ci --verbose
+        run: |
+          if [[ "${{ needs.define-environment.outputs.env_name }}" == "production" ]]; then
+            yarn release --ci --verbose
+          elif [[ "${{ needs.define-environment.outputs.env_name }}" == "staging" ]]; then
+            yarn release --ci --verbose --preRelease=rc
+          else
+            echo "Unsupported environment: ${{ needs.define-environment.outputs.env_name }}"
+            exit 1
+          fi
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -28,3 +28,6 @@ yarn-error.log*
 package-lock.json
 dist/
 .parcel-cache
+
+# workflow will create this file, so ignore it to untrack it.
+.npmrc

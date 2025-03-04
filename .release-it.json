@@ -1,6 +1,6 @@
 {
     "git": {
-        "requireBranch": "GHGC-201/custom-interfaces-library",
+        "requireBranch": ["main", "develop"],
         "commitMessage": "chore: release v${version}"
     },
     "hooks": {
@@ -10,7 +10,7 @@
         "release": true
     },
     "npm": {
-        "publish": false
+        "publish": true
     },
     "publishConfig": {
         "registry": "https://registry.npmjs.org"

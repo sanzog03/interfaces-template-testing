@@ -55,6 +55,8 @@ jobs:
         run: npm install -g yarn
       - name: Install Dependencies
         run: yarn
+      - name: Bundle Package
+        run: yarn build-lib
       - name: Git config
         run: |
           git config user.name "${GITHUB_ACTOR}"

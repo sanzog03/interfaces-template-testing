@@ -27,6 +27,9 @@ module.exports = {
   },
   publishConfig: {
     registry: "https://registry.npmjs.org"
+  },
+  plugins: {
+    './release-it-plugins/recommended-bump/index.mjs': {}
   }
 }
 

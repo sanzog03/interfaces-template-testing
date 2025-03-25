@@ -92,10 +92,13 @@
     "babel-jest": "^27.4.2",
     "babel-preset-react-app": "^10.0.1",
     "browserslist": ">= 4",
+    "conventional-changelog-conventionalcommits": "^8.0.0",
+    "conventional-recommended-bump": "^11.0.0",
     "eslint": "^8.3.0",
     "eslint-config-prettier": "^10.0.1",
     "eslint-config-react-app": "^7.0.1",
     "eslint-plugin-prettier": "^5.2.3",
+    "git-semver-tags": "^8.0.0",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^27.4.3",
     "jest-watch-typeahead": "^1.0.0",
@@ -105,7 +108,8 @@
     "postcss-normalize": "^13.0.1",
     "prettier": "^3.4.2",
     "process": "^0.11.10",
-    "release-it": "^18.1.2"
+    "release-it": "^18.1.2",
+    "semver": "^7.7.1"
   },
   "peerDependencies": {
     "@mui/icons-material": "^6.1.6",

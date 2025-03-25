@@ -22,7 +22,8 @@ module.exports = {
     releaseNotes: getReleaseNotes,
   },
   npm: {
-    publish: debug ? false : true
+    // publish: debug ? false : true
+    publish: false
   },
   publishConfig: {
     registry: "https://registry.npmjs.org"

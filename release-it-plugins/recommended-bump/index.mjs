@@ -20,6 +20,7 @@ export default class RecommendedBump extends Plugin {
       return semver.inc(lastStableTag, releaseType);
     }
     // some changes... remove this line later
+    // more changes.
   }
 
   async getIncrementedVersionCI(options) {

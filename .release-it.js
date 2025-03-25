@@ -2,12 +2,11 @@ const debug = process.argv.includes('--debug');
 
 module.exports = {
   hooks: {
-      'before:init': ["git pull"],
       'after:release': 'echo "VERSION_NUMBER=v${version}" >> "$GITHUB_OUTPUT"'
   },
   git: {
     release: debug ? false : true,
-    requireBranch: ["main", "develop"],
+    requireBranch: ["main", "develop", "GHGC-201/custom-interfaces-library"],
     commitMessage: "chore: release v${version}",
     tagName: 'v${version}',
     tagAnnotation: 'Release v${version}',

@@ -16,7 +16,8 @@ module.exports = {
     changelog: 'git log --pretty=format:%s ${latestTag}...HEAD' // Output will be passed to releaseNotes context.changelog
   },
   github: {
-    release: debug ? false : true,
+    release: true,
+    // release: debug ? false : true,
     releaseName: "v${version}",
     autoGenerate: false,
     releaseNotes: getReleaseNotes,

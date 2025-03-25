@@ -2,7 +2,8 @@ const debug = process.argv.includes('--debug');
 
 module.exports = {
   hooks: {
-      'after:release': 'echo "VERSION_NUMBER=v${version}" >> "$GITHUB_OUTPUT"'
+    'after:bump': 'yarn && yarn build-lib',
+    'after:release': 'echo "VERSION_NUMBER=v${version}" >> "$GITHUB_OUTPUT"'
   },
   git: {
     release: debug ? false : true,

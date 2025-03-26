@@ -42,10 +42,11 @@ module.exports = {
 // helpers
 
 function getReleaseNotes (context) {
+  console.log("1>>>", context.changelog)
   if (!context || !context.changelog) return "";
   const logs = context.changelog.split('\n');
   const groupedCommits = groupCommitsByCategory(logs);
-  const title = `## What's changed \n`;
+  const title = `## What's changed \n` + context.changelog;
   const changelog = Object.entries(groupedCommits).map(([prefix, commits]) => {
     if (commits.length > 0) {
       return `### ${prefix}\n ${commits.map((c) => "* "+c).join('\n')}`;

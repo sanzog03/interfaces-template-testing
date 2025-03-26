@@ -14,7 +14,7 @@ module.exports = {
     pushArgs: ['--follow-tags'],
     requireCleanWorkingDir: debug ? false : true,
     requireUpstream: debug ? false : true,
-    changelog: 'git log --pretty=format:%s ${latestTag}...HEAD' // Output will be passed to releaseNotes context.changelog
+    // changelog: 'git log --pretty=format:%s ${latestTag}...HEAD' // Output will be passed to releaseNotes context.changelog // this is overridden by the @release-it/conventional-changelog's changelog
   },
   github: {
     release: debug ? false : true,

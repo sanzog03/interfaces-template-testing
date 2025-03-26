@@ -43,10 +43,10 @@ module.exports = {
 
 function getReleaseNotes (context) {
 
-  console.log("0>>>", context)
-  console.log("1>>>", context.changelog)
-  if (!context || !context.changelog) return "";
-  const logs = context.changelog.split('\n');
+  console.log("0>>>", context )
+  console.log("1>>>", context.github.changelog)
+  if (!context || !context.github || !context.github.changelog) return "";
+  const logs = context.github.changelog.split('\n');
   const groupedCommits = groupCommitsByCategory(logs);
   const title = `## What's changed \n` + context.changelog;
   const changelog = Object.entries(groupedCommits).map(([prefix, commits]) => {

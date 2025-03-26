@@ -36,6 +36,7 @@ module.exports = {
 // helpers
 
 function getReleaseNotes (context) {
+  if (!context?.changelog) return "";
   const logs = context.changelog.split('\n');
   const groupedCommits = groupCommitsByCategory(logs);
   const title = `## What's changed \n`;

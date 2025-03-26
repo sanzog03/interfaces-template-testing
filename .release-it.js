@@ -42,6 +42,8 @@ module.exports = {
 // helpers
 
 function getReleaseNotes (context) {
+
+  console.log("0>>>", context)
   console.log("1>>>", context.changelog)
   if (!context || !context.changelog) return "";
   const logs = context.changelog.split('\n');

@@ -47,6 +47,7 @@ function getReleaseNotes (context) {
   console.log("1>>>", context.github.changelog)
   if (!context || !context.github || !context.github.changelog) return "";
   const logs = context.github.changelog.split('\n');
+  console.log("2>>>", logs)
   const groupedCommits = groupCommitsByCategory(logs);
   const title = `## What's changed \n` + context.changelog;
   const changelog = Object.entries(groupedCommits).map(([prefix, commits]) => {

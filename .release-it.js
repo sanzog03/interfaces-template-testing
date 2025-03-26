@@ -29,7 +29,47 @@ module.exports = {
     registry: "https://registry.npmjs.org"
   },
   plugins: {
-    './release-it-plugins/recommended-bump/index.mjs': {}
+    // './release-it-plugins/recommended-bump/index.mjs': {}
+    "@release-it/conventional-changelog": {
+      "preset": {
+        "name": "conventionalcommits",
+        "types": [
+            {
+              "type": "feat",
+              "section": '🎉 Features',
+            },
+            {
+              "type": "fix",
+              "section": '🐛 Fixes',
+            },
+            {
+              "type": "docs",
+              "section": '🚀 Improvements',
+            },
+            {
+              "type": "ci",
+              "section": '🚀 Improvements',
+            },
+            {
+              "type": "test",
+              "section": '🚀 Improvements',
+            },
+            {
+              "type": "refactor",
+              "section": '🚀 Improvements',
+            },
+            {
+              "type": "chore",
+              "section": '🚀 Improvements',
+            },
+            {
+              "type": "revert",
+              "section": '🐛 Fixes'
+            },
+        ]
+      },
+      "infile": false
+    }
   }
 }
 

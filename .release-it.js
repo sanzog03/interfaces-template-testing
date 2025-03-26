@@ -76,48 +76,7 @@ module.exports = {
 // helpers
 
 function getReleaseNotes (context) {
-
-  console.log("0>>>", context )
-  console.log("1>>>", context.github.changelog)
-  if (!context || !context.github || !context.github.changelog) return "";
-  const logs = context.github.changelog.split('\n');
-  console.log("2>>>", logs)
-  const groupedCommits = groupCommitsByCategory(logs);
-  const title = `## What's changed \n` + context.changelog;
-  const changelog = Object.entries(groupedCommits).map(([prefix, commits]) => {
-    if (commits.length > 0) {
-      return `### ${prefix}\n ${commits.map((c) => "* "+c).join('\n')}`;
-    }
-  }).join('\n');
-  return title + changelog;
-}
-
-function groupCommitsByCategory (logs) {
-  // return categorized logs made during a PR.
-  const grouped = {};
-  const prefixes = {
-    feat: '🎉 Features',
-    fix: '🐛 Fixes',
-    docs: '🚀 Improvements',
-    ci: '🚀 Improvements',
-    test: '🚀 Improvements',
-    refactor: '🚀 Improvements',
-    chore: '🚀 Improvements',
-    revert: '🐛 Fixes'
-  };
-
-  Object.values(prefixes).forEach((category) => {
-    grouped[category] = [];
-  });
-
-  Object.entries(prefixes).forEach(([prefix, category]) => {
-    // from all the logs, only takes in the log that was put in during a pull request
-    const regex = new RegExp(
-      `^(((Initial commit)|(Merge [^\r\n]+(\s)[^\r\n]+((\s)((\s)[^\r\n]+)+)*(\s)?)|^((${prefix})(\([\w\-]+\))?!?: [^\r\n]+((\s)((\s)[^\r\n]+)+)*))(\s)?)$`
-    );
-    const matches = logs.filter(l => l.match(regex));
-    grouped[category] = [...matches, ...grouped[category]];
-  });
-
-  return grouped;
+  if (!context || !context || !context.changelog) return "";
+  const changelog = `## What's changed \n` + context.changelog;
+  return changelog;
 }

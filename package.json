@@ -1,7 +1,7 @@
 {
   "name": "interface-template-testing",
   "description": "A React UI component library and custom interface template for GIS application.",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "author": "<sanzog03@gmail.com>",
   "repository": {
     "type": "git",

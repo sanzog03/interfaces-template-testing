@@ -57,7 +57,7 @@
     "build": "parcel build",
     "build-lib": "parcel build ./src/components/index.js --dist-dir=dist/lib",
     "release": "release-it",
-    "release-beta": "release-it premajor --preReleaseId=beta --npm.tag=beta --github.preRelease",
+    "release-beta": "release-it --preReleaseId=beta --npm.tag=beta --github.preRelease",
     "release-alpha": "release-it --preRelease=alpha",
     "release-rc": "release-it --preRelease=rc",
     "release-ci": "release-it --ci",

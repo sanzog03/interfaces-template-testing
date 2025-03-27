@@ -69,7 +69,6 @@ module.exports = {
         ]
       },
       "infile": false,
-      "ignoreRecommendedBump": true // Allow manual overrides
     }
   }
 }

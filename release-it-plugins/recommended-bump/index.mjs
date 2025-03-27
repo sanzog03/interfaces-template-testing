@@ -30,6 +30,7 @@ export default class RecommendedBump extends Plugin {
     // one more breaking change addition.
     // post first version release change
     // one change on top of alpha release.
+    // beta had one fix to be added on top of previous beta release.
   }
 
   async getIncrementedVersionCI(options) {

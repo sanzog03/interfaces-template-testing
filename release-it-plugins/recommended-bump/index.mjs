@@ -26,6 +26,7 @@ export default class RecommendedBump extends Plugin {
     // one more addition.
     // one more addition.
     // addition.
+    // breaking change addition.
   }
 
   async getIncrementedVersionCI(options) {

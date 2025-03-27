@@ -33,40 +33,40 @@ module.exports = {
     "@release-it/conventional-changelog": {
       "preset": {
         "name": "conventionalcommits",
-        "types": [
-          {
-            "type": "feat",
-            "section": '🎉 Features',
-          },
-          {
-            "type": "fix",
-            "section": '🐛 Fixes',
-          },
-          {
-            "type": "docs",
-            "section": '🚀 Improvements',
-          },
-          {
-            "type": "ci",
-            "section": '🚀 Improvements',
-          },
-          {
-            "type": "test",
-            "section": '🚀 Improvements',
-          },
-          {
-            "type": "refactor",
-            "section": '🚀 Improvements',
-          },
-          {
-            "type": "chore",
-            "section": '🚀 Improvements',
-          },
-          {
-            "type": "revert",
-            "section": '🐛 Fixes'
-          },
-        ]
+        // "types": [
+        //   {
+        //     "type": "feat",
+        //     "section": '🎉 Features',
+        //   },
+        //   {
+        //     "type": "fix",
+        //     "section": '🐛 Fixes',
+        //   },
+        //   {
+        //     "type": "docs",
+        //     "section": '🚀 Improvements',
+        //   },
+        //   {
+        //     "type": "ci",
+        //     "section": '🚀 Improvements',
+        //   },
+        //   {
+        //     "type": "test",
+        //     "section": '🚀 Improvements',
+        //   },
+        //   {
+        //     "type": "refactor",
+        //     "section": '🚀 Improvements',
+        //   },
+        //   {
+        //     "type": "chore",
+        //     "section": '🚀 Improvements',
+        //   },
+        //   {
+        //     "type": "revert",
+        //     "section": '🐛 Fixes'
+        //   },
+        // ]
       },
       "infile": false
     }

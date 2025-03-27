@@ -77,6 +77,7 @@ module.exports = {
 
 function getReleaseNotes (context) {
   if (!context || !context || !context.changelog) return "";
+  console.log("context: ", context);
   const changelog = `## What's changed on version:\n` + context.changelog;
   return changelog;
 }

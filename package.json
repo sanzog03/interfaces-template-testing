@@ -1,7 +1,7 @@
 {
   "name": "interface-template-testing",
   "description": "A React UI component library and custom interface template for GIS application.",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "author": "<sanzog03@gmail.com>",
   "repository": {
     "type": "git",
@@ -58,6 +58,7 @@
     "build-lib": "parcel build ./src/components/index.js --dist-dir=dist/lib",
     "release": "release-it",
     "release-beta": "release-it --preReleaseId=beta --npm.tag=beta --github.preRelease",
+    "release-beta-new": "release-it --preRelease=beta --no-increment --debug",
     "release-alpha": "release-it --preRelease=alpha",
     "release-rc": "release-it --preRelease=rc",
     "release-ci": "release-it --ci",

@@ -29,6 +29,7 @@ export default class RecommendedBump extends Plugin {
     // breaking change addition.
     // one more breaking change addition.
     // post first version release change
+    // one change on top of alpha release.
   }
 
   async getIncrementedVersionCI(options) {

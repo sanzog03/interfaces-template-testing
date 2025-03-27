@@ -63,7 +63,7 @@
     "release-ci": "release-it --ci",
     "release-debug": "release-it --debug --ci",
     "release-test": "release-it --dry-run",
-    "release-first-release": "release-it major --preRelease=false",
+    "release-first-release": "release-it major",
     "watch": "parcel watch",
     "test": "jest",
     "format": "prettier --write .",

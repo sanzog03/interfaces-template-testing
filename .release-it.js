@@ -7,7 +7,8 @@ module.exports = {
   },
   git: {
     release: debug ? false : true,
-    requireBranch: ["main", "develop", "GHGC-201/custom-interfaces-library-v1"],
+    // requireBranch: ["main", "develop", "GHGC-201/custom-interfaces-library-v1"],
+    // requireBranch: ["main", "develop", "GHGC*"],
     commitMessage: "chore: release v${version}",
     tagName: 'v${version}',
     tagAnnotation: 'Release v${version}',

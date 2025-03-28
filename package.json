@@ -63,7 +63,7 @@
     "release-ci": "release-it --ci",
     "release-beta-ci": "release-it --preRelease=beta --ci",
     "release-alpha-ci": "release-it --preRelease=alpha --ci",
-    "release-rc-ci": "release-it --preRelease=rc --ci",
+    "release-rc-ci": "release-it --preRelease=rc --ci --verbose --debug",
     "release-test": "release-it --dry-run",
     "release-first-version": "release-it major",
     "watch": "parcel watch",

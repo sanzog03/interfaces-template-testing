@@ -1,5 +1,5 @@
 {
-  "name": "custom-interface-ui-library",
+  "name": "interface-template-testing",
   "description": "A React UI component library and custom interface template for GIS application.",
   "version": "1.1.1",
   "author": "<sanzog03@gmail.com>",
@@ -59,7 +59,7 @@
     "release": "release-it",
     "release-beta": "release-it --preRelease=beta",
     "release-alpha": "release-it --preRelease=alpha",
-    "release-rc": "release-it --preRelease=rc --debug",
+    "release-rc": "release-it --preRelease=rc",
     "release-ci": "release-it --ci",
     "release-beta-ci": "release-it --preRelease=beta --ci",
     "release-alpha-ci": "release-it --preRelease=alpha --ci",

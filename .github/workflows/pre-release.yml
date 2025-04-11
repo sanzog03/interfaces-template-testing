@@ -32,9 +32,7 @@ jobs:
     environment: ${{ needs.define-environment.outputs.env_name }}
     
     permissions:
-      id-token: write
-      contents: read
-      pull-requests: write
+      contents: write
     
     steps:
       - name: Validate required variables and secrets

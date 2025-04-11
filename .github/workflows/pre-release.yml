@@ -78,13 +78,6 @@ jobs:
       - name: Release It!
         run: |
           if [[ "${{ needs.define-environment.outputs.env_name }}" == "pre-production" ]]; then
-            echo '-------- TEST for the ref error'
-            git status
-            echo '--------'
-            git branch
-            echo '--------'
-            cat .git/HEAD
-            echo '-------- END Test'
             npm run release-rc-cicd
           elif [[ "${{ needs.define-environment.outputs.env_name }}" == "pre-staging" ]]; then
             npm run release-alpha-cicd

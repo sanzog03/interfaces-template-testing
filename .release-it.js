@@ -8,7 +8,6 @@ module.exports = {
   git: {
     release: debug ? false : true,
     requireBranch: ["main", "develop"],
-    // requireBranch: ["main", "develop", "GHGC*"],
     commitMessage: "chore: release v${version}",
     tagName: 'v${version}',
     tagAnnotation: 'Release v${version}',

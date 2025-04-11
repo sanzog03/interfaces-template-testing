@@ -68,9 +68,9 @@ jobs:
       - name: Release It!
         run: |
           if [[ "${{ needs.define-environment.outputs.env_name }}" == "production" ]]; then
-            npm run release-ci
+            npm run release --ci
           elif [[ "${{ needs.define-environment.outputs.env_name }}" == "staging" ]]; then
-            npm run release-beta-ci
+            npm run release-beta --ci
           else
             echo "Unsupported environment: ${{ needs.define-environment.outputs.env_name }}"
             exit 1
